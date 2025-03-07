@@ -1,0 +1,84 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "login-functionality;valid-login-with-correct-credentials",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "Valid login with correct credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1093181333
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I am on the login page",
+            "match": {
+              "location": "file:/Users/mathumathibalakrishnan/Desktop/NUMPY%20NINJA/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/loginSteps.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1684870541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "I enter valid credentials",
+            "match": {
+              "location": "file:/Users/mathumathibalakrishnan/Desktop/NUMPY%20NINJA/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/loginSteps.js:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 934450792
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 7,
+            "name": "I should be logged in successfully",
+            "match": {
+              "location": "file:/Users/mathumathibalakrishnan/Desktop/NUMPY%20NINJA/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/loginSteps.js:27"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 31155166
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 132084165
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@smoke",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "login-functionality",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Login functionality",
+    "tags": [],
+    "uri": "tests/features/login.feature"
+  }
+]
