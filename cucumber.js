@@ -5,6 +5,7 @@ module.exports = {
     format: ["progress", "json:reports/cucumber-report.json"],
     parallel: process.env.PARALLEL || 1,
     dryRun: false, // Set to false to actually run scenarios
-    tags: process.env.TAGS || "@smoke",
+    tags:  "@smoke", 
+
   },
 };
