@@ -2,8 +2,8 @@ import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import dotenv from "dotenv";
 import LoginPage from "../pages/loginPage.js";
-import BatchPage from '../pages/batchPage.js'; 
 import CommonFunctions from '../utils/commonFunctions.js';  
+import BatchPage from "../pages/batchPage.js";
 //const CommonFunctions = require('../utils/commonFunctions.js');  
 
 // Load environment variables

@@ -1,4 +1,5 @@
-const { expect } = require("@playwright/test");
+//const { expect } = require("@playwright/test");
+import { expect } from "@playwright/test";
 
 class BatchPage {
   constructor(page) {
@@ -39,8 +40,9 @@ async addNewBatch() {
   await this.addNewBatch.click();
   }
 
-  async enterBatchDetails(batchName,description,noOfClasses) {
+  async enterBatchDetails(ProgramName,batchName,description,noOfClasses) {
     await this.programName.click();
+    await this.programName.fill(ProgramName)
     await this.batchName2.click();
     await this.batchName2.fill(batchName);
     await this.description.click();
@@ -50,6 +52,9 @@ async addNewBatch() {
     await this.noOfClasses.fill(noOfClasses);
   }
 
-
+  async saveBatch() {
+    await this.saveButton.click();
+  }
 }
-module.exports = BatchPage;
+export default BatchPage; 
+//module.exports = BatchPage;

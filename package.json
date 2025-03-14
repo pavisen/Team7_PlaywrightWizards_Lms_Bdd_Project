@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "npx cucumber-js"
   },
@@ -20,6 +21,7 @@
     "eslint": "^9.21.0",
     "exceljs": "^4.4.0",
     "playwright": "^1.51.0",
+    "playwright-bdd": "^8.2.1",
     "prettier": "^3.5.3"
   },
   "dependencies": {

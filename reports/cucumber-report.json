@@ -6,7 +6,7 @@
         "description": "",
         "id": "batch-module--batch-page-navigation;verify-admin-navigate-to-batch-page-successfully",
         "keyword": "Scenario",
-        "line": 4,
+        "line": 6,
         "name": "Verify Admin Navigate to Batch page successfully",
         "steps": [
           {
@@ -14,46 +14,47 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 1300759291
+              "duration": 3811055291
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 5,
+            "line": 7,
             "name": "Admin is on the home Page",
             "match": {
               "location": "file:/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/batchsteps.js:15"
             },
             "result": {
-              "status": "passed",
-              "duration": 1435807708
+              "status": "failed",
+              "duration": 5008805416,
+              "error_message": "Error: function timed out, ensure the promise resolves within 5000 milliseconds\n    at Timeout.<anonymous> (/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/node_modules/@cucumber/cucumber/lib/time.js:54:20)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 6,
+            "line": 8,
             "name": "Admin Clicks on the Batch menu from the header",
             "match": {
               "location": "file:/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/batchsteps.js:28"
             },
             "result": {
-              "status": "passed",
-              "duration": 625772792
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 7,
+            "line": 9,
             "name": "Admin should be in the Manage Batch Page",
             "match": {
               "location": "file:/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/batchsteps.js:36"
             },
             "result": {
-              "status": "passed",
-              "duration": 4261749
+              "status": "skipped",
+              "duration": 0
             }
           },
           {
@@ -61,14 +62,221 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 156048624
+              "duration": 2628656416
             }
           }
         ],
         "tags": [
           {
             "name": "@smoke",
-            "line": 3
+            "line": 5
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "batch-module--batch-page-navigation;verify-admin-add-batch-successfully",
+        "keyword": "Scenario Outline",
+        "line": 20,
+        "name": "Verify Admin Add Batch successfully",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 777434457
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "Admin is on the Batch Page",
+            "match": {
+              "location": "file:/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/addNewBatchSteps.js:28"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 5003396000,
+              "error_message": "Error: function timed out, ensure the promise resolves within 5000 milliseconds\n    at Timeout.<anonymous> (/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/node_modules/@cucumber/cucumber/lib/time.js:54:20)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "Admin Clicks on the Add Batch button and fill the required fields as \"ProgramName\", \"batchName\" ,\"description\" ,\"noOfClasses\"",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "Admin should create a new Batch successfully",
+            "match": {
+              "location": "file:/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/addNewBatchSteps.js:48"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 194326124
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@smoke",
+            "line": 11
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "batch-module--batch-page-navigation;verify-admin-add-batch-successfully",
+        "keyword": "Scenario Outline",
+        "line": 21,
+        "name": "Verify Admin Add Batch successfully",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 711199874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "Admin is on the Batch Page",
+            "match": {
+              "location": "file:/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/addNewBatchSteps.js:28"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 5001787791,
+              "error_message": "Error: function timed out, ensure the promise resolves within 5000 milliseconds\n    at Timeout.<anonymous> (/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/node_modules/@cucumber/cucumber/lib/time.js:54:20)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "Admin Clicks on the Add Batch button and fill the required fields as \"ProgramName\", \"batchName\" ,\"description\" ,\"noOfClasses\"",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "Admin should create a new Batch successfully",
+            "match": {
+              "location": "file:/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/addNewBatchSteps.js:48"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 222087583
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@smoke",
+            "line": 11
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "batch-module--batch-page-navigation;verify-admin-add-batch-successfully",
+        "keyword": "Scenario Outline",
+        "line": 22,
+        "name": "Verify Admin Add Batch successfully",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 711117333
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "Admin is on the Batch Page",
+            "match": {
+              "location": "file:/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/addNewBatchSteps.js:28"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 5001609165,
+              "error_message": "Error: function timed out, ensure the promise resolves within 5000 milliseconds\n    at Timeout.<anonymous> (/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/node_modules/@cucumber/cucumber/lib/time.js:54:20)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "Admin Clicks on the Add Batch button and fill the required fields as \"ProgramName\", \"batchName\" ,\"description\" ,\"noOfClasses\"",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "Admin should create a new Batch successfully",
+            "match": {
+              "location": "file:/Users/anusuyaselvaraj/git/Team7_PlaywrightWizards_Lms_Bdd_Project/tests/stepDefinitions/addNewBatchSteps.js:48"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 202779875
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@smoke",
+            "line": 11
           }
         ],
         "type": "scenario"
@@ -96,7 +304,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 726797875
+              "duration": 693942082
             }
           },
           {
@@ -109,7 +317,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1198802416
+              "duration": 1250485833
             }
           },
           {
@@ -122,7 +330,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 668283124
+              "duration": 631104124
             }
           },
           {
@@ -135,7 +343,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 27186208
+              "duration": 11067708
             }
           },
           {
@@ -143,7 +351,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 129552833
+              "duration": 105745417
             }
           }
         ],

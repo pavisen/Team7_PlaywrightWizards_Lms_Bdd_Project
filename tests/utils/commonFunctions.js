@@ -48,5 +48,7 @@ class CommonFunctions {
     return await this.moduleSelectors[this.module].manage_text.textContent();
   }
 }
-module.exports = CommonFunctions;
+//module.exports = CommonFunctions;
+export default CommonFunctions; 
+
 
