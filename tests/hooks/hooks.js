@@ -1,31 +1,25 @@
-import { Before, After, Status } from "@cucumber/cucumber";
-import fs from "fs";
-import { chromium } from "playwright";
+import { createBdd } from 'playwright-bdd';
+import fs from 'fs';
 
-Before(async function () {
-  this.browser = await chromium.launch({ headless: false });
-  this.context = await this.browser.newContext();
-  this.page = await this.context.newPage();
+const { Before, After } = createBdd();
+
+Before(async ({ page }) => {
+  console.log("✅ Before Hook: Page is available.");
 });
 
-After(async function (scenario) {
+After(async ({ page, testInfo }) => {
   try {
     if (!fs.existsSync("./reports/screenshots")) {
       fs.mkdirSync("./reports/screenshots", { recursive: true });
     }
 
-    if (this.page && scenario.result.status === Status.FAILED) {
-      const screenshot = await this.page.screenshot();
-      fs.writeFileSync(
-        `./reports/screenshots/${scenario.pickle.name.replace(/\s+/g, "_")}.png`,
-        screenshot
-      );
+    if (testInfo.status === 'failed') {
+      const screenshot = await page.screenshot();
+      const scenarioName = testInfo.title.replace(/\s+/g, "_");
+      fs.writeFileSync(`./reports/screenshots/${scenarioName}.png`, screenshot);
+      console.log(`📸 Screenshot saved for failed test: ${scenarioName}`);
     }
   } catch (error) {
-    console.error("Error capturing screenshot:", error);
-  } finally {
-    if (this.browser) {
-      await this.browser.close();
-    }
+    console.error("❌ Error capturing screenshot:", error);
   }
 });

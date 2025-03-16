@@ -1,4 +1,4 @@
-const { expect } = require("@playwright/test");
+import { expect } from "@playwright/test";
 
 class BatchPage {
   constructor(page) {
@@ -52,4 +52,4 @@ async addNewBatch() {
 
 
 }
-module.exports = BatchPage;
+export default BatchPage;

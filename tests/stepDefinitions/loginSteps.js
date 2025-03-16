@@ -1,31 +1,26 @@
-import { Given, When, Then } from "@cucumber/cucumber";
-import { expect } from "@playwright/test";
-import LoginPage from "../pages/loginPage.js";
-import dotenv from "dotenv";
 
-// Load environment variables
+import { expect } from '@playwright/test';
+import { createBdd } from 'playwright-bdd';
+import LoginPage from '../pages/loginPage.js';
+import dotenv from 'dotenv';
 dotenv.config();
 
+// Create BDD steps
+const { Given, When, Then } = createBdd();
 
-Given("I am on the login page", async function () {
-  const loginPage = new LoginPage(this.page);
-  if (!process.env.LOGIN_URL) {
-    throw new Error("LOGIN_URL is not defined in .env file");
-  }
+// Step Definitions 
 
-  await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
-  await this.page.waitForLoadState('load');
+Given('I am on the login page', async function ({page}) {
+  this.loginPage = new LoginPage(page); // Pass `page` to LoginPage
+  await this.loginPage.navigateToLoginPage(process.env.LOGIN_URL);
 });
 
-When("I enter valid credentials", async function () {
-  const loginPage = new LoginPage(this.page);
-  await loginPage.enterUsername(process.env.USERNAME);
-  await loginPage.enterPassword(process.env.PASSWORD);
-  await loginPage.submitLogin();
-   await this.page.waitForTimeout(500); 
+When('I enter valid credentials', async function ({page}) {
+  if (!this.loginPage) throw new Error("LoginPage is not initialized in When step");
+  await this.loginPage.login(process.env.USERNAME, process.env.PASSWORD);
 });
 
-Then("I should be logged in successfully", async function () {
-  const loginPage = new LoginPage(this.page);
-  await loginPage.verifyLoginSuccess();
+Then('I should be logged in successfully', async function ({page}) {
+  if (!this.loginPage) throw new Error("LoginPage is not initialized in Then step");
+  await this.loginPage.verifyLoginSuccess();
 });
