@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 
 class LoginPage {
   constructor(page) {
-    if (!page) throw new Error("Page is undefined in LoginPage constructor");
+   // if (!page) throw new Error("Page is undefined in LoginPage constructor");
     this.page = page;
   }
 
