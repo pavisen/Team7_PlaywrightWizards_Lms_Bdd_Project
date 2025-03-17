@@ -17,7 +17,7 @@ Given('I am on the login page', async function ({page}) {
 
 When('I enter valid credentials', async function ({page}) {
   if (!this.loginPage) throw new Error("LoginPage is not initialized in When step");
-  await this.loginPage.login(process.env.USERNAME, process.env.PASSWORD);
+  await this.loginPage.login(process.env.USER, process.env.PASSWORD);
 });
 
 Then('I should be logged in successfully', async function ({page}) {

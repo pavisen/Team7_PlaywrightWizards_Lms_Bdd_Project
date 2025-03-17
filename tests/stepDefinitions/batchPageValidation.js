@@ -60,7 +60,7 @@ Given('Admin is on the home page', async function () {
   await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
   await this.page.waitForLoadState('load');
 
-  await loginPage.enterUsername(process.env.USERNAME);
+  await loginPage.enterUsername(process.env.USER);
   await loginPage.enterPassword(process.env.PASSWORD);
   await loginPage.submitLogin();
 

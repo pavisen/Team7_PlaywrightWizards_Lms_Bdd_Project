@@ -10,12 +10,12 @@ class LoginPage {
     await this.page.goto(url);
   }
 
-  async login(username, password) {
+  async login(user, password) {
     const usernameInput = this.page.getByRole('textbox', { name: 'User' });
     const passwordInput = this.page.getByRole('textbox', { name: 'Password' });
     const submitButton = this.page.getByRole('button', { name: 'Login' });
 
-    await usernameInput.fill(username);
+    await usernameInput.fill(user);
     await passwordInput.fill(password);
     await submitButton.click();
   }
