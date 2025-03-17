@@ -1,31 +1,41 @@
-import { Before, After, Status } from "@cucumber/cucumber";
-import fs from "fs";
-import { chromium } from "playwright";
+// import { test, expect } from '@playwright/test';
+// import fs from 'fs';
+// import path from 'path';
 
-Before(async function () {
-  this.browser = await chromium.launch({ headless: false });
-  this.context = await this.browser.newContext();
-  this.page = await this.context.newPage();
-});
+// // Declare global variables for browser and page
+// let browser;
+// let page;
 
-After(async function (scenario) {
-  try {
-    if (!fs.existsSync("./reports/screenshots")) {
-      fs.mkdirSync("./reports/screenshots", { recursive: true });
-    }
+// test.beforeEach(async ({ page, browser }) => {
+//   // This hook is run before each test
+//   console.log('Before Hook - Test is starting');
+//   browser = browser;  // Using the Playwright instance
+//   page = page;        // Using the page from Playwright
+// });
 
-    if (this.page && scenario.result.status === Status.FAILED) {
-      const screenshot = await this.page.screenshot();
-      fs.writeFileSync(
-        `./reports/screenshots/${scenario.pickle.name.replace(/\s+/g, "_")}.png`,
-        screenshot
-      );
-    }
-  } catch (error) {
-    console.error("Error capturing screenshot:", error);
-  } finally {
-    if (this.browser) {
-      await this.browser.close();
-    }
-  }
-});
+// test.afterEach(async ({ testInfo, page }) => {
+//   // This hook is run after each test
+//   console.log('After Hook - Test is finished');
+//   console.log('Test Status:', testInfo.status); // Log the test status to confirm if the test is failing
+
+//   if (testInfo.status === 'failed') {
+//     console.log('Test failed, capturing screenshot');
+    
+//     const screenshotDir = path.resolve(__dirname, './reports/screenshots');
+//     if (!fs.existsSync(screenshotDir)) {
+//       fs.mkdirSync(screenshotDir, { recursive: true });
+//     }
+
+//     const screenshotPath = path.join(screenshotDir, `${testInfo.title.replace(/[\/\\?%*:|"<>]/g, '_')}.png`);
+//     await page.screenshot({ path: screenshotPath });
+//     console.log(`Screenshot captured: ${screenshotPath}`);
+//   }
+
+//   // Optionally, you can close the browser here or do any other cleanup tasks
+//   console.log('Browser closed');
+// });
+
+// test('simple failed test', async ({ page }) => {
+//   // This test is designed to fail
+//   expect(false).toBe(true);
+// });
