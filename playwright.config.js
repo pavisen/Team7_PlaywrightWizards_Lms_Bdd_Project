@@ -1,5 +1,5 @@
 
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig} from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -15,53 +15,55 @@ const testDir = defineBddConfig({
 
 });
 
+// Get the browser category and headed mode from environment variables
+const browserCategory = process.env.BROWSER || 'chromium'; // Default to 'chromium' if not set
+const isHeaded = process.env.HEADED === 'true'; // Defaults to headless if not set
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
+console.log(`Running tests on ${browserCategory} in ${isHeaded ? 'headed' : 'headless'} mode...`);
+
+
 export default defineConfig({
-  testDir, // Explicitly set the test directory
-  // testDir:'./tests', // Set explicitly to avoid "No tests found" error
-  // testMatch: "**/*.feature",  // Explicitly match feature files
-  /* Run tests in files in parallel */
-  fullyParallel: true,
+  testDir, 
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: 0,  // ✅ Set retries to 2 for all environments
+  // retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    headless: !isHeaded, // Set headless mode based on HEADED environment variable
+    
+    trace: 'off',
+    screenshot: 'only-on-failure', // Automatically capture screenshot on failure
+    
   },
-
-  /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: browserCategory,
+      use: {
+        headless: !isHeaded, // Ensure headless is respected here as well
+        browserName: browserCategory, // Set the browser name dynamically
+        
+        // Directly set browser-specific options without using devices
+        ...(browserCategory === 'chromium' && {
+          // Chromium-specific options
+          channel: 'chrome', // Or path to a custom Chromium browser
+        }),
+        ...(browserCategory === 'firefox' && {
+          // Firefox-specific options
+          channel: 'firefox', // Or path to a custom Firefox browser
+        }),
+        ...(browserCategory === 'webkit' && {
+          // WebKit-specific options
+          channel: 'safari', // Or path to a custom WebKit browser
+        }),
+      },
     },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-
   ],
- 
-
-
 });
 
