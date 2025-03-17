@@ -1,3 +1,4 @@
+/*
 import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import LoginPage from "../pages/loginPage.js";
@@ -62,4 +63,4 @@ Then('Admin should create a new Batch successfully', async function () {
     const batchPage = new BatchPage(this.page);
     const successMessage = await batchPage.batchCreatedSuccess.textContent();
     expect(successMessage.trim()).toBe("Batch Created Successfully");
-});
+});*/

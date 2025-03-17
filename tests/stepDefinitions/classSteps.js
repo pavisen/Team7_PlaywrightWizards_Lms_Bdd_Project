@@ -8,6 +8,7 @@ import LoginPage from '../pages/loginPage.js';
 // Create BDD steps
 const { Given, When, Then } = createBdd();
 
+
 Given('Admin is on the home page after login', async function ({page}){
     this.loginPage = new LoginPage(page); 
     await this.loginPage.navigateToLoginPage(process.env.LOGIN_URL);

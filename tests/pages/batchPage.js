@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-//const { expect } = require("@playwright/test");
-=======
->>>>>>> 01b11c2de579af6b27883b5a6672a684213d4656
 import { expect } from "@playwright/test";
 
 class BatchPage {
@@ -59,9 +55,4 @@ async addNewBatch() {
     await this.saveButton.click();
   }
 }
-<<<<<<< HEAD
-export default BatchPage; 
-//module.exports = BatchPage;
-=======
 export default BatchPage;
->>>>>>> 01b11c2de579af6b27883b5a6672a684213d4656

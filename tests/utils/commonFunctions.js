@@ -17,7 +17,7 @@ class CommonFunctions {
       batch: {
         menu_btn: page.getByRole('button', { name: 'Batch' }),
         addNew_btn: page.getByRole('menuitem', { name: 'Add New Batch' }),
-        manage_text: page.getByText('Manage Batch'),
+        manage_text: page.getByText(' Manage Batch'),
       },
       class: {
         menu_btn: page.getByRole('button', { name: 'Class' }),
@@ -51,11 +51,5 @@ class CommonFunctions {
     return await this.moduleSelectors[this.module].manage_text.textContent();
   }
 }
-<<<<<<< HEAD
-//module.exports = CommonFunctions;
-export default CommonFunctions; 
-
-=======
->>>>>>> 01b11c2de579af6b27883b5a6672a684213d4656
 
 export default CommonFunctions;

@@ -1,4 +1,4 @@
-
+/*
 import { expect } from require('@playwright/test');
 import {XLSX } from require('xlsx');
 
@@ -10,4 +10,4 @@ async function readExcelData(filePath) {
     return XLSX.utils.sheet_to_json(worksheet);
 }
 
-module.exports = { readExcelData };
+module.exports = { readExcelData };*/
