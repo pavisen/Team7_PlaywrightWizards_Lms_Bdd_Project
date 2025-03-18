@@ -25,6 +25,14 @@ class LoginPage {
   async verifyLoginSuccess() {
     await expect(this.page.locator("text=LMS - Learning Management System")).toBeVisible();
   }
+
+  async verifyLoginError() {
+    const errorMessage = this.page.getByText('Invalid username and password')
+    await expect(errorMessage).toBeVisible();
+  }
+
+
+
 }
 
 export {LoginPage};

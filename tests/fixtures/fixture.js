@@ -20,7 +20,12 @@ export const test = base.extend({
     await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
     await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
     await use(loginPage);
-  }
+  },
+
+
+
+  
+
 });
 
 export { expect } from '@playwright/test';
