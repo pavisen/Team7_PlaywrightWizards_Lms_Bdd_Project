@@ -1,26 +1,21 @@
-
-import { expect } from '@playwright/test';
+import { test } from '../fixtures/fixture';
 import { createBdd } from 'playwright-bdd';
-import LoginPage from '../pages/loginPage.js';
-import dotenv from 'dotenv';
-dotenv.config();
+import { expect } from '@playwright/test';
 
 // Create BDD steps
 const { Given, When, Then } = createBdd();
 
 // Step Definitions 
 
-Given('I am on the login page', async function ({page}) {
-  this.loginPage = new LoginPage(page); // Pass `page` to LoginPage
-  await this.loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+Given('I am on the login page', async ({loginPage}) => {
+  await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
 });
 
-When('I enter valid credentials', async function ({page}) {
-  if (!this.loginPage) throw new Error("LoginPage is not initialized in When step");
-  await this.loginPage.login(process.env.USERNAME, process.env.PASSWORD);
+When('I enter valid credentials', async  ({loginPage}) => {
+  await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
 });
 
-Then('I should be logged in successfully', async function ({page}) {
-  if (!this.loginPage) throw new Error("LoginPage is not initialized in Then step");
-  await this.loginPage.verifyLoginSuccess();
+Then('I should be logged in successfully', async  ({loginPage}) => {
+
+  await loginPage.verifyLoginSuccess();
 });

@@ -1,5 +1,5 @@
 // Generated from: tests/features/03_batch.feature
-import { test } from "playwright-bdd";
+import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Batch Module -Batch Page Navigation', () => {
 

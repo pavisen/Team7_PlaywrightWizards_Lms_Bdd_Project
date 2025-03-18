@@ -1,12 +1,12 @@
 // Generated from: tests/features/01_login.feature
-import { test } from "playwright-bdd";
+import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Login functionality', () => {
 
-  test('Valid login with correct credentials', async ({ Given, page, When, Then }) => { 
-    await Given('I am on the login page', null, { page }); 
-    await When('I enter valid credentials', null, { page }); 
-    await Then('I should be logged in successfully', null, { page }); 
+  test('Valid login with correct credentials', async ({ Given, loginPage, When, Then }) => { 
+    await Given('I am on the login page', null, { loginPage }); 
+    await When('I enter valid credentials', null, { loginPage }); 
+    await Then('I should be logged in successfully', null, { loginPage }); 
   });
 
 });
