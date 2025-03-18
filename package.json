@@ -20,7 +20,8 @@
     "exceljs": "^4.4.0",
     "playwright": "^1.51.0",
     "playwright-bdd": "^8.2.1",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "xlsx": "^0.18.5"
   },
   "dependencies": {
     "read-excel-file": "^5.8.6"
