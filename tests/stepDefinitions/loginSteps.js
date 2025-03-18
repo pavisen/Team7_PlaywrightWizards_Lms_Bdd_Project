@@ -2,39 +2,75 @@ import { test } from '../fixtures/fixture';
 import { createBdd } from 'playwright-bdd';
 import { expect } from '@playwright/test';
 import { getTestData } from '../utils/excelReader';
-
-// Create BDD steps
 const { Given, When, Then } = createBdd();
 
-// Step Definitions 
+const sheet_Name = 'login';
+// Step Definitions for Login Feature
 
-Given('I am on the login page', async ({loginPage}) => {
+Given('Admin is on login Page', async ({loginPage}) => {
   await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
 });
 
-When('I enter valid credentials', async  ({loginPage}) => {
+When('Admin enter valid data in all field and clicks login button', async  ({loginPage}) => {
   await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
 });
 
-Then('I should be logged in successfully', async  ({loginPage}) => {
-
-  await loginPage.verifyLoginSuccess();
+Then('Admin should land on home page', async  ({loginPage}) => {
+  const dashboard = await loginPage.getDashboardText();
+  await expect(dashboard).toBeVisible(); 
 });
 
 
 When('Admin enter invalid data and clicks login button', async ({loginPage}) => {
-  const username = getTestData('login', 'invalid credentials', 'username');
-  const password = getTestData('login', 'invalid credentials', 'password');
-  console.log(`Username: ${username}`);
-console.log(`Password: ${password}`);
+  const scenario = 'invalid_credentials'; 
+  const username = getTestData(sheet_Name, scenario, 'username');
+  const password = getTestData(sheet_Name, scenario, 'password');
   await loginPage.login(username, password); 
 });
 
-Then('Error message {string}', async ({loginPage}, arg) => {
-  await loginPage.verifyLoginError();
-  const expectedErrorMessage = getTestData('login', 'invalid credentials', 'errorMessage');
-  console.log(`Expected Error Message: ${expectedErrorMessage}`);
-
+Then('Error message {string}', async ({loginPage}, expectedErrorMessage) => {
+  const errorMessage = await loginPage.getErrorMessage();
+  await expect(errorMessage).toHaveText(expectedErrorMessage); 
 });
 
+When('Admin enter value only in password and clicks login button', async ({loginPage}) => {
+  const scenario = 'empty_username'; 
+  const username = getTestData(sheet_Name, scenario, 'username');
+  const password = getTestData(sheet_Name, scenario, 'password');
+  await loginPage.login(username, password); 
+});
+
+When('Admin enter value only in user name and clicks login button', async ({loginPage}) => {
+  const scenario = 'empty_password'; 
+  const username = getTestData(sheet_Name, scenario, 'username');
+  const password = getTestData(sheet_Name, scenario, 'password');
+  await loginPage.login(username, password); 
+});
+
+Then('Error message {string} for null user name', async ({loginPage}, expectedErrorMessage) => {
+  const errorMessageLocator = await loginPage.getEmptyUsernameError(); 
+  await expect(errorMessageLocator).toHaveText(expectedErrorMessage); 
+});
+
+Then('Error message {string} for null password', async ({loginPage}, expectedErrorMessage) => {
+  const errorMessageLocator = await loginPage.getEmptyPasswordError(); 
+  await expect(errorMessageLocator).toHaveText(expectedErrorMessage); 
+});
+
+When('Admin enter valid credentials  and clicks login button through keyboard', async ({loginPage}) => {  
+await loginPage.usernameInput.click();
+await loginPage.page.keyboard.type(process.env.USERNAME); 
+await loginPage.passwordInput.click();
+await loginPage.page.keyboard.type(process.env.PASSWORD);
+await loginPage.passwordInput.press('Enter');
+});
+
+When('Admin enter valid credentials  and clicks login button through mouse', async ({loginPage}) => {
+   await loginPage.usernameInput.click();
+   await loginPage.usernameInput.fill(process.env.USERNAME);
+     await loginPage.passwordInput.click();
+     await loginPage.passwordInput.fill(process.env.PASSWORD);
+  await loginPage.submitButton.hover(); 
+  await loginPage.submitButton.click(); 
+});
 
