@@ -20,6 +20,8 @@ class LoginPage {
     await submitButton.click();
   }
 
+ 
+
   async verifyLoginSuccess() {
     await expect(this.page.locator("text=LMS - Learning Management System")).toBeVisible();
   }
@@ -28,8 +30,6 @@ class LoginPage {
     const errorMessage = this.page.getByText('Invalid username and password')
     await expect(errorMessage).toBeVisible();
   }
-
-
 
 }
 
