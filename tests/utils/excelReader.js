@@ -9,7 +9,8 @@ import path from 'path';
  * @param {string} columnName - The column name to extract the value from.
  * @returns {string|null} - The value from the specified column for the given scenario, or null if empty or column not found.
  */
-export function getTestData(sheetName, scenario, columnName) {
+  export function getTestData(sheetName, scenario, columnName) 
+  {
   // Define the file path for the Excel file
   const filePath = path.resolve(__dirname, '../testData.xlsx'); // Adjust path accordingly
   const workbook = XLSX.readFile(filePath);

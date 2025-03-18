@@ -40,8 +40,6 @@ class LoginPage {
   async getEmptyPasswordError() {
     return this.emptyPasswordErrorLocator;
   }
-
-
 }
 
-export {LoginPage};
+export { LoginPage };
