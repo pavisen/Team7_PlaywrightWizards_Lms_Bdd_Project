@@ -12,10 +12,13 @@ export const test = base.extend({
   },
 
   commonFunctions: async ({ page }, use) => {
-    const commonFunctions = new CommonFunctions(page, 'class');
+    const commonFunctions = new CommonFunctions(page);
     await use(commonFunctions);
   },
-  
+
+
+
+
   loggedInPage: async ({ loginPage }, use) => {
     await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
     await loginPage.login(process.env.USERNAME, process.env.PASSWORD);

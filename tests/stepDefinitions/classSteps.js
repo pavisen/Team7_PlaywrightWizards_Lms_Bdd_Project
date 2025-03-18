@@ -8,20 +8,12 @@ import { getTestData } from '../utils/excelReader'; // Importing the getTestData
 // Create BDD steps
 const { Given, When, Then } = createBdd();
 
-<<<<<<< HEAD
-
-Given('Admin is on the home page after login', async function ({page}){
-    this.loginPage = new LoginPage(page); 
-    await this.loginPage.navigateToLoginPage(process.env.LOGIN_URL);
-  await this.loginPage.login(process.env.USERNAME, process.env.PASSWORD);
-=======
 Given('Admin is on the home page after login', async function ({loggedInPage}){
   
->>>>>>> 280ea59326630fbac344cbc6234beed2d26cfb27
   });
   
   When('Admin clicks the Class Navigation bar in the Header', async function ({commonFunctions}){
-    await commonFunctions.clickMenu();
+    await commonFunctions.clickMenu('class');
   });
   
   Then('Admin should see the {string} Title', async function({commonFunctions},expectedTitle){

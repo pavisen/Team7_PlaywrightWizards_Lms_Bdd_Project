@@ -1,11 +1,10 @@
 
-import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import LoginPage from "../pages/loginPage.js";
-import  BatchPage from "../pages/batchPage.js";
-import { getTestData } from '../utils/excelReader';
+import LoginPage from "../tests/pages/loginPage.js";
+import  BatchPage from "../tests/pages/batchPage.js";
+import { getTestData } from '../tests/utils/excelReader.js';
 
-import CommonFunctions from '../utils/commonFunctions.js';  
+import CommonFunctions from '../tests/utils/commonFunctions.js';  
 
 Given('Admin is on the Batch Page', async function ({page}) {
     this.loginPage = new LoginPage(page);

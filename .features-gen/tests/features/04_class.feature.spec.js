@@ -12,15 +12,9 @@ test.describe('Class Page Validation', () => {
     await Then('Admin should see the " LMS - Learning Management System " Title', null, { commonFunctions }); 
   });
 
-<<<<<<< HEAD
-  test('Validating the Header in the Manage class page', async ({ When, page, Then }) => { 
-    await When('Admin clicks the Class Navigation bar in the Header', null, { page }); 
-    await Then('Admin should see the " Manage Class" Header', null, { page }); 
-=======
   test('Validating the Header in the Manage class page', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
     await Then('Admin should see the " Manage Class" Header', null, { commonFunctions }); 
->>>>>>> 280ea59326630fbac344cbc6234beed2d26cfb27
   });
 
 });
