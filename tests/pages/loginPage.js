@@ -26,32 +26,20 @@ class LoginPage {
     await this.submitButton.click();
   }
 
-<<<<<<< HEAD
- 
-
-  async verifyLoginSuccess() {
-    await expect(this.page.locator("text=LMS - Learning Management System")).toBeVisible();
-=======
   async getDashboardText() {
     return this.dashboardText;
->>>>>>> 71309cf2986c1adfd4412992f2c561d69b555fc6
   }
 
   async getErrorMessage() {
     return this.errorMessage;
   }
 
-<<<<<<< HEAD
-=======
   async getEmptyUsernameError() {
     return this.emptyUsernameErrorLocator;
   }
   async getEmptyPasswordError() {
     return this.emptyPasswordErrorLocator;
   }
-
-
->>>>>>> 71309cf2986c1adfd4412992f2c561d69b555fc6
 }
 
-export {LoginPage};
+export { LoginPage };
