@@ -17,7 +17,7 @@ class CommonFunctions {
       batch: {
         menu_btn: page.getByRole('button', { name: 'Batch' }),
         addNew_btn: page.getByRole('menuitem', { name: 'Add New Batch' }),
-        manage_text: page.getByText('Manage Batch'),
+        manage_text: page.getByText(' Manage Batch'),
       },
       class: {
         menu_btn: page.getByRole('button', { name: 'Class' }),
@@ -30,9 +30,12 @@ class CommonFunctions {
     this.header = page.getByText('LMS - Learning Management System');
   }
 
-  async clickMenu() {
-    await this.moduleSelectors[this.module].menu_btn.waitFor({ state: 'visible' });
-    await this.moduleSelectors[this.module].menu_btn.click();
+  async clickMenu(module) {
+    if (!this.moduleSelectors[module]) {
+      throw new Error(`Invalid module: ${module}`);
+    }
+    await this.moduleSelectors[module].menu_btn.waitFor({ state: 'visible' });
+    await this.moduleSelectors[module].menu_btn.click();
   }
 
   async getLogoutElement() {

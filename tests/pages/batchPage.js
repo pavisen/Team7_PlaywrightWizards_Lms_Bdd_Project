@@ -1,4 +1,5 @@
 import { expect } from "@playwright/test";
+import { readDataFromExcelFile } from "../utils/excelReader";
 
 class BatchPage {
   constructor(page) {
@@ -39,16 +40,29 @@ async addNewBatch() {
   await this.addNewBatch.click();
   }
 
-  async enterBatchDetails(batchName,description,noOfClasses) {
-    await this.programName.click();
-    await this.batchName2.click();
-    await this.batchName2.fill(batchName);
-    await this.description.click();
-    await this.description.fill(description);
-    await this.batchStatus.click();
-    await this.noOfClasses.click();
-    await this.noOfClasses.fill(noOfClasses);
+
+  async enterBatchDetails(ProgramName,BatchName,Description,NoOfClasses) {
+    const programNameIn = this.page.getByRole('button', { name: '' });
+    const BatchNameIn   = this.page.getByRole('textbox', { name: 'Batch Name *' });
+    const DescriptionIn = this.page.getByRole('textbox', { name: 'Description *' });
+    const BatchStatusIn = this.page.locator('.p-radiobutton-box').first();
+    const NoOfClassesIn = this.page.getByRole('spinbutton', { name: 'Number of Classes *' });
+    const saveButtonIn = this.page.getByRole('button', { name: 'Save' });
+    // const cancelButtonIn = this.page.getByRole('button', { name: 'Cancel' });
+    // const closeBatchpopIn = this.page.getByRole('button', { name: '' });
+    // const successfullMsgIn = this.page.getByText('Successful', { exact: true });
+    await programNameIn.fill(ProgramName)
+    await BatchNameIn.fill(BatchName);
+    await DescriptionIn.fill(Description);
+    await BatchStatusIn.click();
+    await NoOfClassesIn.fill(NoOfClasses);
+    await saveButtonIn.click();
   }
+
+  async saveBatch() {
+    await this.saveButton.click();
+  }
+
 
 
 }

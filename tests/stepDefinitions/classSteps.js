@@ -13,7 +13,7 @@ Given('Admin is on the home page after login', async function ({loggedInPage}){
   });
   
   When('Admin clicks the Class Navigation bar in the Header', async function ({commonFunctions}){
-    await commonFunctions.clickMenu();
+    await commonFunctions.clickMenu('class');
   });
   
   Then('Admin should see the {string} Title', async function({commonFunctions},expectedTitle){
