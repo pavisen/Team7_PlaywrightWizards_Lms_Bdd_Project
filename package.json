@@ -10,8 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@cucumber/cucumber": "^11.2.0",
-    "@playwright/test": "^1.51.0",
+    "@playwright/test": "^1.51.1",
     "@types/node": "^22.13.9",
     "allure-playwright": "^3.2.0",
     "chai": "^5.2.0",
@@ -24,6 +23,6 @@
     "xlsx": "^0.18.5"
   },
   "dependencies": {
-    "read-excel-file": "^5.8.6"
+    "xlsx": "^0.18.5"
   }
 }

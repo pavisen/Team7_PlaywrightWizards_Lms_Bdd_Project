@@ -20,8 +20,6 @@ class LoginPage {
     await submitButton.click();
   }
 
- 
-
   async verifyLoginSuccess() {
     await expect(this.page.locator("text=LMS - Learning Management System")).toBeVisible();
   }
