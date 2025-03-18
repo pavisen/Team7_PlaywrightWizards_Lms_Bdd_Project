@@ -10,6 +10,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 // Ensure Playwright-BDD correctly processes feature files
 const testDir = defineBddConfig({
+  importTestFrom: path.resolve(__dirname, 'tests/fixtures/fixture.js'),
   features: path.resolve(__dirname, 'tests/features/**/*.feature'),
   steps:path.resolve(__dirname, 'tests/stepDefinitions/**/*.js'),
 

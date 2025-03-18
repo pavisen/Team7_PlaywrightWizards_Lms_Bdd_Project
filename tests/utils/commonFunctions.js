@@ -52,4 +52,4 @@ class CommonFunctions {
   }
 }
 
-export default CommonFunctions;
+export {CommonFunctions};
