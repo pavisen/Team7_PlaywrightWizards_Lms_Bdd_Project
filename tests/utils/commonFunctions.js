@@ -38,6 +38,15 @@ class CommonFunctions {
     await this.moduleSelectors[module].menu_btn.click();
   }
 
+  
+  async clickSubMenu(module) {
+    if (!this.moduleSelectors[module]) {
+      throw new Error(`Invalid module: ${module}`);
+    }
+    await this.moduleSelectors[module].addNew_btn.waitFor({ state: 'visible' });
+    await this.moduleSelectors[module].addNew_btn.click();
+  }
+
   async getLogoutElement() {
     return this.logout;
   }
