@@ -1,20 +1,26 @@
 // Generated from: tests/features/04_class.feature
-import { test } from "playwright-bdd";
+import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Class Page Validation', () => {
 
-  test.beforeEach('Background', async ({ Given, page }) => {
-    await Given('Admin is on the home page after login', null, { page }); 
+  test.beforeEach('Background', async ({ Given, loggedInPage }) => {
+    await Given('Admin is on the home page after login', null, { loggedInPage }); 
   });
   
-  test('Validating the class manage page', async ({ When, page, Then }) => { 
-    await When('Admin clicks the Class Navigation bar in the Header', null, { page }); 
-    await Then('Admin should see the " LMS - Learning Management System " Title', null, { page }); 
+  test('Validating the class manage page', async ({ When, commonFunctions, Then }) => { 
+    await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
+    await Then('Admin should see the " LMS - Learning Management System " Title', null, { commonFunctions }); 
   });
 
+<<<<<<< HEAD
   test('Validating the Header in the Manage class page', async ({ When, page, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { page }); 
     await Then('Admin should see the " Manage Class" Header', null, { page }); 
+=======
+  test('Validating the Header in the Manage class page', async ({ When, commonFunctions, Then }) => { 
+    await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
+    await Then('Admin should see the " Manage Class" Header', null, { commonFunctions }); 
+>>>>>>> 280ea59326630fbac344cbc6234beed2d26cfb27
   });
 
 });

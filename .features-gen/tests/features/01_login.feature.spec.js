@@ -1,12 +1,18 @@
 // Generated from: tests/features/01_login.feature
-import { test } from "playwright-bdd";
+import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Login functionality', () => {
 
-  test('Valid login with correct credentials', async ({ Given, page, When, Then }) => { 
-    await Given('I am on the login page', null, { page }); 
-    await When('I enter valid credentials', null, { page }); 
-    await Then('I should be logged in successfully', null, { page }); 
+  test('Valid login with correct credentials', async ({ Given, loginPage, When, Then }) => { 
+    await Given('I am on the login page', null, { loginPage }); 
+    await When('I enter valid credentials', null, { loginPage }); 
+    await Then('I should be logged in successfully', null, { loginPage }); 
+  });
+
+  test('Validate login with invalid data', async ({ Given, loginPage, When, Then }) => { 
+    await Given('I am on the login page', null, { loginPage }); 
+    await When('Admin enter invalid data and clicks login button', null, { loginPage }); 
+    await Then('Error message "Invalid username and password Please try again"', null, { loginPage }); 
   });
 
 });
@@ -21,4 +27,5 @@ test.use({
 
 const bddFileData = [ // bdd-data-start
   {"pwTestLine":6,"pickleLine":3,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":4,"keywordType":"Context","textWithKeyword":"Given I am on the login page","stepMatchArguments":[]},{"pwStepLine":8,"gherkinStepLine":5,"keywordType":"Action","textWithKeyword":"When I enter valid credentials","stepMatchArguments":[]},{"pwStepLine":9,"gherkinStepLine":6,"keywordType":"Outcome","textWithKeyword":"Then I should be logged in successfully","stepMatchArguments":[]}]},
+  {"pwTestLine":12,"pickleLine":9,"tags":[],"steps":[{"pwStepLine":13,"gherkinStepLine":10,"keywordType":"Context","textWithKeyword":"Given I am on the login page","stepMatchArguments":[]},{"pwStepLine":14,"gherkinStepLine":11,"keywordType":"Action","textWithKeyword":"When Admin enter invalid data and clicks login button","stepMatchArguments":[]},{"pwStepLine":15,"gherkinStepLine":12,"keywordType":"Outcome","textWithKeyword":"Then Error message \"Invalid username and password Please try again\"","stepMatchArguments":[{"group":{"start":14,"value":"\"Invalid username and password Please try again\"","children":[{"start":15,"value":"Invalid username and password Please try again","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
 ]; // bdd-data-end
