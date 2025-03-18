@@ -1,66 +1,63 @@
-/*
+
 import { Given, When, Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
 import LoginPage from "../pages/loginPage.js";
 import  BatchPage from "../pages/batchPage.js";
+import { getTestData } from '../utils/excelReader';
+
 import CommonFunctions from '../utils/commonFunctions.js';  
-//import readXlsxFile from '../utils/excelReader.js';
-import readXlsxFile from 'read-excel-file/node';
 
-
-
-import dotenv from "dotenv";
-// Load environment variables
-dotenv.config();
-
-import fs from 'fs';
-import readXlsxFile from 'read-excel-file/node';
-
-async function readExcelData(filePath) {
-    try {
-        if (!fs.existsSync(filePath)) {
-            throw new Error(`File not found: ${filePath}`);
-        }
-
-        const rows = await readXlsxFile(filePath);
-        rows.forEach((row) => {
-            console.log(row);
-        });
-
-        return rows;
-    } catch (error) {
-        console.error("Error reading Excel file:", error);
-        return [];
-    }
-}
-
-// Use __dirname to get absolute path
-const filePath = `${process.cwd()}/tests/TestData/TestData.xlsx`;
-console.log(`Reading file: ${filePath}`);
-
-readExcelData(filePath);
-Given('Admin is on the Batch Page', async function () {
-    const loginPage = new LoginPage(this.page);
-    await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
-    await this.page.waitForLoadState('load');
+Given('Admin is on the Batch Page', async function ({page}) {
+    this.loginPage = new LoginPage(page);
+    await this.loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+    await this.loginPage.waitForLoadState('load');
     
-    await loginPage.enterUsername(process.env.USERNAME);
-    await loginPage.enterPassword(process.env.PASSWORD);
-    await loginPage.submitLogin();
-    
-    const commonFunctions = new CommonFunctions(this.page, "batch");
-    await commonFunctions.clickMenu();
-});
-When('Admin Clicks on the Add Batch button and fill the required fields as {string}, {string} ,{string} ,{string}', async function (ProgramName,batchName,description,noOfClasses) {
-//When('Admin Clicks on the Add Batch button and fill the required fields', async function (ProgramName,batchName,description,noOfClasses) {
-    const batchPage = new BatchPage(this.page);
-    await batchPage.addNewBatch();
-    await batchPage.enterBatchDetails(ProgramName,batchName,description,noOfClasses);
-    await batchPage.saveBatch();
+    await this.loginPage.login(process.env.USERNAME, process.env.PASSWORD);
+    await this.loginPage.submitLogin();
+   
 });
 
-Then('Admin should create a new Batch successfully', async function () {
-    const batchPage = new BatchPage(this.page);
-    const successMessage = await batchPage.batchCreatedSuccess.textContent();
+When('Admin Clicks on the Add Batch button and fill the required fields',async function ({page}) {
+    const ProgramName = getTestData('Batch', 'valid', 'ProgramName');
+    const BatchName = getTestData('Batch', 'valid', 'BatchName');
+    const Description = getTestData('Batch', 'valid', 'Description');
+    //this.batchStatus=page.locator('.p-radiobutton-box').first();
+    const NoOfClasses = getTestData('Batch', 'valid', 'NoOfClasses');
+    console.log(`programName: ${ProgramName}`);
+    console.log(`BatchName: ${BatchName}`);
+    console.log(`Description: ${Description}`);
+    console.log(`NoOfClasses: ${NoOfClasses}`);
+    await page.enterBatchDetails(ProgramName, BatchName, Description, NoOfClasses); 
+});
+    
+
+
+Then('Admin should create a {string}', async function ({page},arg ){
+    this.batchPage = new BatchPage(page);
+    const successMessage = await this.batchPage.batchCreatedSuccess.textContent();
     expect(successMessage.trim()).toBe("Batch Created Successfully");
-});*/
+})
+
+
+
+// const ExcelDataProvider = readDataFromExcelFile('TestData.xlsx');
+
+    // test.BeforeAll(async ({ page }) => {
+    // console.log(ExcelDataProvider);
+    // });
+    
+    // for(const data of ExcelDataProvider) {
+    //     test(`Add New Batch : ${data.ProgramName}, BatchName: ${data.BatchName}, Description: ${data.Description}, NoOfClasses: ${data.NoOfClasses}`, async ({ page }) => {
+    //     const programName = data.ProgramName;
+    //     const batchName = data.BatchName;   
+    //     const description = data.Description;
+    //     const noOfClasses = data.NoOfClasses;
+    //     this.commonFunctions = new CommonFunctions(page, 'batch');
+    //     await this.commonFunctions.clickMenu();
+    //     this.batchPage = new BatchPage(page);
+    //     await this.batchPage.addNewBatch();
+    //     await this.batchPage.enterBatchDetails(programName,batchName,description,noOfClasses);
+    //     await this.batchPage.saveBatch();
+        
+    //     });
+    // }
