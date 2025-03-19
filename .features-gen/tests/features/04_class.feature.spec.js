@@ -19,32 +19,32 @@ test.describe('Class Page Validation', () => {
 
   test('Validating Search bar in class page', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see the Search Bar in Manage class page'); 
+    await Then('Admin should see the Search Bar in Manage class page', null, { commonFunctions }); 
   });
 
   test('Validating the data table headers in the class page', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see the datatable heading like Batchname,class topic,class description,status,class Date,staff name,Edit/Delete'); 
+    await Then('Admin should see the datatable heading like Batchname,class topic,class description,status,class Date,staff name,Edit/Delete', null, { commonFunctions }); 
   });
 
   test('Validating the text and pagination icon in the classpage', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see the " showing x to y of  z entries" and enabled pagination controls under the data table'); 
+    await Then('Admin should see the " showing x to y of  z entries" and enabled pagination controls under the data table', null, { commonFunctions }); 
   });
 
   test('Validate the sort icon of all the field in datatable', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see the Sort icon of all the field in the datatable.'); 
+    await Then('Admin should see the Sort icon of all the field in the datatable.', null, { commonFunctions }); 
   });
 
   test('Validating the Delete button under the Manage class', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see the Delete button under the Manage class page header.'); 
+    await Then('Admin should see the Delete button under the Manage class page header.', null, { commonFunctions }); 
   });
 
   test('Validate the total no of classes in manage class page', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see Total no of classes in below of the data table.'); 
+    await Then('Admin should see Total no of classes in below of the data table.', null, { commonFunctions }); 
   });
 
 });

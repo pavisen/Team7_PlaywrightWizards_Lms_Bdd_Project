@@ -12,7 +12,7 @@ Given('Admin is on login Page', async ({loginPage}) => {
 });
 
 When('Admin enter valid data in all field and clicks login button', async  ({loginPage}) => {
-  await loginPage.login(process.env.USER, process.env.PASSWORD);
+  await loginPage.login(process.env.ADMIN_USERNAME, process.env.PASSWORD);
 });
 
 Then('Admin should land on home page', async  ({loginPage}) => {
@@ -59,7 +59,7 @@ Then('Error message {string} for null password', async ({loginPage}, expectedErr
 
 When('Admin enter valid credentials  and clicks login button through keyboard', async ({loginPage}) => {  
 await loginPage.usernameInput.click();
-await loginPage.page.keyboard.type(process.env.USER); 
+await loginPage.page.keyboard.type(process.env.ADMIN_USERNAME); 
 await loginPage.passwordInput.click();
 await loginPage.page.keyboard.type(process.env.PASSWORD);
 await loginPage.passwordInput.press('Enter');
@@ -67,10 +67,65 @@ await loginPage.passwordInput.press('Enter');
 
 When('Admin enter valid credentials  and clicks login button through mouse', async ({loginPage}) => {
    await loginPage.usernameInput.click();
-   await loginPage.usernameInput.fill(process.env.USER);
+   await loginPage.usernameInput.fill(process.env.ADMIN_USERNAME);
      await loginPage.passwordInput.click();
      await loginPage.passwordInput.fill(process.env.PASSWORD);
   await loginPage.submitButton.hover(); 
   await loginPage.submitButton.click(); 
+});
+
+Given('The browser is open', async ({loginPage}) => {
+  await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+
+});
+
+When('Admin gives the correct LMS portal URL', async ({loginPage}) => {
+  await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+});
+
+
+Then('Admin should see asterisk mark symbol next to text for mandatory fields', async ({loginPage}) => {
+  await loginPage.asterisk.waitFor({ state: 'visible' }); 
+    const isAsteriskVisible = await loginPage.isAsteriskPresent();
+    
+    console.log('Asterisk visibility:', isAsteriskVisible); 
+
+    expect(isAsteriskVisible).toBeTruthy(); 
+
+});
+
+Then('Admin should {string} in the second text field', async ({loginPage}, expectedText) => {
+  const secondFieldText = await loginPage.getSecondFieldText();
+  expect(secondFieldText).toBe(expectedText);
+});
+
+Then('Admin should see asterisk mark symbol next to password text', async ({loginPage}) => {
+  await loginPage.asterisk.waitFor({ state: 'visible' }); 
+  const isAsteriskVisible = await loginPage.isAsteriskPresent();
+  console.log('Asterisk visibility:', isAsteriskVisible); 
+  expect(isAsteriskVisible).toBeTruthy(); 
+});
+
+Then('Admin should see input field on the centre of the page', async ({loginPage}) => {
+   const isCentered = await loginPage.isInputFieldCentered();
+    expect(isCentered).toBeTruthy();
+});
+
+Then('Admin should see login button', async ({loginPage}) => {
+  const isLoginButtonPresent = await loginPage.isLoginButtonPresent();
+    expect(isLoginButtonPresent).toBeTruthy();
+});
+
+Then('Admin should see user in gray color', async ({loginPage}) => {
+  const userFieldColor = await loginPage.getUserFieldPlaceholderColor();
+ // expect(userFieldColor).toBe('gray');
+  expect(userFieldColor).toBe('rgba(0, 0, 0, 0.54)'); // Matching the exact computed color
+
+});
+
+Then('Admin should see password in gray color', async ({loginPage}) => {
+  const passwordFieldColor = await loginPage.getPasswordFieldPlaceholderColor();
+  expect(passwordFieldColor).toBe('rgba(0, 0, 0, 0.54)'); // Matching the exact computed color
+
 });
 
