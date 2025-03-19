@@ -34,17 +34,17 @@ test.describe('Class Page Validation', () => {
 
   test('Validate the sort icon of all the field in datatable', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see the Sort icon of all the field in the datatable.'); 
+    await Then('Admin should see the Sort icon of all the field in the datatable.', null, { commonFunctions }); 
   });
 
   test('Validating the Delete button under the Manage class', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see the Delete button under the Manage class page header.'); 
+    await Then('Admin should see the Delete button under the Manage class page header.', null, { commonFunctions }); 
   });
 
   test('Validate the total no of classes in manage class page', async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see Total no of classes in below of the data table.'); 
+    await Then('Admin should see Total no of classes in below of the data table.', null, { commonFunctions }); 
   });
 
 });
