@@ -8,7 +8,7 @@ const sheet_Name = 'login';
 
 Given('Admin is logged into the application', async ({loginPage}) => {
   await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
-  await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
+  await loginPage.login(process.env.ADMIN_USERNAME, process.env.PASSWORD);
 
   });
   
