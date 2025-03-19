@@ -26,7 +26,7 @@ export const test = base.extend({
 
   loggedInPage: async ({ loginPage }, use) => {
     await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
-    await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
+    await loginPage.login(process.env.USER, process.env.PASSWORD);
     await use(loginPage);
   },
 

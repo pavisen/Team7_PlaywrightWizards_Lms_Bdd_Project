@@ -3,7 +3,7 @@ import { readDataFromExcelFile } from "../utils/excelReader";
 
 
 
- class ProgramPage {
+ export class ProgramPage {
   constructor(page) {
     this.page = page;
     this.program_btn = page.getByRole('button', { name: 'Program' });
@@ -13,7 +13,7 @@ import { readDataFromExcelFile } from "../utils/excelReader";
     this.manage_program = page.getByText(' Manage Program');
     this.programName = page.getByRole('textbox', { name: 'Program Name' });
     this.description = page.getByRole('textbox', { name: 'Description' });
-    this.activeButton = locator('.p-radiobutton-box').first()
+    this.activeButton = page.locator('.p-radiobutton-box').first()
     this.saveButton = page.getByRole('button', { name: 'Save' });
   }
 
@@ -53,21 +53,21 @@ import { readDataFromExcelFile } from "../utils/excelReader";
    
   // }
 
-  async enterBatchDetails(ProgramName,Description) {
+  async enterProgramDetails(ProgramName,Description) {
     const programNameIn = this.page.getByRole('button', { name: '' });
-    const BatchNameIn   = this.page.getByRole('textbox', { name: 'Batch Name *' });
+    
     const DescriptionIn = this.page.getByRole('textbox', { name: 'Description *' });
     const BatchStatusIn = this.page.locator('.p-radiobutton-box').first();
-    const NoOfClassesIn = this.page.getByRole('spinbutton', { name: 'Number of Classes *' });
+  
     const saveButtonIn = this.page.getByRole('button', { name: 'Save' });
     // const cancelButtonIn = this.page.getByRole('button', { name: 'Cancel' });
     // const closeBatchpopIn = this.page.getByRole('button', { name: '' });
     // const successfullMsgIn = this.page.getByText('Successful', { exact: true });
     await programNameIn.fill(ProgramName)
-    await BatchNameIn.fill(BatchName);
+  
     await DescriptionIn.fill(Description);
     await BatchStatusIn.click();
-    await NoOfClassesIn.fill(NoOfClasses);
+    
     await saveButtonIn.click();
   }
 

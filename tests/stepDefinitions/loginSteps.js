@@ -12,7 +12,7 @@ Given('Admin is on login Page', async ({loginPage}) => {
 });
 
 When('Admin enter valid data in all field and clicks login button', async  ({loginPage}) => {
-  await loginPage.login(process.env.USERNAME, process.env.PASSWORD);
+  await loginPage.login(process.env.USER, process.env.PASSWORD);
 });
 
 Then('Admin should land on home page', async  ({loginPage}) => {
@@ -59,7 +59,7 @@ Then('Error message {string} for null password', async ({loginPage}, expectedErr
 
 When('Admin enter valid credentials  and clicks login button through keyboard', async ({loginPage}) => {  
 await loginPage.usernameInput.click();
-await loginPage.page.keyboard.type(process.env.USERNAME); 
+await loginPage.page.keyboard.type(process.env.USER); 
 await loginPage.passwordInput.click();
 await loginPage.page.keyboard.type(process.env.PASSWORD);
 await loginPage.passwordInput.press('Enter');
@@ -67,7 +67,7 @@ await loginPage.passwordInput.press('Enter');
 
 When('Admin enter valid credentials  and clicks login button through mouse', async ({loginPage}) => {
    await loginPage.usernameInput.click();
-   await loginPage.usernameInput.fill(process.env.USERNAME);
+   await loginPage.usernameInput.fill(process.env.USER);
      await loginPage.passwordInput.click();
      await loginPage.passwordInput.fill(process.env.PASSWORD);
   await loginPage.submitButton.hover(); 
