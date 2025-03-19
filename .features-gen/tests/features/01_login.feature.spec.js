@@ -39,6 +39,48 @@ test.describe('Login functionality', () => {
     await Then('Admin should land on home page', null, { loginPage }); 
   });
 
+  test('verify asterisk next to USER text', async ({ Given, loginPage, When, Then }) => { 
+    await Given('The browser is open', null, { loginPage }); 
+    await When('Admin gives the correct LMS portal URL', null, { loginPage }); 
+    await Then('Admin should see asterisk mark symbol next to text for mandatory fields', null, { loginPage }); 
+  });
+
+  test('Verify text on the second field', async ({ Given, loginPage, When, Then }) => { 
+    await Given('The browser is open', null, { loginPage }); 
+    await When('Admin gives the correct LMS portal URL', null, { loginPage }); 
+    await Then('Admin should "Password" in the second text field', null, { loginPage }); 
+  });
+
+  test('verify asterisk mark symbol next to password text', async ({ Given, loginPage, When, Then }) => { 
+    await Given('The browser is open', null, { loginPage }); 
+    await When('Admin gives the correct LMS portal URL', null, { loginPage }); 
+    await Then('Admin should see asterisk mark symbol next to password text', null, { loginPage }); 
+  });
+
+  test('Verify the alignment input field for the login', async ({ Given, loginPage, When, Then }) => { 
+    await Given('The browser is open', null, { loginPage }); 
+    await When('Admin gives the correct LMS portal URL', null, { loginPage }); 
+    await Then('Admin should see input field on the centre of the page', null, { loginPage }); 
+  });
+
+  test('verify Login button is present', async ({ Given, loginPage, When, Then }) => { 
+    await Given('The browser is open', null, { loginPage }); 
+    await When('Admin gives the correct LMS portal URL', null, { loginPage }); 
+    await Then('Admin should see login button', null, { loginPage }); 
+  });
+
+  test('Verify input descriptive text in user field', async ({ Given, loginPage, When, Then }) => { 
+    await Given('The browser is open', null, { loginPage }); 
+    await When('Admin gives the correct LMS portal URL', null, { loginPage }); 
+    await Then('Admin should see user in gray color', null, { loginPage }); 
+  });
+
+  test('Verify input descriptive text in password field', async ({ Given, loginPage, When, Then }) => { 
+    await Given('The browser is open', null, { loginPage }); 
+    await When('Admin gives the correct LMS portal URL', null, { loginPage }); 
+    await Then('Admin should see password in gray color', null, { loginPage }); 
+  });
+
 });
 
 // == technical section ==
@@ -56,4 +98,11 @@ const bddFileData = [ // bdd-data-start
   {"pwTestLine":24,"pickleLine":20,"tags":[],"steps":[{"pwStepLine":25,"gherkinStepLine":21,"keywordType":"Context","textWithKeyword":"Given Admin is on login Page","stepMatchArguments":[]},{"pwStepLine":26,"gherkinStepLine":22,"keywordType":"Action","textWithKeyword":"When Admin enter value only in user name and clicks login button","stepMatchArguments":[]},{"pwStepLine":27,"gherkinStepLine":23,"keywordType":"Outcome","textWithKeyword":"Then Error message \"Please enter your password\" for null password","stepMatchArguments":[{"group":{"start":14,"value":"\"Please enter your password\"","children":[{"start":15,"value":"Please enter your password","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
   {"pwTestLine":30,"pickleLine":25,"tags":[],"steps":[{"pwStepLine":31,"gherkinStepLine":26,"keywordType":"Context","textWithKeyword":"Given Admin is on login Page","stepMatchArguments":[]},{"pwStepLine":32,"gherkinStepLine":27,"keywordType":"Action","textWithKeyword":"When Admin enter valid credentials  and clicks login button through keyboard","stepMatchArguments":[]},{"pwStepLine":33,"gherkinStepLine":28,"keywordType":"Outcome","textWithKeyword":"Then Admin should land on home page","stepMatchArguments":[]}]},
   {"pwTestLine":36,"pickleLine":30,"tags":[],"steps":[{"pwStepLine":37,"gherkinStepLine":31,"keywordType":"Context","textWithKeyword":"Given Admin is on login Page","stepMatchArguments":[]},{"pwStepLine":38,"gherkinStepLine":32,"keywordType":"Action","textWithKeyword":"When Admin enter valid credentials  and clicks login button through mouse","stepMatchArguments":[]},{"pwStepLine":39,"gherkinStepLine":33,"keywordType":"Outcome","textWithKeyword":"Then Admin should land on home page","stepMatchArguments":[]}]},
+  {"pwTestLine":42,"pickleLine":42,"tags":[],"steps":[{"pwStepLine":43,"gherkinStepLine":43,"keywordType":"Context","textWithKeyword":"Given The browser is open","stepMatchArguments":[]},{"pwStepLine":44,"gherkinStepLine":44,"keywordType":"Action","textWithKeyword":"When Admin gives the correct LMS portal URL","stepMatchArguments":[]},{"pwStepLine":45,"gherkinStepLine":45,"keywordType":"Outcome","textWithKeyword":"Then Admin should see asterisk mark symbol next to text for mandatory fields","stepMatchArguments":[]}]},
+  {"pwTestLine":48,"pickleLine":48,"tags":[],"steps":[{"pwStepLine":49,"gherkinStepLine":49,"keywordType":"Context","textWithKeyword":"Given The browser is open","stepMatchArguments":[]},{"pwStepLine":50,"gherkinStepLine":50,"keywordType":"Action","textWithKeyword":"When Admin gives the correct LMS portal URL","stepMatchArguments":[]},{"pwStepLine":51,"gherkinStepLine":51,"keywordType":"Outcome","textWithKeyword":"Then Admin should \"Password\" in the second text field","stepMatchArguments":[{"group":{"start":13,"value":"\"Password\"","children":[{"start":14,"value":"Password","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
+  {"pwTestLine":54,"pickleLine":53,"tags":[],"steps":[{"pwStepLine":55,"gherkinStepLine":54,"keywordType":"Context","textWithKeyword":"Given The browser is open","stepMatchArguments":[]},{"pwStepLine":56,"gherkinStepLine":55,"keywordType":"Action","textWithKeyword":"When Admin gives the correct LMS portal URL","stepMatchArguments":[]},{"pwStepLine":57,"gherkinStepLine":56,"keywordType":"Outcome","textWithKeyword":"Then Admin should see asterisk mark symbol next to password text","stepMatchArguments":[]}]},
+  {"pwTestLine":60,"pickleLine":58,"tags":[],"steps":[{"pwStepLine":61,"gherkinStepLine":59,"keywordType":"Context","textWithKeyword":"Given The browser is open","stepMatchArguments":[]},{"pwStepLine":62,"gherkinStepLine":60,"keywordType":"Action","textWithKeyword":"When Admin gives the correct LMS portal URL","stepMatchArguments":[]},{"pwStepLine":63,"gherkinStepLine":61,"keywordType":"Outcome","textWithKeyword":"Then Admin should see input field on the centre of the page","stepMatchArguments":[]}]},
+  {"pwTestLine":66,"pickleLine":63,"tags":[],"steps":[{"pwStepLine":67,"gherkinStepLine":64,"keywordType":"Context","textWithKeyword":"Given The browser is open","stepMatchArguments":[]},{"pwStepLine":68,"gherkinStepLine":65,"keywordType":"Action","textWithKeyword":"When Admin gives the correct LMS portal URL","stepMatchArguments":[]},{"pwStepLine":69,"gherkinStepLine":66,"keywordType":"Outcome","textWithKeyword":"Then Admin should see login button","stepMatchArguments":[]}]},
+  {"pwTestLine":72,"pickleLine":68,"tags":[],"steps":[{"pwStepLine":73,"gherkinStepLine":69,"keywordType":"Context","textWithKeyword":"Given The browser is open","stepMatchArguments":[]},{"pwStepLine":74,"gherkinStepLine":70,"keywordType":"Action","textWithKeyword":"When Admin gives the correct LMS portal URL","stepMatchArguments":[]},{"pwStepLine":75,"gherkinStepLine":71,"keywordType":"Outcome","textWithKeyword":"Then Admin should see user in gray color","stepMatchArguments":[]}]},
+  {"pwTestLine":78,"pickleLine":73,"tags":[],"steps":[{"pwStepLine":79,"gherkinStepLine":74,"keywordType":"Context","textWithKeyword":"Given The browser is open","stepMatchArguments":[]},{"pwStepLine":80,"gherkinStepLine":75,"keywordType":"Action","textWithKeyword":"When Admin gives the correct LMS portal URL","stepMatchArguments":[]},{"pwStepLine":81,"gherkinStepLine":76,"keywordType":"Outcome","textWithKeyword":"Then Admin should see password in gray color","stepMatchArguments":[]}]},
 ]; // bdd-data-end

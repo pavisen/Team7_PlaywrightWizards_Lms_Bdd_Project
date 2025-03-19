@@ -17,7 +17,7 @@ Feature: Batch Module -Batch Page Navigation
   Scenario: Verify Admin Add Batch successfully
    #Given Admin is on the Batch Page 
    When  Admin Clicks on the Add Batch button and fill the required fields
-   Then Admin should create a "new Batch successfully"
+   Then  Admin should create a "new Batch successfully"
 
 
  

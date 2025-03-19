@@ -74,3 +74,58 @@ When('Admin enter valid credentials  and clicks login button through mouse', asy
   await loginPage.submitButton.click(); 
 });
 
+Given('The browser is open', async ({loginPage}) => {
+  await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+
+});
+
+When('Admin gives the correct LMS portal URL', async ({loginPage}) => {
+  await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+});
+
+
+Then('Admin should see asterisk mark symbol next to text for mandatory fields', async ({loginPage}) => {
+  await loginPage.asterisk.waitFor({ state: 'visible' }); 
+    const isAsteriskVisible = await loginPage.isAsteriskPresent();
+    
+    console.log('Asterisk visibility:', isAsteriskVisible); 
+
+    expect(isAsteriskVisible).toBeTruthy(); 
+
+});
+
+Then('Admin should {string} in the second text field', async ({loginPage}, expectedText) => {
+  const secondFieldText = await loginPage.getSecondFieldText();
+  expect(secondFieldText).toBe(expectedText);
+});
+
+Then('Admin should see asterisk mark symbol next to password text', async ({loginPage}) => {
+  await loginPage.asterisk.waitFor({ state: 'visible' }); 
+  const isAsteriskVisible = await loginPage.isAsteriskPresent();
+  console.log('Asterisk visibility:', isAsteriskVisible); 
+  expect(isAsteriskVisible).toBeTruthy(); 
+});
+
+Then('Admin should see input field on the centre of the page', async ({loginPage}) => {
+   const isCentered = await loginPage.isInputFieldCentered();
+    expect(isCentered).toBeTruthy();
+});
+
+Then('Admin should see login button', async ({loginPage}) => {
+  const isLoginButtonPresent = await loginPage.isLoginButtonPresent();
+    expect(isLoginButtonPresent).toBeTruthy();
+});
+
+Then('Admin should see user in gray color', async ({loginPage}) => {
+  const userFieldColor = await loginPage.getUserFieldPlaceholderColor();
+ // expect(userFieldColor).toBe('gray');
+  expect(userFieldColor).toBe('rgba(0, 0, 0, 0.54)'); // Matching the exact computed color
+
+});
+
+Then('Admin should see password in gray color', async ({loginPage}) => {
+  const passwordFieldColor = await loginPage.getPasswordFieldPlaceholderColor();
+  expect(passwordFieldColor).toBe('rgba(0, 0, 0, 0.54)'); // Matching the exact computed color
+
+});
+

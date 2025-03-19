@@ -32,5 +32,45 @@ Feature: Login functionality
     When Admin enter valid credentials  and clicks login button through mouse
     Then Admin should land on home page
   
+  #Anu
+  #  Scenario: verify dropdown is present
+  #   Given The browser is open
+  #   When Admin gives the correct LMS portal URL
+  #   Then Admin should see one dropdown
 
+   
+   Scenario: verify asterisk next to USER text
+   Given The browser is open
+   When  Admin gives the correct LMS portal URL
+   Then Admin should see asterisk mark symbol next to text for mandatory fields
+
+
+   Scenario: Verify text on the second field		
+   Given The browser is open	
+   When Admin gives the correct LMS portal URL	
+   Then Admin should "Password" in the second text field
+
+   Scenario: verify asterisk mark symbol next to password text
+   Given The browser is open	
+   When Admin gives the correct LMS portal URL	
+   Then Admin should see asterisk mark symbol next to password text
   
+   Scenario:Verify the alignment input field for the login		
+   Given The browser is open	
+   When Admin gives the correct LMS portal URL	
+   Then Admin should see input field on the centre of the page
+
+   Scenario:verify Login button is present		
+   Given The browser is open	
+   When Admin gives the correct LMS portal URL
+   Then Admin should see login button 
+   
+   Scenario: Verify input descriptive text in user field	
+   	Given The browser is open	
+    When Admin gives the correct LMS portal URL
+    Then Admin should see user in gray color
+   
+   Scenario: Verify input descriptive text in password field	
+   	Given The browser is open	
+    When Admin gives the correct LMS portal URL	
+    Then Admin should see password in gray color
