@@ -14,8 +14,11 @@ class LoginPage {
     this.passwordFieldLabel = page.locator('//*[text()="Password"]');
     this.usernameFieldLabel = page.locator('//*[text()="User"]');
     this.asterisk = page.locator('xpath=//*[@id="mat-form-field-label-1"]/span[2]');
-    //this.asterisk = page.locator('//span[contains(text(),"*")]');
+    this.logoutButton = this.page.getByRole('button', { name: 'Logout' });  
+    this.lmsTitle = this.page.locator('text=LMS - Learning Management System');
 
+
+    
   }
 
   async navigateToLoginPage(url) {
@@ -69,8 +72,30 @@ async getUserFieldPlaceholderColor() {
 async getPasswordFieldPlaceholderColor() {
   return await this.passwordFieldLabel.evaluate(el => getComputedStyle(el).color);
 }
-
-
+async clickLogout() {
+  await this.logoutButton.click(); 
 }
 
+async isLogoutButtonVisible() {
+  await expect(this.logoutButton).toBeVisible();  
+}
+
+async waitForURL(url) {
+  await this.page.waitForURL(process.env.LOGIN_URL);  // Wait for the URL to match
+}
+
+
+async isLogoutButtonHidden() {
+  await expect(this.logoutButton).toBeHidden();  
+}
+
+async isTitleDisplayed() {
+  return this.lmsTitle;
+
+}
+async clickBackButton() {
+  await this.page.goBack();
+}
+
+}
 export { LoginPage };
