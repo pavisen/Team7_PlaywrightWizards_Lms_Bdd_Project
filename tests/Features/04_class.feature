@@ -36,3 +36,5 @@ Then Admin should see the Delete button under the Manage class page header.
 Scenario: Validate the total no of classes in manage class page
 When Admin clicks the Class Navigation bar in the Header
 Then Admin should see Total no of classes in below of the data table.
+
+#Add New Class

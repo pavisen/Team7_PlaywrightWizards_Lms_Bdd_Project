@@ -50,19 +50,20 @@ Given('Admin is on the home page after login', async function ({loggedInPage}){
 
   });
   
-  Then('Admin should see the Sort icon of all the field in the datatable.', async ({}) => {
-   
+  Then('Admin should see the Sort icon of all the field in the datatable.', async ({commonFunctions}) => {
+    const isSortIconPresent = await commonFunctions.isElementPresent('sortIcon', 'header');
+    expect(isSortIconPresent).toBe(true);
     
   });
   
-  Then('Admin should see the Delete button under the Manage class page header.', async ({}) => {
-    // Step: Then Admin should see the Delete button under the Manage class page header.
-    // From: tests/features/04_class.feature:34:1
+  Then('Admin should see the Delete button under the Manage class page header.', async ({commonFunctions}) => {
+    await expect(commonFunctions.deleteButton).toBeVisible(); 
   });
   
-  Then('Admin should see Total no of classes in below of the data table.', async ({}) => {
-    // Step: Then Admin should see Total no of classes in below of the data table.
-    // From: tests/features/04_class.feature:38:1
+  Then('Admin should see Total no of classes in below of the data table.', async ({commonFunctions}) => {
+    await expect(commonFunctions.totalClassesText).toBeVisible();
+    const totalClasses = await commonFunctions.getTotalClasses();  // Get total count
+  expect(totalClasses).toBeGreaterThanOrEqual(1);
   });
 
 
