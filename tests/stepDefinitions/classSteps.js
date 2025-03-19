@@ -27,24 +27,32 @@ Given('Admin is on the home page after login', async function ({loggedInPage}){
   });
 
 
-  Then('Admin should see the Search Bar in Manage class page', async ({}) => {
-    // Step: Then Admin should see the Search Bar in Manage class page
-    // From: tests/features/04_class.feature:18:1
+  Then('Admin should see the Search Bar in Manage class page', async ({commonFunctions}) => {
+    await expect(commonFunctions.searchBar).toBeVisible(); 
   });
   
-  Then('Admin should see the datatable heading like Batchname,class topic,class description,status,class Date,staff name,Edit\\/Delete', async ({}) => {
-    // Step: Then Admin should see the datatable heading like Batchname,class topic,class description,status,class Date,staff name,Edit/Delete
-    // From: tests/features/04_class.feature:22:1
+  Then('Admin should see the datatable heading like Batchname,class topic,class description,status,class Date,staff name,Edit\\/Delete', async ({commonFunctions}) => {
+    const expectedHeaders = ['Batch Name', 'Class Topic', 'Class Description', 'Status', 'Class Date','Staff Name','Edit / Delete']; 
+    const isHeaderCorrect = await commonFunctions.verifyTableHeaders(expectedHeaders);
+    expect(isHeaderCorrect).toEqual(true);
+
   });
   
-  Then('Admin should see the {string} and enabled pagination controls under the data table', async ({}, arg) => {
-    // Step: Then Admin should see the " showing x to y of  z entries" and enabled pagination controls under the data table
-    // From: tests/features/04_class.feature:26:1
+  Then('Admin should see the {string} and enabled pagination controls under the data table', async ({commonFunctions}, arg) => {
+    const showingText = await commonFunctions.getPaginationText();
+    const expectedTextPattern = /Showing (\d+) to (\d+) of (\d+) entries/;
+    const match = showingText.match(expectedTextPattern);
+    if (!match) {
+      throw new Error(`The pagination text does not match the expected format: ${showingText}`);
+  }
+  const areButtonsVisible = await commonFunctions.arePaginationButtonsVisible();
+    expect(areButtonsVisible).toBe(true); 
+
   });
   
   Then('Admin should see the Sort icon of all the field in the datatable.', async ({}) => {
-    // Step: Then Admin should see the Sort icon of all the field in the datatable.
-    // From: tests/features/04_class.feature:30:1
+   
+    
   });
   
   Then('Admin should see the Delete button under the Manage class page header.', async ({}) => {
