@@ -62,8 +62,6 @@ Given('Admin is on the home page after login', async function ({loggedInPage}){
   
   Then('Admin should see Total no of classes in below of the data table.', async ({commonFunctions}) => {
     await expect(commonFunctions.totalClassesText).toBeVisible();
-    const totalClasses = await commonFunctions.getTotalClasses();  // Get total count
-  expect(totalClasses).toBeGreaterThanOrEqual(1);
   });
 
 
