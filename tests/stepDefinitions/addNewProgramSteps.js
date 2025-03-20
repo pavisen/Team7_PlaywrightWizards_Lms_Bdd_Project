@@ -13,17 +13,24 @@ When('Admin Clicks on the Add program button and fill the required fields',async
     await commonFunctions.clickMenu('program');
     await commonFunctions.clickSubMenu('program');
     // Get the data from the excel file
-    const ProgramName = getTestData(sheetName, 'valid', 'ProgramName');
+    const programName = getTestData(sheetName, 'valid', 'ProgramName') +getRandomAlphabet(3);
     const Description = getTestData(sheetName, 'valid', 'Description');
-    console.log(`programName: ${ProgramName}`);
+    console.log(`programName: ${programName}`);
     console.log(`Description: ${Description}`);
-    await programPage.enterProgramDetails(ProgramName,  Description); 
+    await programPage.enterProgramDetails(programName,  Description); 
 });
+function getRandomAlphabet(length) {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+    }
+    return result;
+  }
 
-
-Then('Admin should get a message {string}', async function ({page},arg ){
-    this.programPage = new ProgramPage(page);
-    const successMessage = await this.programPage.programCreatedSuccess.textContent();
+Then('Admin should get a message {string}', async function ({programPage},arg ){
+    
+    const successMessage = await programPage.programCreatedSuccess().textContent();
     expect(successMessage.trim()).toBe("Program Created Successfully");
 })
     
