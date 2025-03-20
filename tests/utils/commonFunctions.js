@@ -42,10 +42,20 @@ class CommonFunctions {
        checkbox: ".//span[@class='p-checkbox-icon']",
        sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
      };
-
+    
      this.deleteButton = page.locator("//*[@class='box']//button");
      this.totalClassesText = page.locator("//*[@class='p-datatable-footer ng-star-inserted']/div");
 
+     this.checkboxHeaderTableBatch=page.locator("//div[@class='p-checkbox-box']");
+     this.editButtoneachRowBatch=page.locator("//span[@class='p-button-icon pi pi-pencil']");
+     this.deleteButtoneachRowBatch=page.locator("//span[@class='p-button-icon pi pi-trash']");
+     this.checkboxEachRowbatch=page.locator("//div[@class='p-checkbox-box p-component']");
+
+
+  }
+
+  async isEditIconVisible() {
+    return await this.editIcon.first().isVisible(); // Check if at least one is visible
   }
 
   async clickMenu(module) {
@@ -99,6 +109,8 @@ class CommonFunctions {
     }
     // Compare each header text
     for (let i = 1; i < expectedHeaders.length+1; i++) {
+      console.log(headerCells[i]);
+      console.log(expectedHeaders[i-1]);
       if (headerCells[i].trim() !== expectedHeaders[i-1].trim()) {
         return false;
       }
@@ -198,12 +210,6 @@ class CommonFunctions {
 
 
   }
-
-
-
-
-
-
 
 
 export {CommonFunctions};
