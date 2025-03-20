@@ -64,10 +64,10 @@ Feature: Batch Module -Batch Page Navigation
     Then Admin should see the sort icon next to all Datatable headers
 
 #Add New Batch DDT
-   # Scenario: Verify Admin Add Batch successfully
-   #  Given Admin is on the Batch Page 
-   #  When  Admin Clicks on the Add Batch button and fill the required fields
-   #  Then  Admin should create a "new Batch successfully"
+   Scenario: Verify Admin Add Batch successfully
+    Given Admin is on the Batch Page 
+    When  Admin Clicks on the Add Batch button and fill the required fields
+    Then  Admin should create a "new Batch successfully"
 
 
  

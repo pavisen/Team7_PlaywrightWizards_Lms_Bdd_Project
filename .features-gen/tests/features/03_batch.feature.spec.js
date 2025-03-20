@@ -1,4 +1,4 @@
-// Generated from: tests/features/03_batch.feature
+// Generated from: tests/Features/03_batch.feature
 import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Batch Module -Batch Page Navigation', () => {
@@ -62,13 +62,19 @@ test.describe('Batch Module -Batch Page Navigation', () => {
     await Then('Admin should see the sort icon next to all Datatable headers', null, { commonFunctions }); 
   });
 
+  test('Verify Admin Add Batch successfully', async ({ Given, loggedInPage, When, batchPage, commonFunctions, Then }) => { 
+    await Given('Admin is on the Batch Page', null, { loggedInPage }); 
+    await When('Admin Clicks on the Add Batch button and fill the required fields', null, { batchPage, commonFunctions }); 
+    await Then('Admin should create a "new Batch successfully"', null, { batchPage }); 
+  });
+
 });
 
 // == technical section ==
 
 test.use({
   $test: ({}, use) => use(test),
-  $uri: ({}, use) => use('tests/features/03_batch.feature'),
+  $uri: ({}, use) => use('tests/Features/03_batch.feature'),
   $bddFileData: ({}, use) => use(bddFileData),
 });
 
@@ -84,4 +90,5 @@ const bddFileData = [ // bdd-data-start
   {"pwTestLine":50,"pickleLine":51,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":4,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":51,"gherkinStepLine":53,"keywordType":"Action","textWithKeyword":"When Admin Clicks on the Batch menu from the header","stepMatchArguments":[]},{"pwStepLine":52,"gherkinStepLine":54,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the datatable headers Batch name, Batch Description,Batch Status, No Of Classes, Program Name, Edit/Delete","stepMatchArguments":[]}]},
   {"pwTestLine":55,"pickleLine":56,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":4,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":56,"gherkinStepLine":58,"keywordType":"Action","textWithKeyword":"When Admin Clicks on the Batch menu from the header","stepMatchArguments":[]},{"pwStepLine":57,"gherkinStepLine":59,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the checkbox  in the datatable header row","stepMatchArguments":[]}]},
   {"pwTestLine":60,"pickleLine":61,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":4,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":61,"gherkinStepLine":63,"keywordType":"Action","textWithKeyword":"When Admin Clicks on the Batch menu from the header","stepMatchArguments":[]},{"pwStepLine":62,"gherkinStepLine":64,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the sort icon next to all Datatable headers","stepMatchArguments":[]}]},
+  {"pwTestLine":65,"pickleLine":67,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":4,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":66,"gherkinStepLine":68,"keywordType":"Context","textWithKeyword":"Given Admin is on the Batch Page","stepMatchArguments":[]},{"pwStepLine":67,"gherkinStepLine":69,"keywordType":"Action","textWithKeyword":"When Admin Clicks on the Add Batch button and fill the required fields","stepMatchArguments":[]},{"pwStepLine":68,"gherkinStepLine":70,"keywordType":"Outcome","textWithKeyword":"Then Admin should create a \"new Batch successfully\"","stepMatchArguments":[{"group":{"start":22,"value":"\"new Batch successfully\"","children":[{"start":23,"value":"new Batch successfully","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
 ]; // bdd-data-end

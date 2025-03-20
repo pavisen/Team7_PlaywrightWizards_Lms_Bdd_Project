@@ -5,7 +5,11 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-/testData.xlsx
+/testData/.xlsx
 
+# Allure Report Folders
+allure-report/
+/allure-results/
 # Ignore Cucumber JSON report
 cucumber-report.json
+.features-gen
