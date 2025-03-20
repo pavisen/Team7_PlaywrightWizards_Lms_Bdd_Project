@@ -9,3 +9,4 @@ node_modules/
 /.features-gen
 # Ignore Cucumber JSON report
 cucumber-report.json
+.features-gen

@@ -171,14 +171,10 @@ Then('Admin should see LMS - Learning Management System', async ({loginPage,comm
 });
 
 Then('Admin should see company name below the app name', async ({}) => {
-  // Step: Then Admin should see company name below the app name
-  // From: tests\features\01_login.feature:104:5
+ 
 });
 
-Then('Admin should see {string}', async ({loginPage}, expectedText) => {
  
- 
-});
 
 Then('Admin should see Please login to LMS application', async ({loginPage}) => {
   loginPage.navigateToLoginPage(process.env.LOGIN_URL);

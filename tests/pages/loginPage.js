@@ -17,11 +17,11 @@ class LoginPage {
     this.links = page.locator('link');
     this.login_header = page.getByText('Please login to LMS application')
     //this.asterisk = page.locator('//span[contains(text(),"*")]');
-    this.logoutButton = this.page.getByRole('button', { name: 'Logout' });  
+    this.logoutButton = this.page.getByRole('button', { name: 'Logout' });
     this.lmsTitle = this.page.locator('text=LMS - Learning Management System');
 
 
-    
+
   }
 
   async navigateToLoginPage(url) {
@@ -71,7 +71,7 @@ class LoginPage {
   async getUserFieldPlaceholderColor() {
     return await this.usernameFieldLabel.evaluate(el => getComputedStyle(el).color);
   }
-
+ 
   async getPasswordFieldPlaceholderColor() {
     return await this.passwordFieldLabel.evaluate(el => getComputedStyle(el).color);
   }
@@ -144,33 +144,33 @@ class LoginPage {
     expect(await this.usernameInput).toHaveAttribute('ng-reflect-placeholder', 'User');
     expect(await this.passwordInput).toHaveAttribute('ng-reflect-placeholder', 'Password');
   }
-async getPasswordFieldPlaceholderColor() {
-  return await this.passwordFieldLabel.evaluate(el => getComputedStyle(el).color);
-}
-async clickLogout() {
-  await this.logoutButton.click(); 
-}
+  async getPasswordFieldPlaceholderColor() {
+    return await this.passwordFieldLabel.evaluate(el => getComputedStyle(el).color);
+  }
+  async clickLogout() {
+    await this.logoutButton.click();
+  }
 
-async isLogoutButtonVisible() {
-  await expect(this.logoutButton).toBeVisible();  
-}
+  async isLogoutButtonVisible() {
+    await expect(this.logoutButton).toBeVisible();
+  }
 
-async waitForURL(url) {
-  await this.page.waitForURL(process.env.LOGIN_URL);  // Wait for the URL to match
-}
+  async waitForURL(url) {
+    await this.page.waitForURL(process.env.LOGIN_URL);  // Wait for the URL to match
+  }
 
 
-async isLogoutButtonHidden() {
-  await expect(this.logoutButton).toBeHidden();  
-}
+  async isLogoutButtonHidden() {
+    await expect(this.logoutButton).toBeHidden();
+  }
 
-async isTitleDisplayed() {
-  return this.lmsTitle;
+  async isTitleDisplayed() {
+    return this.lmsTitle;
 
-}
-async clickBackButton() {
-  await this.page.goBack();
-}
+  }
+  async clickBackButton() {
+    await this.page.goBack();
+  }
 
 }
 export { LoginPage };
