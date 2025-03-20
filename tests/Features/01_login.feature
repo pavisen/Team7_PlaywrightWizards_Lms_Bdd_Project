@@ -74,3 +74,48 @@ Feature: Login functionality
    	Given The browser is open	
     When Admin gives the correct LMS portal URL	
     Then Admin should see password in gray color
+
+
+    #pavithra
+
+    Scenario: Verify Admin is able to land on home page	with invalid url
+    Given The browser is open
+    When Admin enter invalid URL and clicks login button 
+    Then Admin should receive application error
+
+    Scenario: Verify for broken link
+    Given The browser is open
+    When Admin gives the correct LMS portal HTTP response greater than 400
+    Then the link is broken
+
+    Scenario: Verify the text spelling in the page
+    Given The browser is open
+    When Admin gives the correct LMS portal URL
+    Then Admin should see the correct spelling in all fields 
+
+    Scenario: Verify application name	
+    Given The browser is open
+    When Admin gives the correct LMS portal URL
+    And Logins to the application
+    Then Admin should see LMS - Learning Management System
+
+    Scenario: Verify company name
+    Given The browser is open
+    When Admin gives the correct LMS portal URL
+    Then Admin should see company name below the app name
+
+    Scenario: Validate sign in content
+    Given The browser is open
+    When Admin gives the correct LMS portal URL
+    Then Admin should see Please login to LMS application
+
+    Scenario: Verify text field is present
+    Given The browser is open
+    When Admin gives the correct LMS portal URL
+    Then Admin should see two text field
+
+    Scenario: Verify text on the first field 
+    Given The browser is open
+    When Admin gives the correct LMS portal URL
+    Then Admin should see "User" in the first text field
+
