@@ -3,6 +3,7 @@ import { test } from '../fixtures/fixture';
 import { expect } from '@playwright/test';
 import { createBdd } from 'playwright-bdd';
 import { getTestData } from '../utils/excelReader'; 
+import { CommonFunctions } from '../utils/commonFunctions';
 const { Given, When, Then } = createBdd();
 
 
@@ -77,4 +78,66 @@ Then('Admin should see the sort icon next to all Datatable headers', async ({com
     expect(isSortIconPresent).toBe(true);
 });
 
+Given('Admin is on the batch Page', async function ({paginationPage,commonFunctions}) {  
+  await commonFunctions.clickMenu('batch');
+  await commonFunctions.clickAnywhere();
+});
+
+
+When('Admin clicks on the delete icon under the Manage batch header', async ({commonFunctions}) => {
+  //await commonFunctions.deleteFirstBatch();
+
+  await commonFunctions.deleteSelectedBatches();
+
+});
+
+Then('The respective row in the table should be deleted', async ({commonFunctions}) => {
+  //await commonFunctions.verifyRowDeletion();
+
+  await commonFunctions.verifyBatchDeletion();
+});
+
+When('Admin clicks next page link on the data table', async ({commonFunctions}) => {
+  
+  await commonFunctions.arePaginationButtonsVisible();
+  await commonFunctions.goToNextPage();
+});
+
+Then('Admin should see the Next enabled link', async ({commonFunctions}) => {
+     await commonFunctions.verifyNextPageEnabled();
+
+});
+
+When('Admin clicks last page link on the data table', async ({commonFunctions}) => {
+  
+  await commonFunctions.arePaginationButtonsVisible();
+  await commonFunctions.goToLastPage();
+});
+
+Then('Admin should see the last page link with next page link disabled on the table', async ({commonFunctions}) => {
+  await commonFunctions.verifyLastPage();
+});
+
+When('Admin clicks previous page link on the data table', async ({commonFunctions}) => {
+
+  await commonFunctions.arePaginationButtonsVisible();
+  await commonFunctions.goToNextPage();
+  await commonFunctions.goToPreviousPage();
+
+});
+
+Then('Admin should see the previous page on the table', async ({commonFunctions}) => {
+  await commonFunctions.verifyPreviousPage();
+
+});
+
+When('Admin clicks first page link on the data table', async ({commonFunctions}) => {
+ 
+  await commonFunctions.arePaginationButtonsVisible();
+  await commonFunctions.goToLastPage();
+  await commonFunctions.goToFirstPage();
+});
+Then('Admin should see the very first page on the data table', async ({commonFunctions}) => {
+  await commonFunctions.verifyFirstPage();
+});
 
