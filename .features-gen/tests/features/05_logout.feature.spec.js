@@ -1,4 +1,4 @@
-// Generated from: tests/Features/05_logout.feature
+// Generated from: tests\Features\05_logout.feature
 import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Logout functionality', () => {
@@ -25,7 +25,7 @@ test.describe('Logout functionality', () => {
 
 test.use({
   $test: ({}, use) => use(test),
-  $uri: ({}, use) => use('tests/Features/05_logout.feature'),
+  $uri: ({}, use) => use('tests\\Features\\05_logout.feature'),
   $bddFileData: ({}, use) => use(bddFileData),
 });
 
