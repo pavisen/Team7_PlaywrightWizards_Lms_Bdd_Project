@@ -1,18 +1,17 @@
-import * as XLSX from 'xlsx';
-import path from 'path';
+import * as XLSX from "xlsx";
+import path from "path";
 
 /**
  * Read test data from the Excel file based on sheet name, scenario, and column name.
- * 
+ *
  * @param {string} sheetName - Name of the sheet to extract data from.
  * @param {string} scenario - The scenario to find the corresponding row.
  * @param {string} columnName - The column name to extract the value from.
  * @returns {string|null} - The value from the specified column for the given scenario, or null if empty or column not found.
  */
-  export function getTestData(sheetName, scenario, columnName) 
-  {
+export function getTestData(sheetName, scenario, columnName) {
   // Define the file path for the Excel file
-  const filePath = path.resolve(__dirname, '../testData.xlsx'); // Adjust path accordingly
+  const filePath = path.resolve(__dirname, "../testData.xlsx"); // Adjust path accordingly
   const workbook = XLSX.readFile(filePath);
 
   // Get the specific sheet by name
@@ -40,8 +39,19 @@ import path from 'path';
   }
 
   // Get the value from the specified column name, or return null if column is missing or empty
-  const columnValue = scenarioRow[columnName];
-  if (columnValue === undefined || columnValue === null || columnValue === '') {
+  let columnValue = scenarioRow[columnName];
+
+  // If the column is a date (e.g., classDate) and it's a numeric value (Excel format), convert it
+  if (
+    columnName.toLowerCase() === "classdate" &&
+    typeof columnValue === "number"
+  ) {
+    // Convert the Excel numeric date to a JavaScript Date
+    const excelEpoch = new Date((columnValue - 25569) * 86400000); // Convert Excel date to JS date
+    columnValue = excelEpoch.toLocaleDateString("en-US"); // Format as MM/DD/YYYY
+  }
+
+  if (columnValue === undefined || columnValue === null || columnValue === "") {
     return null; // Return null if the column value is missing or empty
   }
 
