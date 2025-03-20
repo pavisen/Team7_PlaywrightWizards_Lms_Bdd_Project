@@ -18,11 +18,6 @@ When('Admin Clicks on the program menu from the header', async function ({common
     
   });
 
-// Then('Admin should get a message {string}', async function ({page},arg ){
-//     this.programPage = new ProgramPage(page);
-//     const successMessage = await this.programPage.programCreatedSuccess.textContent();
-//     expect(successMessage.trim()).toBe("Program Created Successfully");
-// })
 
 
 
@@ -33,14 +28,10 @@ When('Admin Clicks on the program menu from the header', async function ({common
 
   Then('Admin should see the {string} title in the Program Page', async function ({commonFunctions},expectedTitle) {
     const actualTitle = await commonFunctions.getHeaderText();
-    expect(actualTitle).toBe(expectedTitle);
+    expect(actualTitle.trim()).toBe(expectedTitle);
   });
  
   
-//   // Then('Admin should see the {string} title in the program Page', async ({}, arg) => {
-//   //   // Step: Then Admin should see the "LMS - Learning Management System" title in the program Page
-//   //   // From: tests\features\02_program.feature:14:5
-//   // });
 
 
 
@@ -49,28 +40,7 @@ When('Admin Clicks on the program menu from the header', async function ({common
 //     // Step: When Admin Clicks on the program menu from the header
 //     // From: tests\features\02_program.feature:8:5
 //   });
-  
-//   Then('Admin should be in the {string} Page for managing program', async ({}, arg) => {
-//     // Step: Then Admin should be in the "Manage Program" Page for managing program
-//     // From: tests\features\02_program.feature:9:5
-//   });
-  
-//   Then('Admin should see the {string} title in the Program Page', async ({}, arg) => {
-//     // Step: Then Admin should see the "LMS - Learning Management System" title in the Program Page
-//     // From: tests\features\02_program.feature:14:5
-//   });
-
-
-
-// When('Admin gives the correct LMS portal URL    HTTP response >= {int}', async ({}, arg) => {
-//     // Step: When Admin gives the correct LMS portal URL  HTTP response >= 400
-//     // From: tests\Features\01_login.feature:88:5
-//   });
-  
-//   When('Admin Clicks on the program menu from the header', async ({}) => {
-//     // Step: When Admin Clicks on the program menu from the header
-//     // From: tests\Features\02_program.feature:8:5
-//   });
+   
   
 //   Then('Admin should be in the {string} Page for managing program', async ({}, arg) => {
 //     // Step: Then Admin should be in the "Manage Program" Page for managing program

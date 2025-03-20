@@ -1,8 +1,8 @@
 import { test as base } from 'playwright-bdd';
-import {LoginPage} from '../pages/loginPage.js';
-import {BatchPage} from '../pages/batchPage.js';
-import {CommonFunctions} from '../utils/commonFunctions.js';
-import {ProgramPage} from '../pages/programPage.js';
+import { LoginPage } from '../pages/loginPage.js';
+import { BatchPage } from '../pages/batchPage.js';
+import { CommonFunctions } from '../utils/commonFunctions.js';
+import { ProgramPage } from '../pages/programPage.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -23,7 +23,6 @@ export const test = base.extend({
     await use(batchPage);
   },
 
-
   loggedInPage: async ({ loginPage }, use) => {
     await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
     await loginPage.login(process.env.ADMIN_USERNAME, process.env.PASSWORD);
@@ -31,13 +30,9 @@ export const test = base.extend({
   },
 
   programPage: async ({ page }, use) => {
-     const programPage = new ProgramPage(page);
+    const programPage = new ProgramPage(page);
     await use(programPage);
-  },
-
-
-
-  
+  }
 
 });
 
