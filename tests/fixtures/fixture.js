@@ -1,9 +1,11 @@
 import { test as base } from 'playwright-bdd';
-import { LoginPage } from '../pages/loginPage.js';
-import { BatchPage } from '../pages/batchPage.js';
-import { CommonFunctions } from '../utils/commonFunctions.js';
+import {LoginPage} from '../pages/loginPage.js';
+import {BatchPage} from '../pages/batchPage.js';
 import { ProgramPage } from '../pages/programPage.js';
+import { ClassPage } from '../pages/classPage.js';
+import {CommonFunctions} from '../utils/commonFunctions.js';
 import dotenv from 'dotenv';
+import { use } from 'chai';
 
 dotenv.config();
 
@@ -32,7 +34,14 @@ export const test = base.extend({
   programPage: async ({ page }, use) => {
     const programPage = new ProgramPage(page);
     await use(programPage);
+  },
+
+  classPage: async ({ page }, use) => {
+    const classPage = new ClassPage (page);
+    await use(classPage);
   }
+
+  
 
 });
 
