@@ -1,4 +1,4 @@
-// Generated from: tests/features/04_class.feature
+// Generated from: tests/Features/04_class.feature
 import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Class Page Validation', () => {
@@ -77,7 +77,7 @@ test.describe('Class Page Validation', () => {
 
 test.use({
   $test: ({}, use) => use(test),
-  $uri: ({}, use) => use('tests/features/04_class.feature'),
+  $uri: ({}, use) => use('tests/Features/04_class.feature'),
   $bddFileData: ({}, use) => use(bddFileData),
 });
 

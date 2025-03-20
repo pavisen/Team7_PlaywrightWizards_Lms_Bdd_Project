@@ -1,6 +1,8 @@
 import { test as base } from 'playwright-bdd';
 import {LoginPage} from '../pages/loginPage.js';
 import {BatchPage} from '../pages/batchPage.js';
+import { ProgramPage } from '../pages/programPage.js';
+import { ClassPage } from '../pages/classPage.js';
 import {CommonFunctions} from '../utils/commonFunctions.js';
 import dotenv from 'dotenv';
 import { use } from 'chai';
@@ -35,7 +37,7 @@ export const test = base.extend({
   },
 
   classPage: async ({ page }, use) => {
-    const classPage = new classPage (page);
+    const classPage = new ClassPage (page);
     await use(classPage);
   }
 
