@@ -1,7 +1,6 @@
 import { test as base } from 'playwright-bdd';
 import {LoginPage} from '../pages/loginPage.js';
 import {BatchPage} from '../pages/batchPage.js';
-import {ClassPage} from '../pages/classPage.js';
 import {CommonFunctions} from '../utils/commonFunctions.js';
 import dotenv from 'dotenv';
 import { use } from 'chai';
@@ -24,17 +23,11 @@ export const test = base.extend({
     await use(batchPage);
   },
 
-
   loggedInPage: async ({ loginPage }, use) => {
     await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
     await loginPage.login(process.env.ADMIN_USERNAME, process.env.PASSWORD);
     await use(loginPage);
   },
-
-  classPage: async({page}, use) => {
-    const classPage = new ClassPage(page);
-    await use(classPage);
-  }
 
 
 
