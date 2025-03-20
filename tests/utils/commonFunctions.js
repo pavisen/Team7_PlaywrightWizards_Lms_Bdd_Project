@@ -46,11 +46,25 @@ class CommonFunctions {
       checkbox: ".//span[@class='p-checkbox-icon']",
       sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
     };
-
+    
+    this.checkBoxList = page.locator("//div[@class='p-checkbox p-component']");
     this.deleteButton = page.locator("//*[@class='box']//button");
-    this.totalClassesText = page.locator(
-      "//*[@class='p-datatable-footer ng-star-inserted']/div",
-    );
+    this.totalClassesText = page.locator("//*[@class='p-datatable-footer ng-star-inserted']/div");
+     this.checkboxHeaderTableBatch=page.locator("//div[@class='p-checkbox-box']");
+     this.editButtoneachRowBatch=page.locator("//span[@class='p-button-icon pi pi-pencil']");
+     this.deleteButtoneachRowBatch=page.locator("//span[@class='p-button-icon pi pi-trash']");
+     this.checkboxEachRowbatch=page.locator("//div[@class='p-checkbox-box p-component']");
+     this.dataTableRows = page.locator("//table/tbody/tr");
+     this.paginationNext = page.locator("//button[@class='p-paginator-next p-paginator-element p-link p-ripple']");
+     this.paginationLast = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-right']");
+     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
+     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
+    
+
+  }
+
+  async isEditIconVisible() {
+    return await this.editIcon.first().isVisible(); // Check if at least one is visible
   }
 
   async clickMenu(module) {
@@ -104,6 +118,8 @@ class CommonFunctions {
     }
     // Compare each header text
     for (let i = 1; i < expectedHeaders.length + 1; i++) {
+      console.log(headerCells[i]);
+      console.log(expectedHeaders[i-1]);
       if (headerCells[i].trim() !== expectedHeaders[i - 1].trim()) {
         return false;
       }
@@ -205,6 +221,116 @@ class CommonFunctions {
     console.error("Error in selecting dropdown option:", error);
   }
   
+// Method to click anywhere on the screen
+async clickAnywhere(x = 500, y = 300) {
+  await this.page.mouse.click(x, y);
+  console.log(`Clicked at coordinates (${x}, ${y})`);
+}
+ //Deleting mutiple checkboxes:
+
+//  async deleteFirstBatch() {
+//   // Wait for the checkbox in the first row to be visible
+//   const checkboxes = await this.checkboxEachRowbatch.all();
+//   console.log("#### checkbox count", checkboxes);
+//   const rowCount = checkboxes.length;
+//      console.log(`Found ${rowCount} checkboxes`);
+//   if (checkboxes.length > 0) {
+//       // Select the first checkbox
+//      // await checkboxes[0].click();
+//       await checkboxes[0].isEnabled();
+
+//   } else {
+//       throw new Error("No batches available to delete.");
+//   }
+
+//   // Click on the delete button
+//   await this.deleteIcon.click();
+
+//   // Wait for any confirmation dialog or response
+//   await this.page.waitForTimeout(2000); // Adjust if necessary based on your system's response time
+// }
+
+// // Verify that the first row is deleted
+// async verifyRowDeletion() {
+//   const rows = await this.dataTableRows.all();
+//   if (rows.length === 0 || await rows[0].isVisible() === false) {
+//       console.log("First row deleted successfully.");
+//   } else {
+//       throw new Error("Batch deletion failed. The first row still exists.");
+//   }
+// }
+
+
+ async deleteSelectedBatches() {
+  const checkboxes = await this.checkboxEachRowbatch.all(); // Get all matching checkboxes
+  //await checkboxes.waitFor({ state: 'visible' });
+
+    const rowCount = checkboxes.length;
+  console.log(`Found ${rowCount} checkboxes`);
+
+  if (checkboxes.length >= 1) {
+      await checkboxes[0].click();
+      await checkboxes[1].click();
+  } else {
+      throw new Error("Not enough records to delete.");
+  }
+
+  await this.deleteIcon.click();
+  await this.page.waitForTimeout(2000); // Wait for deletion process
+}
+
+async verifyBatchDeletion() {
+  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
+  const rows = await this.dataTableRows.all();
+  
+  if (rows.length >= 2) {
+      throw new Error("Batch deletion failed. Records still exist.");
+  }
+}
+
+//pagination
+async goToNextPage() {
+  await this.paginationNext.click();
+}
+
+async verifyNextPageEnabled() {
+  await this.paginationNext.isEnabled();
+}
+
+async goToLastPage() {
+  await this.paginationLast.click();
+}
+
+async verifyLastPage() {
+  const isNextDisabled = await this.paginationLast.isDisabled();
+  if (!isNextDisabled) {
+      throw new Error("Last page validation failed. Next link is still enabled.");
+  }
+}
+
+async goToPreviousPage() {
+  await this.paginationPrevious.click();
+}
+
+async verifyPreviousPage() {
+  const isPrevDisabled = await this.paginationPrevious.isDisabled();
+  if (!isPrevDisabled) {
+      throw new Error("First page validation failed. Previous link is still enabled.");
+  }
+}
+
+async goToFirstPage() {
+  await this.paginationFirst.click();
+}
+
+async verifyFirstPage() {
+  const isPrevDisabled = await this.paginationFirst.isDisabled();
+  if (!isPrevDisabled) {
+      throw new Error("First page validation failed. Previous link is still enabled.");
+  }
+}
+
+
 }
 
 export { CommonFunctions };
