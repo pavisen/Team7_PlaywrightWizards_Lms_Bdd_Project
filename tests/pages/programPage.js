@@ -45,13 +45,8 @@ export class ProgramPage {
   async click_addNewProgram() {
     await this.addNewProgram_btn.click();
   }
-  // async enterProgramDetails(ProgramName ProgramName,description,Description) {
-  //   await this.programName.click();
-  //   await this.programName.fill(ProgramName)
-  //   await this.description.fill(Description);
-  //   await this.activeButton.click();
-
-  // }
+  
+  
 
   async enterProgramDetails(ProgramName, Description) {
     const programNameIn = this.page.getByRole('textbox', { name: 'Name *' });

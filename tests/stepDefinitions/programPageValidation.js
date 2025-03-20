@@ -34,22 +34,3 @@ When('Admin Clicks on the program menu from the header', async function ({common
   
 
 
-
-  
-//   When('Admin Clicks on the program menu from the header', async ({}) => {
-//     // Step: When Admin Clicks on the program menu from the header
-//     // From: tests\features\02_program.feature:8:5
-//   });
-   
-  
-//   Then('Admin should be in the {string} Page for managing program', async ({}, arg) => {
-//     // Step: Then Admin should be in the "Manage Program" Page for managing program
-//     // From: tests\Features\02_program.feature:9:5
-//   });
-  
-//   Then('Admin should see the {string} title in the Program Page', async ({}, arg) => {
-//     // Step: Then Admin should see the "LMS - Learning Management System" title in the Program Page
-//     // From: tests\Features\02_program.feature:14:5
-//   });
-  
-  
