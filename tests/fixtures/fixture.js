@@ -29,7 +29,15 @@ export const test = base.extend({
     await use(loginPage);
   },
 
+  programPage: async ({ page }, use) => {
+    const programPage = new ProgramPage(page);
+    await use(programPage);
+  },
 
+  classPage: async ({ page }, use) => {
+    const classPage = new classPage (page);
+    await use(classPage);
+  }
 
   
 
