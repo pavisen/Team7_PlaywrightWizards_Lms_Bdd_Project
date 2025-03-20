@@ -1,3 +1,4 @@
+#Anusuya -Batch module
 Feature: Batch Module -Batch Page Navigation 
  
  Background: 
@@ -63,11 +64,55 @@ Feature: Batch Module -Batch Page Navigation
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the sort icon next to all Datatable headers
 
-#Add New Batch DDT
-   Scenario: Verify Admin Add Batch successfully
-    Given Admin is on the Batch Page 
-    When  Admin Clicks on the Add Batch button and fill the required fields
-    Then  Admin should create a "new Batch successfully"
+          
+   #Delete multiple batches with checkbox
+
+     Scenario:
+    	
+      #Background: 
+      #Given Admin is on the batch page	
+     @Delete
+      Scenario: Validate single row delete with checkbox	
+     Given Admin is on the batch Page 
+      When Admin clicks on the delete icon under the Manage batch header	
+      Then The respective row in the table should be deleted
+		  @Delete1
+      Scenario: Validate multiple row delete with checkbox
+     Given Admin is on the batch Page 
+       When  Admin clicks on the delete icon under the Manage batch header	
+       Then  The respective row in the table should be deleted
+    
+    #Pagination	
+
+     #Background:
+     #Given Admin is on the batch page	
+      @pagination
+     Scenario: Validate next page link	
+     Given Admin is on the batch Page 
+      When Admin clicks next page link on the data table
+     Then  Admin should see the Next enabled link
+         @pagination
+		Scenario: validate last page link	
+     Given Admin is on the batch Page 
+      When Admin clicks last page link on the data table	
+      Then Admin should see the last page link with next page link disabled on the table 
+	       @pagination
+      Scenario: validate the previous page link	
+     Given Admin is on the batch Page 
+      When Admin clicks previous page link on the data table	
+     Then  Admin should see the previous page on the table
+       @pagination
+		Scenario: validate the first page link
+     Given Admin is on the batch Page 
+      When Admin clicks first page link on the data table	
+      Then Admin should see the very first page on the data table
+
+     #Add New Batch DDT
+     Scenario: Verify Admin Add Batch successfully
+     Given Admin is on the Batch Page 
+     When  Admin Clicks on the Add Batch button and fill the required fields
+     Then  Admin should create a "new Batch successfully"
+
 
 
  
