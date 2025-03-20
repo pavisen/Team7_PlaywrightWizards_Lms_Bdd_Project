@@ -2,23 +2,27 @@ import { test } from '../fixtures/fixture';
 import { createBdd } from 'playwright-bdd';
 import { expect } from '@playwright/test';
 import { getTestData } from '../utils/excelReader';
+import logger, { attachLogsAfterEachTest } from '../utils/logger.js';
 import { assert } from 'console';
 const { Given, When, Then } = createBdd();
 
 const sheet_Name = 'login';
-// Step Definitions for Login Feature
 
+// Step Definitions for Login Feature
 Given('Admin is on login Page', async ({loginPage}) => {
   await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+  logger.info('Navigated to Login Page');
 });
 
 When('Admin enter valid data in all field and clicks login button', async  ({loginPage}) => {
   await loginPage.login(process.env.ADMIN_USERNAME, process.env.PASSWORD);
+  logger.info('Entered Username and Password');
 });
 
 Then('Admin should land on home page', async  ({loginPage}) => {
   const dashboard = await loginPage.getDashboardText();
   await expect(dashboard).toBeVisible(); 
+  logger.info('Successfully logged in and redirected to Dashboard');
 });
 
 
@@ -55,7 +59,6 @@ Then('Error message {string} for null user name', async ({loginPage}, expectedEr
 
 Then('Error message {string} for null password', async ({loginPage}, expectedErrorMessage) => {
   loginPage.navigateToLoginPage(process.env.LOGIN_URL);
-  loginPage.login('', '');
   const errorMessageLocator = await loginPage.getEmptyPasswordError();
   await expect(errorMessageLocator).toHaveText(expectedErrorMessage);
 
@@ -193,8 +196,5 @@ Then('Admin should see two text field', async ({loginPage}) => {
 Then('Admin should see {string} in the first text field', async ({loginPage}, expectedText) => {
   const firstFieldText = await loginPage.usernameInput.getAttribute('ng-reflect-placeholder');
   expect(firstFieldText.trim()).toBe(expectedText.trim());
-
-  
- 
 }); 
  

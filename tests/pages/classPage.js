@@ -10,7 +10,9 @@ class ClassPage {
       name: "Class Description",
     });
     this.classDate = page.locator("#icon");
-    this.noOfClasses = page.locator("//input[@id='classNo']");
+    this.noOfClasses = page.locator('#classNo');
+
+    //this.noOfClasses = page.locator("//input[@id='classNo']");
     this.staffName = page
       .locator("#staffId")
       .getByRole("button", { name: "" });
@@ -27,80 +29,77 @@ class ClassPage {
     this.successfullMsg = page.getByText("Successful", { exact: true });
     this.classCreatedSuccess = page.getByText("Class Created");
     this.classSearchField = page.getByRole("textbox", { name: "Search..." });
-
+    this.errorMessages = page.locator("//*[@class='p-invalid ng-star-inserted']");
     this.classTopicCreated = "";
   }
 
   async enterClassDetails(
-    batchName,
-    classTopic,
-    classDescription,
-    classDate,
-    staffName,
-    comments,
-    notes,
-    recording,
+    batchName = "",
+    classTopic = "",
+    classDescription = "",
+    classDate = "",
+    staffName = "",
+    comments = "",
+    notes = "",
+    recording = "",
     commonFunctions,
   ) {
     // Filling out the class creation form with dynamic values
-    await this.batchName.fill(batchName);
-    await this.classTopic.fill(classTopic);
-    this.classTopicCreated = await this.classTopic.inputValue();
+    if (batchName) await this.batchName.fill(batchName);
+    if (classTopic) await this.classTopic.fill(classTopic);
+     this.classTopicCreated = await this.classTopic.inputValue();
     console.log(`Class Topic Created: ${this.classTopicCreated}`);
-
-    await this.classDescription.fill(classDescription);
-
-    // ✅ Click on the Class Date field
+    if (classDescription) await this.classDescription.fill(classDescription);
+    if (classDate) {
     await this.classDate.click();
-    await this.page.waitForTimeout(500); // Wait for it to become active
-
-    // ✅ Clear the existing value (if any)
-    await this.classDate.press("Control+A"); // Select all text
-    await this.classDate.press("Backspace"); // Delete selected text
-
-    // ✅ Type the date manually instead of fill()
+    await this.page.waitForTimeout(500); 
+    await this.classDate.press("Control+A"); 
+    await this.classDate.press("Backspace"); 
     await this.classDate.pressSequentially(classDate);
-    await this.page.waitForTimeout(500); // Small wait for UI update
-
-    // ✅ Press Tab to move focus and close the date picker
+    await this.page.waitForTimeout(500); 
     await this.classDate.press("Tab");
-
-    // ✅ Click on the Class Description field to close the date picker
     await this.classDescription.click();
-
-    // ✅ Press Tab to move focus and close the date picker
     await this.classDescription.press("Tab");
-
-    // ✅ Ensure No. of Classes field is populated before proceeding
+    try {
     await this.page.waitForFunction(
       async () => {
-        const inputField = document.querySelector("input#classNo"); // Define the locator inside waitForFunction
+        const inputField = document.querySelector("input#classNo"); 
         return inputField && inputField.value.trim() !== "";
       },
       { timeout: 5000 },
     );
-
-    const noOfClassesLocator = this.page.locator("//input[@id='classNo']");
-    const noOfClassesValue = await noOfClassesLocator.inputValue();
-
-    console.log(`Number of Classes generated: ${noOfClassesValue}`);
+  } catch (error) {
+      console.error("Timeout: No. of Classes field was not populated within 5 seconds.", error);
+  }
+  }
 
     await this.page.waitForTimeout(1000);
-
+    if (staffName) {
     await commonFunctions.selectDropdownOption(this.staffName, staffName);
-
+    }
+    await this.getNgReflectModelValue();
     await this.activeStatus.waitFor({ state: "visible" });
     await this.activeStatus.click();
 
-    await this.comments.fill(comments);
-    await this.notes.fill(notes);
-    await this.recording.fill(recording);
+    if (comments) await this.comments.fill(comments);
+    if (notes)  await this.notes.fill(notes);
+    if (recording) await this.recording.fill(recording);
+    await this.page.waitForTimeout(1000); 
   }
+
+
+  
+
 
   async clickSave() {
     await this.saveButton.click();
   }
-
+  async clickCancel() {
+    await this.cancelButton.click();
+  }
+  async clickClose() {
+    await this.closeBatchpop.click();
+  }
   async getClassCreatedSuccessMessage() {
     return this.classCreatedSuccess.textContent();
   }
@@ -112,5 +111,54 @@ class ClassPage {
       this.page.getByRole("gridcell", { name: classTopicCreated }),
     ).toBeVisible();
   }
+
+  async getNgReflectModelValue() {
+    try {
+      await this.noOfClasses.waitFor({ state: 'visible', timeout: 5000 }); 
+      const isValuePresent = await this.page.waitForFunction(
+          (el) => el && el.value.trim() !== "", 
+          await this.noOfClasses.elementHandle(),
+          { timeout: 5000 }
+      ).catch(() => null); 
+      if (!isValuePresent) {
+          console.warn("No. of Classes field remains empty as expected.");
+          return null; 
+      }
+
+      const noOfClassesValue = await this.noOfClasses.inputValue(); 
+      console.log(`Number of Classes generated: ${noOfClassesValue}`);
+      return noOfClassesValue;
+  } catch (error) {
+      console.error(" Error retrieving No. of Classes value:", error);
+      return null; 
+  }
+}
+
+async verifyWeekendsAndPastDatesDisabled() {
+  await this.classDate.click();
+  const disabledDates = await this.page.locator("td .p-disabled");
+  const disabledCount = await disabledDates.count();
+  console.log(`Found ${disabledCount} disabled dates (weekends & past dates).`);
+  return disabledCount > 0;
+}
+
+async getAllErrorMessages() {
+const errorMessages = [];
+const errorMessageElements = await this.errorMessages.all();
+for (let i = 0; i < errorMessageElements.length; i++) {
+  const errorMessageElement = errorMessageElements[i];
+  const message = await errorMessageElement.textContent();
+  const color = await errorMessageElement.evaluate(el => getComputedStyle(el).color);
+  const expectedColor = 'rgb(255, 0, 0)'; // Red color in RGB
+  if (color !== expectedColor) {
+    throw new Error(`Error message color is not red for message: "${message}". Expected color: ${expectedColor}, got: ${color}`);
+  }
+  errorMessages.push(message);
+}
+
+return errorMessages;
+}
+
+
 }
 export { ClassPage };

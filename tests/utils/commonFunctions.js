@@ -68,7 +68,7 @@ class CommonFunctions {
   }
 
   async clickMenu(module) {
-    console.log(`-------------------------------------------Clicking on menu: ${module}`);
+    console.log(`--- Module is : ${module} ---`);
     if (!this.moduleSelectors[module]) {
       throw new Error(`Invalid module: ${module}`);
     }
