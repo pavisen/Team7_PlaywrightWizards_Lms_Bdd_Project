@@ -2,6 +2,7 @@ import { test } from "../fixtures/fixture";
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
 import { getTestData } from "../utils/excelReader"; // Importing the getTestData function
+import logger, { attachLogsAfterEachTest } from '../utils/logger.js';
 
 // Create BDD steps
 const { Given, When, Then } = createBdd();
@@ -23,6 +24,7 @@ Then(
   async function ({ commonFunctions }, expectedTitle) {
     const actualTitle = await commonFunctions.getHeaderText();
     expect(actualTitle).toBe(expectedTitle);
+    logger.info('Navigated to Manage Class Page');
   },
 );
 
