@@ -6,7 +6,7 @@ import { getTestData } from '../utils/excelReader';
 const { Given, When, Then } = createBdd();
 
 const sheetName = 'program';
-Given('Admin is on the program Page', async function ({loggedInPage}) {  
+Given('Admin is on the program Page.', async function ({loggedInPage}) {  
 });
 
 When('Admin Clicks on the Add program button and fill the required fields',async function ({programPage,commonFunctions}) {

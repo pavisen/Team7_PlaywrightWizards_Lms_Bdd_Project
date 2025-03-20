@@ -2,6 +2,7 @@ import { test } from '../fixtures/fixture';
 import { createBdd } from 'playwright-bdd';
 import { expect } from '@playwright/test';
 import { getTestData } from '../utils/excelReader';
+import { assert } from 'console';
 const { Given, When, Then } = createBdd();
 
 const sheet_Name = 'login';
@@ -53,8 +54,11 @@ Then('Error message {string} for null user name', async ({loginPage}, expectedEr
 });
 
 Then('Error message {string} for null password', async ({loginPage}, expectedErrorMessage) => {
-  const errorMessageLocator = await loginPage.getEmptyPasswordError(); 
-  await expect(errorMessageLocator).toHaveText(expectedErrorMessage); 
+  loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+  loginPage.login('', '');
+  const errorMessageLocator = await loginPage.getEmptyPasswordError();
+  await expect(errorMessageLocator).toHaveText(expectedErrorMessage);
+
 });
 
 When('Admin enter valid credentials  and clicks login button through keyboard', async ({loginPage}) => {  
@@ -129,3 +133,72 @@ Then('Admin should see password in gray color', async ({loginPage}) => {
 
 });
 
+
+When('Admin enter invalid URL and clicks login button', async ({loginPage}) => {
+  await loginPage.verifyURL();
+  
+  
+ 
+});
+
+Then('Admin should receive application error', async ({loginPage}) => {
+  expect(loginPage.verifyURL).toBeTruthy();
+ 
+});
+
+When('Admin gives the correct LMS portal HTTP response greater than {int}', async ({loginPage}, arg) => {
+  loginPage.  verifyBrokenLink();
+}
+ 
+);
+
+Then('the link is broken', async ({loginPage}) => {
+  expect(loginPage.verifyBrokenLink()).toBeTruthy;
+  
+});
+
+Then('Admin should see the correct spelling in all fields', async ({loginPage}) => {
+  await loginPage.verifySpellingofFields();
+});
+When('Logins to the application', async ({loginPage}) => {
+  await loginPage.login(process.env.ADMIN_USERNAME, process.env.PASSWORD);
+});
+Then('Admin should see LMS - Learning Management System', async ({loginPage,commonFunctions}) => {
+  loginPage.login(process.env.ADMIN_USERNAME, process.env.PASSWORD);
+  const actualTitle = await commonFunctions.getHeaderText();
+  const expectedTitle = 'LMS - Learning Management System';
+  expect(actualTitle.trim()).toBe(expectedTitle);
+});
+
+Then('Admin should see company name below the app name', async ({}) => {
+  // Step: Then Admin should see company name below the app name
+  // From: tests\features\01_login.feature:104:5
+});
+
+Then('Admin should see {string}', async ({loginPage}, expectedText) => {
+ 
+ 
+});
+
+Then('Admin should see Please login to LMS application', async ({loginPage}) => {
+  loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+  const loginText = await loginPage.getLoginText();
+  expect(loginText.trim()).toBe("Please login to LMS application");
+});
+
+Then('Admin should see two text field', async ({loginPage}) => {
+  loginPage.verifyTextFields();
+  
+
+  // Step: Then Admin should see two text field
+  // From: tests\features\01_login.feature:114:5
+});
+
+Then('Admin should see {string} in the first text field', async ({loginPage}, expectedText) => {
+  const firstFieldText = await loginPage.usernameInput.getAttribute('ng-reflect-placeholder');
+  expect(firstFieldText.trim()).toBe(expectedText.trim());
+
+  
+ 
+}); 
+ 

@@ -1,7 +1,7 @@
 Feature: Program Module Navigation
 
 Background:
-    Given Admin is on the program Page
+    Given Admin is on the program Page.
     
 Scenario: Verify Admin Navigate to program page successfully
 
