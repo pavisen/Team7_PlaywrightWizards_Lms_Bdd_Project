@@ -130,6 +130,37 @@ Feature: Program Module Navigation
                         | KeyOption   | sheetname |
                         | editprogram | Program   |
 
+
+        #delete program
+        
+Scenario: Verify delete feature
+Given Admin is on Program module
+When Admin clicks on delete button for a program
+Then Admin will get confirm deletion popup
+
+
+Scenario: Verify Admin is able to click 'Yes'
+Given Admin is on Confirm deletion form
+When Admin clicks on "Yes" button
+Then Admin can see 'Successful Program Deleted' message
+
+
+Scenario: Verify Admin is able to deleted program
+Given Admin is on Program module
+When Admin Searches for "Deleted Program name"
+Then There should be zero results.
+
+
+Scenario: Verify Admin is able to click 'No'
+Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+When Admin clicks on No button
+Then Admin can see Confirmation form disappears
+
+
+Scenario: Verify Admin is able to close the window with "X" 
+Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+When Admin Click on X button
+Then Admin can see Confirm Deletion form disappear
         #sort program
 
 
@@ -148,3 +179,33 @@ Feature: Program Module Navigation
 
                 When Admin clicks on Arrow next to Program status
                 Then Admin See the  Program Status is sorted in Ascending order/Descending order
+
+
+
+
+         #program Pagination       
+
+        
+
+
+
+
+Scenario: Verify Admin is able to click Next page link
+Given Admin is on Program module
+When Admin clicks Next page link on the program table
+Then Admin should see the Pagination has "Next" active link
+
+Scenario: Verify Admin is able to click  Last page link
+Given Admin is on Program module
+When Admin clicks Last page link in program table
+Then Admin should see the last page record on the program table with Next page link are disabled
+
+Scenario: Verify Admin is able to click Previous page link
+Given Admin is on last page of Program module table
+When Admin clicks Previous page link
+Then Admin should see the previous page record on the table with pagination has previous page link
+
+Scenario: Verify Admin is able to click  First page link
+Given Admin is on Previous Program page
+When Admin clicks First page link
+Then Admin should see the very first page record on the program table with Previous page link are disabled
