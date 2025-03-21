@@ -71,6 +71,102 @@ test.describe('Class Page Validation', () => {
     await Then('Admin gets message Class added Successfully', null, { classPage }); 
   });
 
+  test('Check no classes value added when selecting class dates', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, classPage, Then }) => { 
+    await Given('Admin is on the Class Popup window', null, { loggedInPage, commonFunctions }); 
+    await When('Admin selects class date in date picker', null, { classPage, commonFunctions }); 
+    await Then('Admin should see no of class value is added automatically', null, { classPage }); 
+  });
+
+  test('Check weekend dates are disabled in calendar', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, classPage, Then }) => { 
+    await Given('Admin is on the Class Popup window', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks date picker', null, { classPage }); 
+    await Then('Admin should see weekends dates are disabled to select', null, { classPage }); 
+  });
+
+  test('Check if class is created when only optional fields are entered with valid data', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, classPage, Then }) => { 
+    await Given('Admin is on the Class Popup window', null, { loggedInPage, commonFunctions }); 
+    await When('Admin skips to add value in mandatory field and enter only the optional field', null, { classPage, commonFunctions }); 
+    await Then('Admin should see error message below the test field and the field will be highlighted in red color', null, { classPage }); 
+  });
+
+  test('check if class is created when invalid data is entered in all of the fields', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, classPage, Then }) => { 
+    await Given('Admin is on the Class Popup window', null, { loggedInPage, commonFunctions }); 
+    await When('Admin enters invalid data in all of the  fields in the form and clicks on save button', null, { classPage, commonFunctions }); 
+    await Then('Admin gets error message and class is not created', null, { classPage }); 
+  });
+
+  test('Empty form submission', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, classPage, Then }) => { 
+    await Given('Admin is on the Class Popup window', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks on save button without entering data', null, { classPage }); 
+    await Then('class won\'t be created and Admin gets error message', null, { classPage }); 
+  });
+
+  test('Validate Cancel icon on class Details form', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, classPage, Then }) => { 
+    await Given('Admin is on the Class Popup window', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks Cancel button on Admin Details form', null, { classPage, commonFunctions }); 
+    await Then('Class Details popup window should be closed without saving', null, { commonFunctions }); 
+  });
+
+  test('Validate Close(X) icon on class Details form', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, classPage, Then }) => { 
+    await Given('Admin is on the Class Popup window', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks Close Icon on Admin Details form', null, { classPage, commonFunctions }); 
+    await Then('Class Details popup window should be closed without saving', null, { commonFunctions }); 
+  });
+
+  test('Validate row level edit icon', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
+    await Given('Admin is on the Manage Class page'); 
+    await When('Admin clicks on the edit icon'); 
+    await Then('A new pop up with class details appears'); 
+  });
+
+  test('Check disabled  batch name', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
+    await Given('Admin is on the Manage Class page'); 
+    await When('Admin clicks on the edit icon'); 
+    await Then('Admin should see batch name field is disabled'); 
+  });
+
+  test('Check disabled class topic', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
+    await Given('Admin is on the Manage Class page'); 
+    await When('Admin clicks on the edit icon'); 
+    await Then('Admin should see class topic field is disabled'); 
+  });
+
+  test('Check if the fields are updated with valid data', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
+    await Given('Admin is on the Edit Class Popup window'); 
+    await When('Update the fields with valid data and click save'); 
+    await Then('Admin gets message "class details updated Successfully " and see the updated values in data table'); 
+  });
+
+  test('Check if the fields are updated with invalid values', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
+    await Given('Admin is on the Edit Class Popup window'); 
+    await When('Update the fields with invalid values and click save'); 
+    await Then('Admin should get Error message'); 
+  });
+
+  test('Check if the mandatory fields are updated with valid data', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
+    await Given('Admin is on the Edit Class Popup window'); 
+    await When('Update the mandatory fields with valid values and click save'); 
+    await Then('Admin gets message "Class details updated Successfully " and see the updated values in data table'); 
+  });
+
+  test('Check if the optional fields are updated with valid data', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
+    await Given('Admin is on the Edit  Class Popup window'); 
+    await When('Update the optional fields with valid values and click save'); 
+    await Then('Admin gets message "Class details updated Successfully " and see the updated values in data table'); 
+  });
+
+  test('Validate invalid values in the text fields', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
+    await Given('Admin is on the Edit Class Popup window'); 
+    await When('Admin enters only numbers or special char in the text fields'); 
+    await Then('Admin should get Error message'); 
+  });
+
+  test('Validate Cancel button on Edit popup', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
+    await Given('Admin is on the Edit Class Popup window'); 
+    await When('Admin clicks Cancel button on edit popup'); 
+    await Then('Admin can see the class details popup disappears and can see nothing changed for particular Class'); 
+  });
+
 });
 
 // == technical section ==
@@ -94,4 +190,20 @@ const bddFileData = [ // bdd-data-start
   {"pwTestLine":56,"pickleLine":47,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":57,"gherkinStepLine":48,"keywordType":"Context","textWithKeyword":"Given Admin is on the Manage class page","stepMatchArguments":[]},{"pwStepLine":58,"gherkinStepLine":49,"keywordType":"Action","textWithKeyword":"When Admin clicks a add new class under the class menu bar","stepMatchArguments":[]},{"pwStepLine":59,"gherkinStepLine":50,"keywordType":"Outcome","textWithKeyword":"Then Admin should see few input fields and their respective text boxes in the class details window","stepMatchArguments":[]}]},
   {"pwTestLine":62,"pickleLine":54,"tags":["@class","@smoke"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":63,"gherkinStepLine":55,"keywordType":"Context","textWithKeyword":"Given Admin is on the Class Popup window","stepMatchArguments":[]},{"pwStepLine":64,"gherkinStepLine":56,"keywordType":"Action","textWithKeyword":"When Admin enters all fields in the form and clicks on save button","stepMatchArguments":[]},{"pwStepLine":65,"gherkinStepLine":57,"keywordType":"Outcome","textWithKeyword":"Then Admin gets message Class added Successfully","stepMatchArguments":[]}]},
   {"pwTestLine":68,"pickleLine":60,"tags":["@class","@smoke"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":69,"gherkinStepLine":61,"keywordType":"Context","textWithKeyword":"Given Admin is on the Class Popup window","stepMatchArguments":[]},{"pwStepLine":70,"gherkinStepLine":62,"keywordType":"Action","textWithKeyword":"When Admin enters mandatory fields in the form and clicks on save button","stepMatchArguments":[]},{"pwStepLine":71,"gherkinStepLine":63,"keywordType":"Outcome","textWithKeyword":"Then Admin gets message Class added Successfully","stepMatchArguments":[]}]},
+  {"pwTestLine":74,"pickleLine":65,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":75,"gherkinStepLine":66,"keywordType":"Context","textWithKeyword":"Given Admin is on the Class Popup window","stepMatchArguments":[]},{"pwStepLine":76,"gherkinStepLine":67,"keywordType":"Action","textWithKeyword":"When Admin selects class date in date picker","stepMatchArguments":[]},{"pwStepLine":77,"gherkinStepLine":68,"keywordType":"Outcome","textWithKeyword":"Then Admin should see no of class value is added automatically","stepMatchArguments":[]}]},
+  {"pwTestLine":80,"pickleLine":70,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":81,"gherkinStepLine":71,"keywordType":"Context","textWithKeyword":"Given Admin is on the Class Popup window","stepMatchArguments":[]},{"pwStepLine":82,"gherkinStepLine":72,"keywordType":"Action","textWithKeyword":"When Admin clicks date picker","stepMatchArguments":[]},{"pwStepLine":83,"gherkinStepLine":73,"keywordType":"Outcome","textWithKeyword":"Then Admin should see weekends dates are disabled to select","stepMatchArguments":[]}]},
+  {"pwTestLine":86,"pickleLine":75,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":87,"gherkinStepLine":76,"keywordType":"Context","textWithKeyword":"Given Admin is on the Class Popup window","stepMatchArguments":[]},{"pwStepLine":88,"gherkinStepLine":77,"keywordType":"Action","textWithKeyword":"When Admin skips to add value in mandatory field and enter only the optional field","stepMatchArguments":[]},{"pwStepLine":89,"gherkinStepLine":78,"keywordType":"Outcome","textWithKeyword":"Then Admin should see error message below the test field and the field will be highlighted in red color","stepMatchArguments":[]}]},
+  {"pwTestLine":92,"pickleLine":80,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":93,"gherkinStepLine":81,"keywordType":"Context","textWithKeyword":"Given Admin is on the Class Popup window","stepMatchArguments":[]},{"pwStepLine":94,"gherkinStepLine":82,"keywordType":"Action","textWithKeyword":"When Admin enters invalid data in all of the  fields in the form and clicks on save button","stepMatchArguments":[]},{"pwStepLine":95,"gherkinStepLine":83,"keywordType":"Outcome","textWithKeyword":"Then Admin gets error message and class is not created","stepMatchArguments":[]}]},
+  {"pwTestLine":98,"pickleLine":85,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":99,"gherkinStepLine":86,"keywordType":"Context","textWithKeyword":"Given Admin is on the Class Popup window","stepMatchArguments":[]},{"pwStepLine":100,"gherkinStepLine":87,"keywordType":"Action","textWithKeyword":"When Admin clicks on save button without entering data","stepMatchArguments":[]},{"pwStepLine":101,"gherkinStepLine":88,"keywordType":"Outcome","textWithKeyword":"Then class won't be created and Admin gets error message","stepMatchArguments":[]}]},
+  {"pwTestLine":104,"pickleLine":90,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":105,"gherkinStepLine":91,"keywordType":"Context","textWithKeyword":"Given Admin is on the Class Popup window","stepMatchArguments":[]},{"pwStepLine":106,"gherkinStepLine":92,"keywordType":"Action","textWithKeyword":"When Admin clicks Cancel button on Admin Details form","stepMatchArguments":[]},{"pwStepLine":107,"gherkinStepLine":93,"keywordType":"Outcome","textWithKeyword":"Then Class Details popup window should be closed without saving","stepMatchArguments":[]}]},
+  {"pwTestLine":110,"pickleLine":95,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":111,"gherkinStepLine":96,"keywordType":"Context","textWithKeyword":"Given Admin is on the Class Popup window","stepMatchArguments":[]},{"pwStepLine":112,"gherkinStepLine":97,"keywordType":"Action","textWithKeyword":"When Admin clicks Close Icon on Admin Details form","stepMatchArguments":[]},{"pwStepLine":113,"gherkinStepLine":98,"keywordType":"Outcome","textWithKeyword":"Then Class Details popup window should be closed without saving","stepMatchArguments":[]}]},
+  {"pwTestLine":116,"pickleLine":101,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":117,"gherkinStepLine":102,"keywordType":"Context","textWithKeyword":"Given Admin is on the Manage Class page","stepMatchArguments":[]},{"pwStepLine":118,"gherkinStepLine":103,"keywordType":"Action","textWithKeyword":"When Admin clicks on the edit icon","stepMatchArguments":[]},{"pwStepLine":119,"gherkinStepLine":104,"keywordType":"Outcome","textWithKeyword":"Then A new pop up with class details appears","stepMatchArguments":[]}]},
+  {"pwTestLine":122,"pickleLine":106,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":123,"gherkinStepLine":107,"keywordType":"Context","textWithKeyword":"Given Admin is on the Manage Class page","stepMatchArguments":[]},{"pwStepLine":124,"gherkinStepLine":108,"keywordType":"Action","textWithKeyword":"When Admin clicks on the edit icon","stepMatchArguments":[]},{"pwStepLine":125,"gherkinStepLine":109,"keywordType":"Outcome","textWithKeyword":"Then Admin should see batch name field is disabled","stepMatchArguments":[]}]},
+  {"pwTestLine":128,"pickleLine":111,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":129,"gherkinStepLine":112,"keywordType":"Context","textWithKeyword":"Given Admin is on the Manage Class page","stepMatchArguments":[]},{"pwStepLine":130,"gherkinStepLine":113,"keywordType":"Action","textWithKeyword":"When Admin clicks on the edit icon","stepMatchArguments":[]},{"pwStepLine":131,"gherkinStepLine":114,"keywordType":"Outcome","textWithKeyword":"Then Admin should see class topic field is disabled","stepMatchArguments":[]}]},
+  {"pwTestLine":134,"pickleLine":116,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":135,"gherkinStepLine":117,"keywordType":"Context","textWithKeyword":"Given Admin is on the Edit Class Popup window","stepMatchArguments":[]},{"pwStepLine":136,"gherkinStepLine":118,"keywordType":"Action","textWithKeyword":"When Update the fields with valid data and click save","stepMatchArguments":[]},{"pwStepLine":137,"gherkinStepLine":119,"keywordType":"Outcome","textWithKeyword":"Then Admin gets message \"class details updated Successfully \" and see the updated values in data table","stepMatchArguments":[{"group":{"start":19,"value":"\"class details updated Successfully \"","children":[{"start":20,"value":"class details updated Successfully ","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
+  {"pwTestLine":140,"pickleLine":121,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":141,"gherkinStepLine":122,"keywordType":"Context","textWithKeyword":"Given Admin is on the Edit Class Popup window","stepMatchArguments":[]},{"pwStepLine":142,"gherkinStepLine":123,"keywordType":"Action","textWithKeyword":"When Update the fields with invalid values and click save","stepMatchArguments":[]},{"pwStepLine":143,"gherkinStepLine":124,"keywordType":"Outcome","textWithKeyword":"Then Admin should get Error message","stepMatchArguments":[]}]},
+  {"pwTestLine":146,"pickleLine":126,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":147,"gherkinStepLine":127,"keywordType":"Context","textWithKeyword":"Given Admin is on the Edit Class Popup window","stepMatchArguments":[]},{"pwStepLine":148,"gherkinStepLine":128,"keywordType":"Action","textWithKeyword":"When Update the mandatory fields with valid values and click save","stepMatchArguments":[]},{"pwStepLine":149,"gherkinStepLine":129,"keywordType":"Outcome","textWithKeyword":"Then Admin gets message \"Class details updated Successfully \" and see the updated values in data table","stepMatchArguments":[{"group":{"start":19,"value":"\"Class details updated Successfully \"","children":[{"start":20,"value":"Class details updated Successfully ","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
+  {"pwTestLine":152,"pickleLine":131,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":153,"gherkinStepLine":132,"keywordType":"Context","textWithKeyword":"Given Admin is on the Edit  Class Popup window","stepMatchArguments":[]},{"pwStepLine":154,"gherkinStepLine":133,"keywordType":"Action","textWithKeyword":"When Update the optional fields with valid values and click save","stepMatchArguments":[]},{"pwStepLine":155,"gherkinStepLine":134,"keywordType":"Outcome","textWithKeyword":"Then Admin gets message \"Class details updated Successfully \" and see the updated values in data table","stepMatchArguments":[{"group":{"start":19,"value":"\"Class details updated Successfully \"","children":[{"start":20,"value":"Class details updated Successfully ","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
+  {"pwTestLine":158,"pickleLine":136,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":159,"gherkinStepLine":137,"keywordType":"Context","textWithKeyword":"Given Admin is on the Edit Class Popup window","stepMatchArguments":[]},{"pwStepLine":160,"gherkinStepLine":138,"keywordType":"Action","textWithKeyword":"When Admin enters only numbers or special char in the text fields","stepMatchArguments":[]},{"pwStepLine":161,"gherkinStepLine":139,"keywordType":"Outcome","textWithKeyword":"Then Admin should get Error message","stepMatchArguments":[]}]},
+  {"pwTestLine":164,"pickleLine":141,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":165,"gherkinStepLine":142,"keywordType":"Context","textWithKeyword":"Given Admin is on the Edit Class Popup window","stepMatchArguments":[]},{"pwStepLine":166,"gherkinStepLine":143,"keywordType":"Action","textWithKeyword":"When Admin clicks Cancel button on edit popup","stepMatchArguments":[]},{"pwStepLine":167,"gherkinStepLine":144,"keywordType":"Outcome","textWithKeyword":"Then Admin can see the class details popup disappears and can see nothing changed for particular Class","stepMatchArguments":[]}]},
 ]; // bdd-data-end

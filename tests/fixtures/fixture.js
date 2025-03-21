@@ -25,6 +25,11 @@ export const test = base.extend({
     await use(batchPage);
   },
 
+  paginationPage: async ({ loginPage }, use) => {
+    await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
+    await loginPage.login(process.env.ADMIN_USERNAME, process.env.PASSWORD);
+    await use(loginPage);
+  },
   loggedInPage: async ({ loginPage }, use) => {
     await loginPage.navigateToLoginPage(process.env.LOGIN_URL);
     await loginPage.login(process.env.ADMIN_USERNAME, process.env.PASSWORD);
