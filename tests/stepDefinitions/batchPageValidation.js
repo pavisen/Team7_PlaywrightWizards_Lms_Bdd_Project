@@ -85,16 +85,23 @@ Given('Admin is on the batch Page', async function ({paginationPage,commonFuncti
 
 
 When('Admin clicks on the delete icon under the Manage batch header', async ({commonFunctions}) => {
-  //await commonFunctions.deleteFirstBatch();
-
-  await commonFunctions.deleteSelectedBatches();
+  
+  await commonFunctions.deleteSelectedBatches(1);
 
 });
 
-Then('The respective row in the table should be deleted', async ({commonFunctions}) => {
-  //await commonFunctions.verifyRowDeletion();
+When('Admin clicks on the delete icon under the Manage batch header for multiple rows', async ({commonFunctions}) => {
+  
+  await commonFunctions.deleteSelectedBatches(2);
 
-  await commonFunctions.verifyBatchDeletion();
+});
+
+Then('The respective row in the table should be deleted', async ({batchPage,commonFunctions}) => {
+
+
+  const successMessage = await commonFunctions.deletedMessage.textContent();
+  expect(successMessage.trim()).toBe("Batches Deleted");
+ 
 });
 
 When('Admin clicks next page link on the data table', async ({commonFunctions}) => {

@@ -31,6 +31,7 @@ class CommonFunctions {
     this.searchBar = page.getByRole("textbox", { name: "Search..." });
     this.tableHeader = page.locator("//*[@class='p-datatable-thead']/tr/th");
     this.tableRows = page.locator("//tbody/tr");
+
     // Pagination Locators
     this.paginationText = page.locator(
       "//span[@class='p-paginator-current ng-star-inserted']",
@@ -45,9 +46,11 @@ class CommonFunctions {
       deleteIcon: ".//span[@class='p-button-icon pi pi-trash']",
       checkbox: ".//span[@class='p-checkbox-icon']",
       sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
+
     };
 
-    this.checkBoxList = page.locator("//div[@class='p-checkbox p-component']");
+    this.checkBoxList = page.locator("//tbody[@class='p-datatable-tbody']//div[@role='checkbox']");
+
     this.deleteButton = page.locator("//*[@class='box']//button");
     this.totalClassesText = page.locator("//*[@class='p-datatable-footer ng-star-inserted']/div");
     this.checkboxHeaderTableBatch = page.locator("//div[@class='p-checkbox-box']");
@@ -59,9 +62,9 @@ class CommonFunctions {
     this.paginationLast = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-right']");
     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
+ this.deletedMessage = page.getByText('Batches Deleted');
 
-
-  }
+    }
 
   async isEditIconVisible() {
     return await this.editIcon.first().isVisible(); // Check if at least one is visible
@@ -226,75 +229,69 @@ class CommonFunctions {
     console.error("Error in selecting dropdown option:", error);
   }
   
- 
- //Deleting mutiple checkboxes:
+// Method to click anywhere on the screen
+async clickAnywhere(x = 500, y = 300) {
+  await this.page.mouse.click(x, y);
+  console.log(`Clicked at coordinates (${x}, ${y})`);
+}
 
-  // Method to click anywhere on the screen
-  async clickAnywhere(x = 500, y = 300) {
-    await this.page.mouse.click(x, y);
-    console.log(`Clicked at coordinates (${x}, ${y})`);
-  }
-  //Deleting mutiple checkboxes:
+//Delete first record
+async deleteSelectedBatches(count = 1) {
+  if (!this.page) throw new Error("Page context is closed.");
 
-  //  async deleteFirstBatch() {
-  //   // Wait for the checkbox in the first row to be visible
-  //   const checkboxes = await this.checkboxEachRowbatch.all();
-  //   console.log("#### checkbox count", checkboxes);
-  //   const rowCount = checkboxes.length;
-  //      console.log(`Found ${rowCount} checkboxes`);
-  //   if (checkboxes.length > 0) {
-  //       // Select the first checkbox
-  //      // await checkboxes[0].click();
-  //       await checkboxes[0].isEnabled();
+  // Ensure table is loaded
+  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
 
-  //   } else {
-  //       throw new Error("No batches available to delete.");
-  //   }
+  const checkboxes = await this.checkBoxList.all(); // Get all checkboxes
+  const rowCount = checkboxes.length;
 
-  //   // Click on the delete button
-  //   await this.deleteIcon.click();
+  console.log(`Found ${rowCount} checkboxes`);
 
-  //   // Wait for any confirmation dialog or response
-  //   await this.page.waitForTimeout(2000); // Adjust if necessary based on your system's response time
-  // }
-
-  // // Verify that the first row is deleted
-  // async verifyRowDeletion() {
-  //   const rows = await this.dataTableRows.all();
-  //   if (rows.length === 0 || await rows[0].isVisible() === false) {
-  //       console.log("First row deleted successfully.");
-  //   } else {
-  //       throw new Error("Batch deletion failed. The first row still exists.");
-  //   }
-  // }
-
-
-  async deleteSelectedBatches() {
-    const checkboxes = await this.checkboxEachRowbatch.all(); // Get all matching checkboxes
-    //await checkboxes.waitFor({ state: 'visible' });
-
-    const rowCount = checkboxes.length;
-    console.log(`Found ${rowCount} checkboxes`);
-
-    if (checkboxes.length >= 1) {
-      await checkboxes[0].click();
-      await checkboxes[1].click();
-    } else {
-      throw new Error("Not enough records to delete.");
-    }
-
-    await this.deleteIcon.click();
-    await this.page.waitForTimeout(2000); // Wait for deletion process
+  // Ensure there are enough rows to delete
+  if (rowCount < count) {
+      throw new Error(`Not enough records to delete. Found only ${rowCount} records.`);
   }
 
-  async verifyBatchDeletion() {
-    await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
-    const rows = await this.dataTableRows.all();
-
-    if (rows.length >= 2) {
-      throw new Error("Batch deletion failed. Records still exist.");
-    }
+  // Select checkboxes for deletion
+  for (let i = 0; i < count; i++) {
+      await checkboxes[i].click();
   }
+
+  // Click the delete button
+  await this.deleteButton.click();
+
+  // Check if a confirmation popup appears and confirm
+  const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
+  const yesDelete=  this.page.locator("//span[contains(text(),'Yes')]");
+  if (await confirmDialog.isVisible()) {
+      await yesDelete.click();
+  }
+
+
+  // Wait for table to update dynamically using `waitForSelector`
+  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached', timeout: 5000 });
+
+  console.log(`Successfully deleted ${count} batch(es).`);
+}
+
+async verifyBatchDeletion() {
+  // Check if a confirmation popup appears and confirm
+  const confirmDialog = this.page.locator("//div[contains(text(),'Successful')]");
+  const deletedMessage = this.page.getByText('Batches Deleted');
+
+  if (await confirmDialog.isVisible()) {
+    await this.page.pause();
+    const messageText = await deletedMessage.textContent();
+    await this.page.pause();
+    console.log(`Deletion message displayed: ${messageText}`);
+
+    // Ensure the message is actually visible
+    await expect(deletedMessage).toBeVisible();
+} else {
+    throw new Error("Batch deletion confirmation message not found.");
+}
+
+}
 
   //pagination
   async goToNextPage() {
