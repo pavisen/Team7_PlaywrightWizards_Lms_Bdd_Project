@@ -1,4 +1,4 @@
-// Generated from: tests/Features/04_class.feature
+// Generated from: tests\Features\04_class.feature
 import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Class Page Validation', () => {
@@ -167,37 +167,13 @@ test.describe('Class Page Validation', () => {
     await Then('Admin can see the class details popup disappears and can see nothing changed for particular Class'); 
   });
 
-  test('Verify Next page link(>)', { tag: ['@class'] }, async ({ Given, paginationPage, commonFunctions, When, Then }) => { 
-    await Given('Admin is on Manage class page', null, { paginationPage, commonFunctions }); 
-    await When('Admin clicks Next page link on the class table', null, { commonFunctions }); 
-    await Then('Admin should see the next page record on the table  with Pagination has next active link enabled', null, { commonFunctions }); 
-  });
-
-  test('Verify Last page link(>>)', { tag: ['@class'] }, async ({ Given, paginationPage, commonFunctions, When, Then }) => { 
-    await Given('Admin is on Manage class page', null, { paginationPage, commonFunctions }); 
-    await When('Admin clicks Last page link', null, { commonFunctions }); 
-    await Then('Admin should see the last page record on the table with Next page link are disabled', null, { commonFunctions }); 
-  });
-
-  test('Verify previous page link(<)', { tag: ['@class'] }, async ({ Given, commonFunctions, When, Then }) => { 
-    await Given('Admin is on next page of class table', null, { commonFunctions }); 
-    await When('Admin clicks previous page link', null, { commonFunctions }); 
-    await Then('Admin should see the previous page record on the table with pagination has previous page link enabled', null, { commonFunctions }); 
-  });
-
-  test('Verify Start page link(<<)', { tag: ['@class'] }, async ({ Given, commonFunctions, When, Then }) => { 
-    await Given('Admin is on last class page', null, { commonFunctions }); 
-    await When('Admin clicks first page link', null, { commonFunctions }); 
-    await Then('Admin should see the very first page record on the table with Previous page link are disabled', null, { commonFunctions }); 
-  });
-
 });
 
 // == technical section ==
 
 test.use({
   $test: ({}, use) => use(test),
-  $uri: ({}, use) => use('tests/Features/04_class.feature'),
+  $uri: ({}, use) => use('tests\\Features\\04_class.feature'),
   $bddFileData: ({}, use) => use(bddFileData),
 });
 
@@ -230,8 +206,4 @@ const bddFileData = [ // bdd-data-start
   {"pwTestLine":152,"pickleLine":131,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":153,"gherkinStepLine":132,"keywordType":"Context","textWithKeyword":"Given Admin is on the Edit  Class Popup window","stepMatchArguments":[]},{"pwStepLine":154,"gherkinStepLine":133,"keywordType":"Action","textWithKeyword":"When Update the optional fields with valid values and click save","stepMatchArguments":[]},{"pwStepLine":155,"gherkinStepLine":134,"keywordType":"Outcome","textWithKeyword":"Then Admin gets message \"Class details updated Successfully \" and see the updated values in data table","stepMatchArguments":[{"group":{"start":19,"value":"\"Class details updated Successfully \"","children":[{"start":20,"value":"Class details updated Successfully ","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
   {"pwTestLine":158,"pickleLine":136,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":159,"gherkinStepLine":137,"keywordType":"Context","textWithKeyword":"Given Admin is on the Edit Class Popup window","stepMatchArguments":[]},{"pwStepLine":160,"gherkinStepLine":138,"keywordType":"Action","textWithKeyword":"When Admin enters only numbers or special char in the text fields","stepMatchArguments":[]},{"pwStepLine":161,"gherkinStepLine":139,"keywordType":"Outcome","textWithKeyword":"Then Admin should get Error message","stepMatchArguments":[]}]},
   {"pwTestLine":164,"pickleLine":141,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":165,"gherkinStepLine":142,"keywordType":"Context","textWithKeyword":"Given Admin is on the Edit Class Popup window","stepMatchArguments":[]},{"pwStepLine":166,"gherkinStepLine":143,"keywordType":"Action","textWithKeyword":"When Admin clicks Cancel button on edit popup","stepMatchArguments":[]},{"pwStepLine":167,"gherkinStepLine":144,"keywordType":"Outcome","textWithKeyword":"Then Admin can see the class details popup disappears and can see nothing changed for particular Class","stepMatchArguments":[]}]},
-  {"pwTestLine":170,"pickleLine":148,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":171,"gherkinStepLine":149,"keywordType":"Context","textWithKeyword":"Given Admin is on Manage class page","stepMatchArguments":[]},{"pwStepLine":172,"gherkinStepLine":150,"keywordType":"Action","textWithKeyword":"When Admin clicks Next page link on the class table","stepMatchArguments":[]},{"pwStepLine":173,"gherkinStepLine":151,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the next page record on the table  with Pagination has next active link enabled","stepMatchArguments":[]}]},
-  {"pwTestLine":176,"pickleLine":153,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":177,"gherkinStepLine":154,"keywordType":"Context","textWithKeyword":"Given Admin is on Manage class page","stepMatchArguments":[]},{"pwStepLine":178,"gherkinStepLine":155,"keywordType":"Action","textWithKeyword":"When Admin clicks Last page link","stepMatchArguments":[]},{"pwStepLine":179,"gherkinStepLine":156,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the last page record on the table with Next page link are disabled","stepMatchArguments":[]}]},
-  {"pwTestLine":182,"pickleLine":158,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":183,"gherkinStepLine":159,"keywordType":"Context","textWithKeyword":"Given Admin is on next page of class table","stepMatchArguments":[]},{"pwStepLine":184,"gherkinStepLine":160,"keywordType":"Action","textWithKeyword":"When Admin clicks previous page link","stepMatchArguments":[]},{"pwStepLine":185,"gherkinStepLine":161,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the previous page record on the table with pagination has previous page link enabled","stepMatchArguments":[]}]},
-  {"pwTestLine":188,"pickleLine":163,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":189,"gherkinStepLine":164,"keywordType":"Context","textWithKeyword":"Given Admin is on last class page","stepMatchArguments":[]},{"pwStepLine":190,"gherkinStepLine":165,"keywordType":"Action","textWithKeyword":"When Admin clicks first page link","stepMatchArguments":[]},{"pwStepLine":191,"gherkinStepLine":166,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the very first page record on the table with Previous page link are disabled","stepMatchArguments":[]}]},
 ]; // bdd-data-end
