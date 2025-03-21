@@ -13,13 +13,11 @@ class ClassPage {
     this.noOfClasses = page.locator('#classNo');
 
     //this.noOfClasses = page.locator("//input[@id='classNo']");
-    this.staffName = page
-      .locator("#staffId")
-      .getByRole("button", { name: "" });
-    this.activeStatus = page.locator(".p-radiobutton-box").first();
-    this.inactiveStatus = page.locator(
-      "div:nth-child(3) > #category > .p-radiobutton > .p-radiobutton-box",
-    );
+    this.staffName = page.locator("#staffId").getByRole("button", { name: "" }).filter({ visible: true });
+      this.activeStatus = page.locator(".p-radiobutton-box").filter({ visible: true }).first();
+      this.inactiveStatus = page.locator(
+        "div:nth-child(3) > #category > .p-radiobutton > .p-radiobutton-box"
+      ).filter({ visible: true });
     this.comments = page.getByRole("textbox", { name: "Comments" });
     this.notes = page.getByRole("textbox", { name: "Notes" });
     this.recording = page.locator("#classRecordingPath");
@@ -108,7 +106,7 @@ class ClassPage {
     await this.classSearchField.click();
     await this.classSearchField.fill(classTopicCreated);
     await expect(
-      this.page.getByRole("gridcell", { name: classTopicCreated }),
+      this.page.getByRole("gridcell", { name: classTopicCreated }).filter({ visible: true })
     ).toBeVisible();
   }
 
@@ -144,7 +142,7 @@ async verifyWeekendsAndPastDatesDisabled() {
 
 async getAllErrorMessages() {
 const errorMessages = [];
-const errorMessageElements = await this.errorMessages.all();
+const errorMessageElements = await this.errorMessages.filter({ visible: true }).all();
 for (let i = 0; i < errorMessageElements.length; i++) {
   const errorMessageElement = errorMessageElements[i];
   const message = await errorMessageElement.textContent();
