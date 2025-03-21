@@ -142,3 +142,27 @@ Scenario: Validate Cancel button on Edit popup
 Given Admin is on the Edit Class Popup window
 When Admin clicks Cancel button on edit popup
 Then Admin can see the class details popup disappears and can see nothing changed for particular Class
+
+
+#Pagination - Class Page
+Scenario: Verify Next page link(>)
+Given Admin is on Manage class page
+When Admin clicks Next page link on the class table 
+Then Admin should see the next page record on the table  with Pagination has next active link enabled
+
+Scenario: Verify Last page link(>>)
+Given Admin is on Manage class page 
+When Admin clicks Last page link
+Then Admin should see the last page record on the table with Next page link are disabled
+
+Scenario: Verify previous page link(<)
+Given Admin is on next page of class table
+When Admin clicks previous page link
+Then Admin should see the previous page record on the table with pagination has previous page link enabled
+
+Scenario: Verify Start page link(<<)
+Given Admin is on last class page 
+When Admin clicks first page link
+Then Admin should see the very first page record on the table with Previous page link are disabled
+
+
