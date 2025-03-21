@@ -76,10 +76,10 @@ Feature: Batch Module -Batch Page Navigation
      Given Admin is on the batch Page 
       When Admin clicks on the delete icon under the Manage batch header	
       Then The respective row in the table should be deleted
-		  @Delete1
+           @Delete
       Scenario: Validate multiple row delete with checkbox
      Given Admin is on the batch Page 
-       When  Admin clicks on the delete icon under the Manage batch header	
+       When  Admin clicks on the delete icon under the Manage batch header for multiple rows
        Then  The respective row in the table should be deleted
     
     #Pagination	

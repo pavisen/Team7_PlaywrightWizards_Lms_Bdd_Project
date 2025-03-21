@@ -31,6 +31,7 @@ class CommonFunctions {
     this.searchBar = page.getByRole("textbox", { name: "Search..." });
     this.tableHeader = page.locator("//*[@class='p-datatable-thead']/tr/th");
     this.tableRows = page.locator("//tbody/tr");
+
     // Pagination Locators
     this.paginationText = page.locator(
       "//span[@class='p-paginator-current ng-star-inserted']",
@@ -45,23 +46,25 @@ class CommonFunctions {
       deleteIcon: ".//span[@class='p-button-icon pi pi-trash']",
       checkbox: ".//span[@class='p-checkbox-icon']",
       sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
+
     };
-    
-    this.checkBoxList = page.locator("//div[@class='p-checkbox p-component']");
+
+    this.checkBoxList = page.locator("//tbody[@class='p-datatable-tbody']//div[@role='checkbox']");
+
     this.deleteButton = page.locator("//*[@class='box']//button");
     this.totalClassesText = page.locator("//*[@class='p-datatable-footer ng-star-inserted']/div");
-     this.checkboxHeaderTableBatch=page.locator("//div[@class='p-checkbox-box']");
-     this.editButtoneachRowBatch=page.locator("//span[@class='p-button-icon pi pi-pencil']");
-     this.deleteButtoneachRowBatch=page.locator("//span[@class='p-button-icon pi pi-trash']");
-     this.checkboxEachRowbatch=page.locator("//div[@class='p-checkbox-box p-component']");
-     this.dataTableRows = page.locator("//table/tbody/tr");
-     this.paginationNext = page.locator("//button[@class='p-paginator-next p-paginator-element p-link p-ripple']");
-     this.paginationLast = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-right']");
-     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
-     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
-    
+    this.checkboxHeaderTableBatch = page.locator("//div[@class='p-checkbox-box']");
+    this.editButtoneachRowBatch = page.locator("//span[@class='p-button-icon pi pi-pencil']");
+    this.deleteButtoneachRowBatch = page.locator("//span[@class='p-button-icon pi pi-trash']");
+    this.checkboxEachRowbatch = page.locator("//div[@class='p-checkbox-box p-component']");
+    this.dataTableRows = page.locator("//table/tbody/tr");
+    this.paginationNext = page.locator("//button[@class='p-paginator-next p-paginator-element p-link p-ripple']");
+    this.paginationLast = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-right']");
+    this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
+    this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
+ this.deletedMessage = page.getByText('Batches Deleted');
 
-  }
+    }
 
   async isEditIconVisible() {
     return await this.editIcon.first().isVisible(); // Check if at least one is visible
@@ -74,6 +77,13 @@ class CommonFunctions {
     }
     await this.moduleSelectors[module].menu_btn.waitFor({ state: "visible" });
     await this.moduleSelectors[module].menu_btn.click();
+  }
+
+  async getSortIcon(columnName) {
+  
+    const regex = new RegExp(`^${columnName}.*`);
+    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    return sortIcon;
   }
 
   async clickSubMenu(module) {
@@ -119,7 +129,7 @@ class CommonFunctions {
     // Compare each header text
     for (let i = 1; i < expectedHeaders.length + 1; i++) {
       console.log(headerCells[i]);
-      console.log(expectedHeaders[i-1]);
+      console.log(expectedHeaders[i - 1]);
       if (headerCells[i].trim() !== expectedHeaders[i - 1].trim()) {
         return false;
       }
@@ -160,9 +170,7 @@ class CommonFunctions {
 
     if (locationType === "header") {
       // Get all sort icons inside headers
-      const sortIcons = await this.page
-        .locator(`xpath=${elementLocator}`)
-        .all();
+      const sortIcons = await this.page.locator(`xpath=${elementLocator}`).all();
       // Verify that each header has a sort icon
       for (const icon of sortIcons) {
         if (!(await icon.isVisible())) {
@@ -217,117 +225,144 @@ class CommonFunctions {
       await optionLocator.waitFor({ state: 'visible' });
       await optionLocator.click();
     }
-  } catch (error) {
+  } catch(error) {
     console.error("Error in selecting dropdown option:", error);
   }
   
 // Method to click anywhere on the screen
 async clickAnywhere(x = 500, y = 300) {
   await this.page.mouse.click(x, y);
+  console.log(`Clicked at coordinates (${x}, ${y})`);
 }
- //Deleting mutiple checkboxes:
 
-//  async deleteFirstBatch() {
-//   // Wait for the checkbox in the first row to be visible
-//   const checkboxes = await this.checkboxEachRowbatch.all();
-//   console.log("#### checkbox count", checkboxes);
-//   const rowCount = checkboxes.length;
-//      console.log(`Found ${rowCount} checkboxes`);
-//   if (checkboxes.length > 0) {
-//       // Select the first checkbox
-//      // await checkboxes[0].click();
-//       await checkboxes[0].isEnabled();
+//Delete first record
+async deleteSelectedBatches(count = 1) {
+  if (!this.page) throw new Error("Page context is closed.");
 
-//   } else {
-//       throw new Error("No batches available to delete.");
-//   }
+  // Ensure table is loaded
+  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
 
-//   // Click on the delete button
-//   await this.deleteIcon.click();
+  const checkboxes = await this.checkBoxList.all(); // Get all checkboxes
+  const rowCount = checkboxes.length;
 
-//   // Wait for any confirmation dialog or response
-//   await this.page.waitForTimeout(2000); // Adjust if necessary based on your system's response time
-// }
-
-// // Verify that the first row is deleted
-// async verifyRowDeletion() {
-//   const rows = await this.dataTableRows.all();
-//   if (rows.length === 0 || await rows[0].isVisible() === false) {
-//       console.log("First row deleted successfully.");
-//   } else {
-//       throw new Error("Batch deletion failed. The first row still exists.");
-//   }
-// }
-
-
- async deleteSelectedBatches() {
-  const checkboxes = await this.checkboxEachRowbatch.all(); // Get all matching checkboxes
-  //await checkboxes.waitFor({ state: 'visible' });
-
-    const rowCount = checkboxes.length;
   console.log(`Found ${rowCount} checkboxes`);
 
-  if (checkboxes.length >= 1) {
-      await checkboxes[0].click();
-      await checkboxes[1].click();
-  } else {
-      throw new Error("Not enough records to delete.");
+  // Ensure there are enough rows to delete
+  if (rowCount < count) {
+      throw new Error(`Not enough records to delete. Found only ${rowCount} records.`);
   }
 
-  await this.deleteIcon.click();
-  await this.page.waitForTimeout(2000); // Wait for deletion process
+  // Select checkboxes for deletion
+  for (let i = 0; i < count; i++) {
+      await checkboxes[i].click();
+  }
+
+  // Click the delete button
+  await this.deleteButton.click();
+
+  // Check if a confirmation popup appears and confirm
+  const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
+  const yesDelete=  this.page.locator("//span[contains(text(),'Yes')]");
+  if (await confirmDialog.isVisible()) {
+      await yesDelete.click();
+  }
+
+
+  // Wait for table to update dynamically using `waitForSelector`
+  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached', timeout: 5000 });
+
+  console.log(`Successfully deleted ${count} batch(es).`);
 }
 
 async verifyBatchDeletion() {
-  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
-  const rows = await this.dataTableRows.all();
-  
-  if (rows.length >= 2) {
-      throw new Error("Batch deletion failed. Records still exist.");
+  // Check if a confirmation popup appears and confirm
+  const confirmDialog = this.page.locator("//div[contains(text(),'Successful')]");
+  const deletedMessage = this.page.getByText('Batches Deleted');
+
+  if (await confirmDialog.isVisible()) {
+    await this.page.pause();
+    const messageText = await deletedMessage.textContent();
+    await this.page.pause();
+    console.log(`Deletion message displayed: ${messageText}`);
+
+    // Ensure the message is actually visible
+    await expect(deletedMessage).toBeVisible();
+} else {
+    throw new Error("Batch deletion confirmation message not found.");
+}
+
+}
+
+  //pagination
+  async goToNextPage() {
+    await this.paginationNext.click();
   }
-}
 
-//pagination
-async goToNextPage() {
-  await this.paginationNext.click();
-}
+  async verifyNextPageEnabled() {
+    await this.paginationNext.isEnabled();
+  }
 
-async verifyNextPageEnabled() {
-  await this.paginationNext.isEnabled();
-}
+  async goToLastPage() {
+    await this.paginationLast.click();
+  }
 
-async goToLastPage() {
-  await this.paginationLast.click();
-}
-
-async verifyLastPage() {
-  const isNextDisabled = await this.paginationLast.isDisabled();
-  if (!isNextDisabled) {
+  async verifyLastPage() {
+    const isNextDisabled = await this.paginationLast.isDisabled();
+    if (!isNextDisabled) {
       throw new Error("Last page validation failed. Next link is still enabled.");
+    }
   }
-}
 
-async goToPreviousPage() {
-  await this.paginationPrevious.click();
-}
+  async goToPreviousPage() {
+    await this.paginationPrevious.click();
+  }
 
-async verifyPreviousPage() {
-  const isPrevDisabled = await this.paginationPrevious.isDisabled();
-  if (!isPrevDisabled) {
+  async verifyPreviousPage() {
+    const isPrevDisabled = await this.paginationPrevious.isDisabled();
+    if (!isPrevDisabled) {
       throw new Error("First page validation failed. Previous link is still enabled.");
+    }
   }
-}
 
-async goToFirstPage() {
-  await this.paginationFirst.click();
-}
+  async goToFirstPage() {
+    await this.paginationFirst.click();
+  }
 
-async verifyFirstPage() {
-  const isPrevDisabled = await this.paginationFirst.isDisabled();
-  if (!isPrevDisabled) {
+  async verifyFirstPage() {
+    const isPrevDisabled = await this.paginationFirst.isDisabled();
+    if (!isPrevDisabled) {
       throw new Error("First page validation failed. Previous link is still enabled.");
+    }
   }
-}
+
+  async validateAscendingSort(ele) {
+    await this.page.waitForLoadState();
+    let originalData = await (ele).allTextContents();
+    console.log('Ascending Order actual List: ' + originalData)
+    let expectedList = originalData.slice().sort((a, b) => a.localeCompare(b));
+     console.log('Ascending Order expected: ' + expectedList)
+    expect(originalData).toEqual(expectedList);
+  }
+
+  getCells(col) {
+    return this.page.locator(`//tbody/tr/td[${col}]`);
+  }
+
+
+  async validateDescendingSort(ele) {
+  
+    const originalData = await (ele).allTextContents();
+    console.log('Ascending Order ' + originalData)
+    const expectedList = originalData.sort((a, b) => b.localeCompare(a));
+    const sortedList = await (ele).allTextContents();
+    console.log('Descending Order' + expectedList)
+    expect(originalData).toEqual(expectedList);
+  }
+
+  async clickSortIcon(ele) {
+    await this.clickAnywhere();
+    await ele.click();
+  }
 
 
 }
