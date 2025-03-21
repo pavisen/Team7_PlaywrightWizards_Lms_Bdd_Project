@@ -97,12 +97,11 @@ When('Admin clicks on the delete icon under the Manage batch header for multiple
 });
 
 Then('The respective row in the table should be deleted', async ({batchPage,commonFunctions}) => {
-  // const successMessage = await (batchPage.batchDeletedSuccess).textContent();
-  // expect(successMessage.trim()).toBe("batch Deleted");
+
 
   const successMessage = await commonFunctions.deletedMessage.textContent();
   expect(successMessage.trim()).toBe("Batches Deleted");
-  //await commonFunctions.verifyBatchDeletion();
+ 
 });
 
 When('Admin clicks next page link on the data table', async ({commonFunctions}) => {
