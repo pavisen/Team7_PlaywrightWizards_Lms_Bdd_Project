@@ -224,7 +224,6 @@ class CommonFunctions {
 // Method to click anywhere on the screen
 async clickAnywhere(x = 500, y = 300) {
   await this.page.mouse.click(x, y);
-  console.log(`Clicked at coordinates (${x}, ${y})`);
 }
  //Deleting mutiple checkboxes:
 
