@@ -225,6 +225,9 @@ class CommonFunctions {
   } catch(error) {
     console.error("Error in selecting dropdown option:", error);
   }
+  
+ 
+ //Deleting mutiple checkboxes:
 
   // Method to click anywhere on the screen
   async clickAnywhere(x = 500, y = 300) {
