@@ -48,21 +48,21 @@ class CommonFunctions {
       sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
 
     };
-    
+
     this.checkBoxList = page.locator("//tbody[@class='p-datatable-tbody']//div[@role='checkbox']");
 
     this.deleteButton = page.locator("//*[@class='box']//button");
     this.totalClassesText = page.locator("//*[@class='p-datatable-footer ng-star-inserted']/div");
-     this.checkboxHeaderTableBatch=page.locator("//div[@class='p-checkbox-box']");
-     this.editButtoneachRowBatch=page.locator("//span[@class='p-button-icon pi pi-pencil']");
-     this.deleteButtoneachRowBatch=page.locator("//span[@class='p-button-icon pi pi-trash']");
-     this.checkboxEachRowbatch=page.locator("//div[@class='p-checkbox-box p-component']");
-     this.dataTableRows = page.locator("//table/tbody/tr");
-     this.paginationNext = page.locator("//button[@class='p-paginator-next p-paginator-element p-link p-ripple']");
-     this.paginationLast = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-right']");
-     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
-     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
-     this.deletedMessage = page.getByText('Batches Deleted');
+    this.checkboxHeaderTableBatch = page.locator("//div[@class='p-checkbox-box']");
+    this.editButtoneachRowBatch = page.locator("//span[@class='p-button-icon pi pi-pencil']");
+    this.deleteButtoneachRowBatch = page.locator("//span[@class='p-button-icon pi pi-trash']");
+    this.checkboxEachRowbatch = page.locator("//div[@class='p-checkbox-box p-component']");
+    this.dataTableRows = page.locator("//table/tbody/tr");
+    this.paginationNext = page.locator("//button[@class='p-paginator-next p-paginator-element p-link p-ripple']");
+    this.paginationLast = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-right']");
+    this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
+    this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
+ this.deletedMessage = page.getByText('Batches Deleted');
 
     }
 
@@ -71,12 +71,19 @@ class CommonFunctions {
   }
 
   async clickMenu(module) {
-    console.log(`-------------------------------------------Clicking on menu: ${module}`);
+    console.log(`--- Module is : ${module} ---`);
     if (!this.moduleSelectors[module]) {
       throw new Error(`Invalid module: ${module}`);
     }
     await this.moduleSelectors[module].menu_btn.waitFor({ state: "visible" });
     await this.moduleSelectors[module].menu_btn.click();
+  }
+
+  async getSortIcon(columnName) {
+  
+    const regex = new RegExp(`^${columnName}.*`);
+    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    return sortIcon;
   }
 
   async clickSubMenu(module) {
@@ -122,7 +129,7 @@ class CommonFunctions {
     // Compare each header text
     for (let i = 1; i < expectedHeaders.length + 1; i++) {
       console.log(headerCells[i]);
-      console.log(expectedHeaders[i-1]);
+      console.log(expectedHeaders[i - 1]);
       if (headerCells[i].trim() !== expectedHeaders[i - 1].trim()) {
         return false;
       }
@@ -163,9 +170,7 @@ class CommonFunctions {
 
     if (locationType === "header") {
       // Get all sort icons inside headers
-      const sortIcons = await this.page
-        .locator(`xpath=${elementLocator}`)
-        .all();
+      const sortIcons = await this.page.locator(`xpath=${elementLocator}`).all();
       // Verify that each header has a sort icon
       for (const icon of sortIcons) {
         if (!(await icon.isVisible())) {
@@ -220,7 +225,7 @@ class CommonFunctions {
       await optionLocator.waitFor({ state: 'visible' });
       await optionLocator.click();
     }
-  } catch (error) {
+  } catch(error) {
     console.error("Error in selecting dropdown option:", error);
   }
   
@@ -288,47 +293,76 @@ async verifyBatchDeletion() {
 
 }
 
-//pagination
-async goToNextPage() {
-  await this.paginationNext.click();
-}
+  //pagination
+  async goToNextPage() {
+    await this.paginationNext.click();
+  }
 
-async verifyNextPageEnabled() {
-  await this.paginationNext.isEnabled();
-}
+  async verifyNextPageEnabled() {
+    await this.paginationNext.isEnabled();
+  }
 
-async goToLastPage() {
-  await this.paginationLast.click();
-}
+  async goToLastPage() {
+    await this.paginationLast.click();
+  }
 
-async verifyLastPage() {
-  const isNextDisabled = await this.paginationLast.isDisabled();
-  if (!isNextDisabled) {
+  async verifyLastPage() {
+    const isNextDisabled = await this.paginationLast.isDisabled();
+    if (!isNextDisabled) {
       throw new Error("Last page validation failed. Next link is still enabled.");
+    }
   }
-}
 
-async goToPreviousPage() {
-  await this.paginationPrevious.click();
-}
+  async goToPreviousPage() {
+    await this.paginationPrevious.click();
+  }
 
-async verifyPreviousPage() {
-  const isPrevDisabled = await this.paginationPrevious.isDisabled();
-  if (!isPrevDisabled) {
+  async verifyPreviousPage() {
+    const isPrevDisabled = await this.paginationPrevious.isDisabled();
+    if (!isPrevDisabled) {
       throw new Error("First page validation failed. Previous link is still enabled.");
+    }
   }
-}
 
-async goToFirstPage() {
-  await this.paginationFirst.click();
-}
+  async goToFirstPage() {
+    await this.paginationFirst.click();
+  }
 
-async verifyFirstPage() {
-  const isPrevDisabled = await this.paginationFirst.isDisabled();
-  if (!isPrevDisabled) {
+  async verifyFirstPage() {
+    const isPrevDisabled = await this.paginationFirst.isDisabled();
+    if (!isPrevDisabled) {
       throw new Error("First page validation failed. Previous link is still enabled.");
+    }
   }
-}
+
+  async validateAscendingSort(ele) {
+    await this.page.waitForLoadState();
+    let originalData = await (ele).allTextContents();
+    console.log('Ascending Order actual List: ' + originalData)
+    let expectedList = originalData.slice().sort((a, b) => a.localeCompare(b));
+     console.log('Ascending Order expected: ' + expectedList)
+    expect(originalData).toEqual(expectedList);
+  }
+
+  getCells(col) {
+    return this.page.locator(`//tbody/tr/td[${col}]`);
+  }
+
+
+  async validateDescendingSort(ele) {
+  
+    const originalData = await (ele).allTextContents();
+    console.log('Ascending Order ' + originalData)
+    const expectedList = originalData.sort((a, b) => b.localeCompare(a));
+    const sortedList = await (ele).allTextContents();
+    console.log('Descending Order' + expectedList)
+    expect(originalData).toEqual(expectedList);
+  }
+
+  async clickSortIcon(ele) {
+    await this.clickAnywhere();
+    await ele.click();
+  }
 
 
 }

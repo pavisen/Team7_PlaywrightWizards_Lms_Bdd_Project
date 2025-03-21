@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright-bdd"
+    "test": "npx playwright test"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "xlsx": "^0.18.5"
   },
   "dependencies": {
+    "winston": "^3.17.0",
     "xlsx": "^0.18.5"
   }
 }
