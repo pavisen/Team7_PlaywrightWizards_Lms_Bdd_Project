@@ -19,6 +19,9 @@ class BatchPage {
     this.closeBatchpop=page.getByRole('button', { name: '' });
     this.successfullMsg=page.getByText('Successful', { exact: true });
     this.batchCreatedSuccess = page.getByText('Batch Created Successfully');
+    this.batchDeletedSuccess = page.getByText('batch Deleted');
+    this.batchDeletedSuccessmultiple = page.getByText('Batches Deleted');
+
 
   }
 
