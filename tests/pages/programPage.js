@@ -11,6 +11,7 @@ export class ProgramPage {
     this.header = page.getByText('LMS - Learning Management System');
     this.addNewProgram_btn = page.getByRole('menuitem', { name: 'Add New Program' });
     this.manage_program = page.getByText(' Manage Program');
+    this.module_names = page.locator('//mat-toolbar//button//span[1]');
     this.programName = page.getByRole('textbox', { name: 'Program Name' });
     this.description = page.getByRole('textbox', { name: 'Description' });
     this.activeButton = page.locator('.p-radiobutton-box').first()
@@ -41,6 +42,11 @@ export class ProgramPage {
     const actual_text = await this.manage_program.textContent();
     return actual_text;
 
+
+  }
+  async modulenames() {
+    const actual_modules = await this.module_names.allTextContents();
+    return actual_modules;
   }
   async click_addNewProgram() {
     await this.addNewProgram_btn.click();
