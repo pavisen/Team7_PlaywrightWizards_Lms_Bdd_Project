@@ -16,6 +16,7 @@ export class ProgramPage {
     this.description = page.getByRole('textbox', { name: 'Description' });
     this.activeButton = page.locator('.p-radiobutton-box').first()
     this.saveButton = page.getByRole('button', { name: 'Save' });
+    this.programDetails = page.getByText('Program Details');
   }
 
   async click_program() {
@@ -51,7 +52,9 @@ export class ProgramPage {
   async click_addNewProgram() {
     await this.addNewProgram_btn.click();
   }
-  
+  async Validate_programDetails() {
+    return this.programDetails;
+  }
   
 
   async enterProgramDetails(ProgramName, Description) {

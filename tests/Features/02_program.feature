@@ -28,10 +28,10 @@ Feature: Program Module Navigation
                 Then Admin should see a Delete button in left top is disabled
 
         Scenario:Verify the Search button
-        
+
                 Then Admin should see Search bar with text as "Search..."
 
-      
+
         Scenario: Verify checkbox default state beside Program Name column header
 
                 Then Admin should see checkbox default state as unchecked beside Program Name column as header
@@ -51,9 +51,49 @@ Feature: Program Module Navigation
         Scenario: Verify footer message in manage program
                 Then Admin should see the footer as In total there are z programs.
 
+
+        #add program  Validation
+        Scenario: Verify add New Program
+                Given Admin is on Program module
+                When Admin clicks on New Program under the Program menu bar
+                Then Admin should see pop up window for program details
+
+        Scenario:Verify title of the pop up window
+                Given Admin is on Program module
+                When Admin clicks on New Program under the Program menu bar
+                Then Admin should see window title as Program Details
+
+        Scenario:Verify mandatory fields with red "*" mark
+                Given Admin is on Program module
+                When Admin clicks on New Program under the Program menu bar
+                Then Admin should see red "*" mark beside mandatory field "Name" in program details form
+
+
+        Scenario:Verify empty form submission
+                Given Admin is on Program details form
+                When Admin clicks save button without entering mandatory
+                Then Admin gets message field is required
+
+
+        Scenario:Verify cancel button
+                Given Admin is on Program details form
+                When Admin clicks Cancel button
+                Then Admin can see Program Details form disappears
+
+        Scenario:Verify cancel program details
+                Given Admin is on Program details form
+                When Admin clicks Cancel button
+                Then Admin can see Program Details form disappears.
+
+        Scenario: Verify close window with "X"
+                Given Admin is on Program details form
+                When Admin Click on X button.
+                Then Admin can see Program Details form disappears
+
         #add program
         Scenario: Verify Admin Add program successfully
                 When  Admin Clicks on the Add program button and fill the required fields
+
                 Then Admin should get a message "new program successfully"
 
         #edit program
@@ -133,35 +173,58 @@ Feature: Program Module Navigation
 
 
         #delete program
-        
-Scenario: Verify delete feature
-Given Admin is on Program module
-When Admin clicks on delete button for a program
-Then Admin will get confirm deletion popup
+
+        Scenario: Verify delete feature
+                Given Admin is on Program module
+                When Admin clicks on delete button for a program
+                Then Admin will get confirm deletion popup
 
 
-Scenario: Verify Admin is able to click 'Yes'
-Given Admin is on Confirm deletion form
-When Admin clicks on "Yes" button
-Then Admin can see 'Successful Program Deleted' message
+        Scenario: Verify Admin is able to click 'Yes'
+                Given Admin is on Confirm deletion form
+                When Admin clicks on "Yes" button
+                Then Admin can see 'Successful Program Deleted' message
 
 
-Scenario: Verify Admin is able to deleted program
-Given Admin is on Program module
-When Admin Searches for "Deleted Program name"
-Then There should be zero results.
+        Scenario: Verify Admin is able to deleted program
+                Given Admin is on Program module
+                When Admin Searches for "Deleted Program name"
+                Then There should be zero results.
 
 
-Scenario: Verify Admin is able to click 'No'
-Given Admin is on Program Confirm Deletion Page after selecting a program to delete
-When Admin clicks on No button
-Then Admin can see Confirmation form disappears
+        Scenario: Verify Admin is able to click 'No'
+                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+                When Admin clicks on No button
+                Then Admin can see Confirmation form disappears
 
 
-Scenario: Verify Admin is able to close the window with "X" 
-Given Admin is on Program Confirm Deletion Page after selecting a program to delete
-When Admin Click on X button
-Then Admin can see Confirm Deletion form disappear
+        Scenario: Verify Admin is able to close the window with "X"
+                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+                When Admin Click on X button
+                Then Admin can see Confirm Deletion form disappear
+        #search program
+
+        Scenario: Verify Admin is able to search results found for program name
+                Given Admin is on Program module
+                When Admin enter the program to search By program name
+                Then Admin should able to see Program name, description, and status for searched program name
+
+
+        Scenario: Admin should able to see Program name, description, and status for searched program name
+                Given Admin is on Program module
+                When Admin enter the program to search By program description
+                Then Admin should able to see Program name, description, and status for searched program description
+
+
+        Scenario: Verify Admin is able to search results not found
+                Given Admin is on Program module
+                When Admin enter the program to search By program name that does not exist
+                Then There should be zero results.
+
+        Scenario: Verify Admin is able to search with partial program name
+                Given Admin is on Program module
+                When Admin enter the program to search By partial name of program
+                Then Admin should able to see Program name, description, and status for searched program name for partial search
         #sort program
 
 
@@ -184,29 +247,29 @@ Then Admin can see Confirm Deletion form disappear
 
 
 
-         #program Pagination       
-
-        
+        #program Pagination
 
 
 
 
-Scenario: Verify Admin is able to click Next page link
-Given Admin is on Program module
-When Admin clicks Next page link on the program table
-Then Admin should see the Pagination has "Next" active link
 
-Scenario: Verify Admin is able to click  Last page link
-Given Admin is on Program module
-When Admin clicks Last page link in program table
-Then Admin should see the last page record on the program table with Next page link are disabled
 
-Scenario: Verify Admin is able to click Previous page link
-Given Admin is on last page of Program module table
-When Admin clicks Previous page link
-Then Admin should see the previous page record on the table with pagination has previous page link
+        Scenario: Verify Admin is able to click Next page link
+                Given Admin is on Program module
+                When Admin clicks Next page link on the program table
+                Then Admin should see the Pagination has "Next" active link
 
-Scenario: Verify Admin is able to click  First page link
-Given Admin is on Previous Program page
-When Admin clicks First page link
-Then Admin should see the very first page record on the program table with Previous page link are disabled
+        Scenario: Verify Admin is able to click  Last page link
+                Given Admin is on Program module
+                When Admin clicks Last page link in program table
+                Then Admin should see the last page record on the program table with Next page link are disabled
+
+        Scenario: Verify Admin is able to click Previous page link
+                Given Admin is on last page of Program module table
+                When Admin clicks Previous page link
+                Then Admin should see the previous page record on the table with pagination has previous page link
+
+        Scenario: Verify Admin is able to click  First page link
+                Given Admin is on Previous Program page
+                When Admin clicks First page link
+                Then Admin should see the very first page record on the program table with Previous page link are disabled

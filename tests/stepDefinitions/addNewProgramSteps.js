@@ -36,5 +36,51 @@ Then('Admin should get a message {string}', async function ({programPage},arg ){
     
 
 
- 
+When('Admin clicks on New Program under the Program menu bar', async ({programPage}) => {
+  
+    await programPage.click_addNewProgram();
+});
+
+Then('Admin should see pop up window for program details', async ({programPage}) => {
+                          
+      const programDetails = await programPage.Validate_programDetails().textContent();
+      expect(programDetails.trim()).toBe("Program Details");                    
+});
+
+Then('Admin should see window title as Program Details', async ({programPage}) => {
+  const programDetails = await programPage.Validate_programDetails().textContent();
+  expect(programDetails.trim()).toBe("Program Details");               
+});
+
+
+Given('Admin is on Program details form', async ({}) => {
+  // Step: Given Admin is on Program details form
+  // From: tests\Features\02_program.feature:73:9
+});
+
+Then('Admin should see red {string} mark beside mandatory field {string} in program details form', async ({commonFunctions}, arg, arg1) => {
+  // Step: Then Admin should see red "*" mark beside mandatory field "Program Name" in program details form
+  // From: tests\Features\02_program.feature:74:9
+  await commonFunctions.verifyMandatoryField(arg1);
+});
+
+When('Admin clicks save button without entering mandatory', async ({commonFunctions}) => {
+  await commonFunctions.clickSave();
+});
+
+Then('Admin gets message field is required', async ({commonFunctions}) => {
+  await commonFunctions.verifyFieldIsRequired();
+});
+
+When('Admin clicks Cancel button', async ({commonFunctions}) => {
+  await commonFunctions.clickCancel();
+});
+
+Then('Admin can see Program Details form disappears.', async ({commonFunctions}) => {
+  await commonFunctions.verifyFormDisappears();
+});
+
+When('Admin Click on X button.', async ({commonFunctions}) => {
+  await commonFunctions.clickClose();
+}); 
 
