@@ -87,7 +87,7 @@ When(
       commonFunctions,
     );
     await classPage.clickSave();
-  },
+  },  
 );
 
 When(

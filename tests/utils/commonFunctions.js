@@ -62,7 +62,8 @@ class CommonFunctions {
     this.paginationLast = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-right']");
     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
- this.deletedMessage = page.getByText('Batches Deleted');
+    this.deleteMessage = page.getByText('batch Deleted');
+    this.deletedMessage = page.getByText('Batches Deleted');
 
     }
 
@@ -236,7 +237,7 @@ async clickAnywhere(x = 500, y = 300) {
 }
 
 //Delete first record
-async deleteSelectedBatches(count = 1) {
+async deleteSelectedBatches(count) {
   if (!this.page) throw new Error("Page context is closed.");
 
   // Ensure table is loaded
@@ -257,8 +258,16 @@ async deleteSelectedBatches(count = 1) {
       await checkboxes[i].click();
   }
 
-  // Click the delete button
-  await this.deleteButton.click();
+  // Handle delete button click based on count
+  if (count === 1) {
+    console.log("Deleting a single record...");
+    await this.page.pause();
+    await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
+} else {
+    console.log(`Deleting ${count} records...`);
+    await this.page.pause();
+    await this.deleteButton.click(); // Use a different button for bulk delete
+}
 
   // Check if a confirmation popup appears and confirm
   const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
