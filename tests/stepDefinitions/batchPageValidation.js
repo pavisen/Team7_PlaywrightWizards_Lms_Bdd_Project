@@ -5,7 +5,7 @@ import { createBdd } from 'playwright-bdd';
 import { getTestData } from '../utils/excelReader'; 
 import { CommonFunctions } from '../utils/commonFunctions';
 const { Given, When, Then } = createBdd();
-
+import logger from '../utils/logger.js';
 
 
 Given('Admin is on the home page after Login', async ({loggedInPage}) => {
@@ -99,6 +99,14 @@ When('Admin clicks on the delete icon under the Manage batch header for multiple
 Then('The respective row in the table should be deleted', async ({batchPage,commonFunctions}) => {
 
 
+  const successMessage = await commonFunctions.deleteMessage.textContent();
+  expect(successMessage.trim()).toBe("batch Deleted");
+ 
+});
+
+Then('The respective multiple rows in the table should be deleted', async ({batchPage,commonFunctions}) => {
+
+
   const successMessage = await commonFunctions.deletedMessage.textContent();
   expect(successMessage.trim()).toBe("Batches Deleted");
  
@@ -148,3 +156,13 @@ Then('Admin should see the very first page on the data table', async ({commonFun
   await commonFunctions.verifyFirstPage();
 });
 
+When('Admin clicks on the logout button', async ({batchPage}) => {
+  await batchPage.isLogoutButtonVisible();
+    await batchPage.clickLogout();
+});
+Then('Admin should see the Login screen Page title {string}', async ({loginPage}, expectedTitle) => {
+    const actualTitle = await loginPage.getTitle(); // Get the page title
+    expect(actualTitle).toBe(expectedTitle); // Assert title
+    logger.info(`Page Title: ${expectedTitle}`);
+
+});
