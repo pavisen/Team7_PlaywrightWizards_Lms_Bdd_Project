@@ -29,6 +29,7 @@ class CommonFunctions {
     this.logout = page.getByText("Logout");
     this.header = page.getByText("LMS - Learning Management System");
     this.searchBar = page.getByRole("textbox", { name: "Search..." });
+    this.searchBarByPlaceholder = page.locator("//input[@placeholder='Search...']");
     this.tableHeader = page.locator("//*[@class='p-datatable-thead']/tr/th");
     this.tableRows = page.locator("//tbody/tr");
 
@@ -79,12 +80,7 @@ class CommonFunctions {
     await this.moduleSelectors[module].menu_btn.click();
   }
 
-  async getSortIcon(columnName) {
-  
-    const regex = new RegExp(`^${columnName}.*`);
-    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
-    return sortIcon;
-  }
+ 
 
   async clickSubMenu(module) {
     if (!this.moduleSelectors[module]) {
@@ -200,7 +196,7 @@ class CommonFunctions {
   }
 
   async getTotalClasses() {
-    const footerText = await this.totalClassesText.textContent(); // Get the full text
+    const footerText = (await this.totalClassesText.textContent()).trim(); // Get the full text
     const match = footerText.match(/In total there are (\d+) classes\./); // Extract the number
 
     if (match) {
@@ -212,7 +208,19 @@ class CommonFunctions {
       );
     }
   }
+  async getTotalPrograms() {
+    const footerText = (await this.totalClassesText.textContent()).trim(); // Get the full text
+    const match = footerText.match(/In total there are (\d+) programs\./); // Extract the number
 
+    if (match) {
+      const totalClasses = parseInt(match[1], 10); // Convert to number
+      return totalClasses;
+    } else {
+      throw new Error(
+        `Could not extract total classes count from text: "${footerText}"`,
+      );
+    }
+  }
   async selectDropdownOption(dropdown, optionText) {
     await dropdown.click();
     const optionLocator = this.page.getByRole("option", { name: optionText });
@@ -333,6 +341,14 @@ async verifyBatchDeletion() {
     if (!isPrevDisabled) {
       throw new Error("First page validation failed. Previous link is still enabled.");
     }
+  }
+
+  // Sorting
+  async getSortIcon(columnName) {
+  
+    const regex = new RegExp(`^${columnName}.*`);
+    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    return sortIcon;
   }
 
   async validateAscendingSort(ele) {

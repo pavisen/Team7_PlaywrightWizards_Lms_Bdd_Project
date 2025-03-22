@@ -78,5 +78,9 @@ export class ProgramPage {
   programCreatedSuccess() {
     return this.page.getByText('Program Created Successfully')
   }
+  async clickAnywhere(x = 500, y = 300) {
+    await this.page.mouse.click(x, y);
+    console.log(`Clicked at coordinates (${x}, ${y})`);
+  }
 
 } 

@@ -56,8 +56,7 @@ Given('Admin is on last page of Program module table', async ({commonFunctions})
     await commonFunctions.clickMenu('program');
     await commonFunctions.clickAnywhere();
     await commonFunctions.arePaginationButtonsVisible();
-    await commonFunctions.goToNextPage();
-    await commonFunctions.goToPrevious
+    await commonFunctions.goToPrevious();
       
   });
 
