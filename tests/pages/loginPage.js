@@ -150,7 +150,9 @@ class LoginPage {
   async clickLogout() {
     await this.logoutButton.click();
   }
-
+  async getTitle() {
+    return this.page.title(); // Correct way to get the title
+}
   async isLogoutButtonVisible() {
     await expect(this.logoutButton).toBeVisible();
   }
@@ -163,6 +165,7 @@ class LoginPage {
   async isLogoutButtonHidden() {
     await expect(this.logoutButton).toBeHidden();
   }
+  
 
   async isTitleDisplayed() {
     return this.lmsTitle;
