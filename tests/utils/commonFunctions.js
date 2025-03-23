@@ -72,7 +72,7 @@ class CommonFunctions {
   }
 
   async clickMenu(module) {
-    console.log(`--- Module is : ${module} ---`);
+    console.log(`--- Module : ${module} ---`);
     if (!this.moduleSelectors[module]) {
       throw new Error(`Invalid module: ${module}`);
     }
@@ -233,7 +233,6 @@ class CommonFunctions {
 // Method to click anywhere on the screen
 async clickAnywhere(x = 500, y = 300) {
   await this.page.mouse.click(x, y);
-  console.log(`Clicked at coordinates (${x}, ${y})`);
 }
 
 //Delete first record
@@ -359,7 +358,6 @@ async verifyBatchDeletion() {
 
 
   async validateDescendingSort(ele) {
-  
     const originalData = await (ele).allTextContents();
     console.log('Ascending Order ' + originalData)
     const expectedList = originalData.sort((a, b) => b.localeCompare(a));
@@ -371,9 +369,21 @@ async verifyBatchDeletion() {
   async clickSortIcon(ele) {
     await this.clickAnywhere();
     await ele.click();
-  }
+      }
 
+      async search(searchValue) {
+        await this.searchBar.click();
+        console.log("Type of searchValue:", typeof searchValue, "Value:", searchValue);
+        await this.searchBar.fill(searchValue);
+      }
 
+      async verifySearch(searchValue) {
+        await expect(
+          this.page.getByRole('gridcell', { name: `${searchValue}` }).nth(0).filter({ visible: true })
+        ).toBeVisible();
+    }
+
+      
 }
 
 export { CommonFunctions };
