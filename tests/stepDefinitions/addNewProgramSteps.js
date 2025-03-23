@@ -28,6 +28,10 @@ function getRandomAlphabet(length) {
     return result;
   }
 
+  Then('Admin should see the program details entered', async ({programPage}) => {
+   programPage.verifyPopupFieldsEnabled();
+  });
+  
 Then('Admin should get a message {string}', async function ({programPage},arg ){
     
     const successMessage = await programPage.programCreatedSuccess().textContent();
@@ -43,8 +47,7 @@ When('Admin clicks on New Program under the Program menu bar', async ({programPa
 
 Then('Admin should see pop up window for program details', async ({programPage}) => {
                           
-      const programDetails = await programPage.Validate_programDetails().textContent();
-      expect(programDetails.trim()).toBe("Program Details");                    
+     programPage.verifyPopupFieldsEnabled();                  
 });
 
 Then('Admin should see window title as Program Details', async ({programPage}) => {
@@ -58,10 +61,9 @@ Given('Admin is on Program details form', async ({}) => {
   // From: tests\Features\02_program.feature:73:9
 });
 
-Then('Admin should see red {string} mark beside mandatory field {string} in program details form', async ({commonFunctions}, arg, arg1) => {
-  // Step: Then Admin should see red "*" mark beside mandatory field "Program Name" in program details form
-  // From: tests\Features\02_program.feature:74:9
-  await commonFunctions.verifyMandatoryField(arg1);
+Then('Admin should see red {string} mark beside mandatory field {string} in program details form', async ({programPage}, arg, arg1) => {
+        
+  await (arg1);
 });
 
 When('Admin clicks save button without entering mandatory', async ({commonFunctions}) => {

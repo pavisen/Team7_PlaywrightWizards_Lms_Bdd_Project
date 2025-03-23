@@ -96,6 +96,11 @@ Feature: Program Module Navigation
 
                 Then Admin should get a message "new program successfully"
 
+         #verify program details
+        Scenario: Verify Admin is able to view the program details
+            
+                Then Admin should see the program details entered      
+
         #edit program
 
         Scenario Outline: Verify Edit option

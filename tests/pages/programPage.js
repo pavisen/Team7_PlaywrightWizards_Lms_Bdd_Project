@@ -17,6 +17,8 @@ export class ProgramPage {
     this.activeButton = page.locator('.p-radiobutton-box').first()
     this.saveButton = page.getByRole('button', { name: 'Save' });
     this.programDetails = page.getByText('Program Details');
+    this.mandatoryFields = page.locator('label').filter({ hasText: 'Name*' }).locator('span');
+    
   }
 
   async click_program() {
@@ -75,6 +77,13 @@ export class ProgramPage {
     await saveButtonIn.click();
   }
 
+async verifyPopupFieldsEnabled() {
+  await expect(this.programName).toBeEnabled();
+  await expect(this.description).toBeEnabled();
+  await expect(this.programStatus).toBeEnabled();
+  
+}
+
   async saveProgram() {
     await this.saveButton.click();
   }
@@ -86,4 +95,92 @@ export class ProgramPage {
     console.log(`Clicked at coordinates (${x}, ${y})`);
   }
 
+  async verifyMandatoryField(field) {
+    const mandatoryField = this.page.locator('label').filter({ hasText: field }).locator('span');
+    await expect(mandatoryField).toBeVisible();
+  }
+//check locators from here for edit program
+  editProgram() {
+    return this.page.locator('button').filter({ text: 'Edit' }).first().click();
+  }
+
+  Validate_programDetails() {
+    return this.page.locator('h1').first();
+  }
+  editProgramName() {
+    return this.page.locator('input').filter({ name: 'Name *' }).first().fill('Updated Program Name');
+  }
+  verifyProgramName() {
+    return this.page.locator('input').filter({ name: 'Name *' }).first().value();
+  }
+  editDescription() {
+    return this.page.locator('textarea').filter({ name: 'Description *' }).first().fill('Updated Description');
+  }
+  verifyDescription() {
+    return this.page.locator('textarea').filter({ name: 'Description *' }).first().value();
+  }
+  changeStatus() {
+    return this.page.locator('.p-radiobutton-box').filter({ text: 'Active' }).first().click();
+  }
+  verifyStatus() {
+    return this.page.locator('.p-radiobutton-box').filter({ text: 'Active' }).first().checked();
+  }
+  verifyUpdatedProgram() {
+    return this.page.locator('input').filter({ name: 'Name *' }).first().value();
+  }
+  verifyFormDisappears() {
+    return this.page.locator('input').filter({ name: 'Name *' }).first().value();
+  }
+  searchProgram() {
+    return this.page.locator('input').filter({ name: 'Name *' }).first().fill('Updated Program Name');
+  }
+
+//check locators from here for search program
+  searchProgramByName() {
+    return this.page.locator('input').filter({ name: 'Name *' }).first().fill('Program 1');
+  }
+  searchProgramByDescription() {
+    return this.page.locator('input').filter({ name: 'Description *' }).first().fill('Description 1');
+  }
+  searchProgramByPartialName() {
+    return this.page.locator('input').filter({ name: 'Name *' }).first().fill('Program');
+  }
+  verifySearchedProgram() {
+    return this.page.locator('input').filter({ name: 'Name *' }).first().value();
+  }
+  async searchProgram() {
+    await this.page.locator('input').filter({ name: 'Name *' }).first().fill('Program 1');
+  }
+  async verifySearchedProgram() {
+    await this.page.locator('input').filter({ name: 'Name *' }).first().value();
+  }
+  async VerifyMandatoryFields() {
+    await expect(this.mandatoryFields).toBeVisible();
+  }
+  //check locators from here for delete program
+  clickDelete() {
+    return this.page.locator('button').filter({ text: 'Delete' }).first().click();
+  }
+  confirmDeletion() {
+    return this.page.locator('h1').first();
+  }
+  clickYes() {
+    return this.page.locator('button').filter({ text: 'Yes' }).first().click();
+  }
+  confirmationMessage() {
+    return this.page.locator('h1').first();
+  } 
+  noResults() {
+    return this.page.locator('p').first();
+  }
+  clickNo() {
+    return this.page.locator('button').filter({ text: 'No' }).first().click();
+  }
+  clickX() {
+    return this.page.locator('button').filter({ text: '' }).first().click();
+  }
+  clickCancel() {
+    return this.page.locator('button').filter({ text: 'Cancel' }).first().click();
+  }
+ 
 } 
