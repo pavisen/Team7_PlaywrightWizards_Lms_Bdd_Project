@@ -20,7 +20,7 @@ const testDir = defineBddConfig({
 const browserCategory = process.env.BROWSER?.trim();
 const isHeaded = process.env.HEADED === 'true'; // Defaults to headless if not set
 
-console.log(`Running tests on ${browserCategory} in ${isHeaded ? 'headed' : 'headless'} mode...`);
+console.log(`Running tests on ${browserCategory} in ${isHeaded ? 'headed' : 'headless'} mode`);
 
 const projects = browserCategory
 ? [
@@ -59,8 +59,7 @@ export default defineConfig({
   ],
   use: {
     headless: !isHeaded, // Set headless mode based on HEADED environment variable
-    
-    trace: 'off',
+    trace: 'retain-on-failure',// Retain trace files on failure
     screenshot: 'only-on-failure', // Automatically capture screenshot on failure
     
   },

@@ -11,8 +11,6 @@ class ClassPage {
     });
     this.classDate = page.locator("#icon");
     this.noOfClasses = page.locator('#classNo');
-
-    //this.noOfClasses = page.locator("//input[@id='classNo']");
     this.staffName = page.locator("#staffId").getByRole("button", { name: "" }).filter({ visible: true });
       this.activeStatus = page.locator(".p-radiobutton-box").filter({ visible: true }).first();
       this.inactiveStatus = page.locator(
@@ -26,7 +24,6 @@ class ClassPage {
     this.closeBatchpop = page.getByRole("button", { name: "" });
     this.successfullMsg = page.getByText("Successful", { exact: true });
     this.classCreatedSuccess = page.getByText("Class Created");
-    this.classSearchField = page.getByRole("textbox", { name: "Search..." });
     this.errorMessages = page.locator("//*[@class='p-invalid ng-star-inserted']");
     this.classTopicCreated = "";
   }
@@ -100,14 +97,6 @@ class ClassPage {
   }
   async getClassCreatedSuccessMessage() {
     return this.classCreatedSuccess.textContent();
-  }
-  async classSearch() {
-    const classTopicCreated = this.classTopicCreated; // Get the stored value
-    await this.classSearchField.click();
-    await this.classSearchField.fill(classTopicCreated);
-    await expect(
-      this.page.getByRole("gridcell", { name: classTopicCreated }).filter({ visible: true })
-    ).toBeVisible();
   }
 
   async getNgReflectModelValue() {

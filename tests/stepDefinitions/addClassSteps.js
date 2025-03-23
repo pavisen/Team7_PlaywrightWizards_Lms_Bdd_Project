@@ -3,12 +3,15 @@ import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
 import { getTestData } from "../utils/excelReader";
 import logger, { attachLogsAfterEachTest } from '../utils/logger.js';
+import { saveTestData, loadTestData } from "../utils/testDataHelper.js";
 
 // Create BDD steps
 const { Given, When, Then } = createBdd();
 const sheetName = "class";
 
-Given("Admin is on the Manage class page", async ({ loggedInPage }) => {});
+
+Given("Admin is on the Manage class page", async ({ loggedInPage }) => {
+});
 
 When(
   "Admin clicks a add new class under the class menu bar",
@@ -54,7 +57,7 @@ Given(
 
 When(
   "Admin enters all fields in the form and clicks on save button",
-  async ({ classPage, commonFunctions }) => {
+  async ({ classPage, commonFunctions, testData }) => {
     const batchName = getTestData(sheetName, "validAll", "batchName");
     const classTopic = getTestData(sheetName, "validAll", "classTopic");
     const classDescription = getTestData(
@@ -87,12 +90,20 @@ When(
       commonFunctions,
     );
     await classPage.clickSave();
+    //storing variables for chaining
+    testData.batchName = batchName;
+    testData.classTopic = classTopic;
+    testData.staffName = staffName;
+    saveTestData(testData); // Store data in file
+    console.log(`Storing batchName: ${testData.batchName}`);
+    console.log(`Storing classTopic: ${testData.classTopic}`);
+    console.log(`Storing staffName: ${testData.staffName}`);
   },
 );
 
 When(
   "Admin enters mandatory fields in the form and clicks on save button",
-  async ({ classPage, commonFunctions }) => {
+  async ({ classPage, commonFunctions, testData}) => {
     const batchName = getTestData(sheetName, "onlyMandatory", "batchName") ;
     const classTopic = getTestData(sheetName, "onlyMandatory", "classTopic");
     const classDate = getTestData(sheetName, "onlyMandatory", "classDate") ;
@@ -113,6 +124,14 @@ When(
       commonFunctions,
     );
     await classPage.clickSave();
+    //storing variables for chaining
+    testData.batchName1 = batchName;
+    testData.classTopic1 = classTopic;
+    testData.staffName1 = staffName;
+    saveTestData(testData); // Store data in file
+    console.log(`Storing batchName: ${testData.batchName1}`);
+    console.log(`Storing classTopic: ${testData.classTopic1}`);
+    console.log(`Storing staffName: ${testData.staffName1}`);
   },
 );
 
