@@ -9,7 +9,15 @@ import { use } from 'chai';
 
 dotenv.config();
 
+const globalTestData = {};
+
 export const test = base.extend({
+
+    // Define your test data fixture
+    testData: async ({}, use) => {
+      await use(globalTestData); 
+    },
+    
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
     await use(loginPage);

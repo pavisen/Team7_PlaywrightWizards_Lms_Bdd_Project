@@ -11,7 +11,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 // Ensure Playwright-BDD correctly processes feature files
 const testDir = defineBddConfig({
   importTestFrom: path.resolve(__dirname, 'tests/fixtures/fixture.js'),
-  features: path.resolve(__dirname, 'tests/Features/**/*.feature'),
+  features: path.resolve(__dirname, 'tests/features/**/*.feature'),
   steps:path.resolve(__dirname, 'tests/stepDefinitions/**/*.js'),
 
 });
@@ -20,7 +20,7 @@ const testDir = defineBddConfig({
 const browserCategory = process.env.BROWSER?.trim();
 const isHeaded = process.env.HEADED === 'true'; // Defaults to headless if not set
 
-console.log(`Running tests on ${browserCategory} in ${isHeaded ? 'headed' : 'headless'} mode...`);
+console.log(`Running tests on ${browserCategory} in ${isHeaded ? 'headed' : 'headless'} mode`);
 
 const projects = browserCategory
 ? [
@@ -46,7 +46,8 @@ const projects = browserCategory
 
 export default defineConfig({
   testDir, 
-  fullyParallel: true,
+  captureGitInfo: { commit: true, diff: true },
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: 0,  // ✅ Set retries to 2 for all environments
@@ -58,8 +59,7 @@ export default defineConfig({
   ],
   use: {
     headless: !isHeaded, // Set headless mode based on HEADED environment variable
-    
-    trace: 'off',
+    trace: 'retain-on-failure',// Retain trace files on failure
     screenshot: 'only-on-failure', // Automatically capture screenshot on failure
     
   },

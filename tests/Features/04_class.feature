@@ -97,6 +97,29 @@ Given Admin is on the Class Popup window
 When Admin clicks Close Icon on Admin Details form
 Then Class Details popup window should be closed without saving
 
+#Search class
+
+@smoke @search
+Scenario: Search class by Class topic
+Given Admin is on the Manage class page for search
+When Admin enter the Class topic in search textbox
+Then Admin should see Class details are searched by Class topic
+
+@search 
+Scenario: Search class by Staff Name
+Given Admin is on the Manage class page for search
+When Admin enter the Staff Name in search textbox
+Then Admin should see Class details are searched by Staff name
+
+@search 
+Scenario: Search class by Batch Name
+Given Admin is on the Manage class page for search
+When Admin enter the Batch Name in search textbox
+Then Admin should see Class details are searched by Batch Name
+
+
+
+
 #Edit New class
 Scenario: Validate row level edit icon
 Given Admin is on the Manage Class page
@@ -143,6 +166,20 @@ Given Admin is on the Edit Class Popup window
 When Admin clicks Cancel button on edit popup
 Then Admin can see the class details popup disappears and can see nothing changed for particular Class
 
+#Sort Class details
+Scenario Outline: Sort Class by fields
+Given Admin is on the Manage class page
+When Admin clicks on the "<columns>" sort icon
+Then Admin should see Class details are sorted by "<columns>"
+Examples:
+ | columns            |
+ | Batch Name        |
+ | Class Topic       |
+ | Class Description |
+ | Status            |
+ | Class Date        |
+ | Staff Name        |
+       
 
 #Pagination - Class Page
 Scenario: Verify Next page link(>)
