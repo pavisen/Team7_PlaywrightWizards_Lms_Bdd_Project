@@ -3,9 +3,16 @@ import { expect } from '@playwright/test';
 import { createBdd } from 'playwright-bdd';
 import { getTestData } from '../utils/excelReader';
 const { Given, When, Then } = createBdd();
+
+Given('Admin is on Program module for editing', async ({programPage,commonFunctions}) => {
+  await commonFunctions.clickMenu('program');
+  await commonFunctions.clickSubMenu('program');
+  await programPage.addNewProgram();
+
+  });
 When('Admin clicks on Edit option for particular program from {string} and {string}', async ({programPage}, arg, arg1) => {
     programPage.editProgram();
-     
+    
   });
   
   Then('Admin lands on Program details form', async ({programPage}) => {

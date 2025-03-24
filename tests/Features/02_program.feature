@@ -104,6 +104,8 @@ Feature: Program Module Navigation
         #edit program
 
         Scenario Outline: Verify Edit option
+                Given Admin is on Program module for editing
+        
                 When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
                 Then Admin lands on Program details form
                 Examples:
@@ -275,6 +277,6 @@ Feature: Program Module Navigation
                 Then Admin should see the previous page record on the table with pagination has previous page link
 
         Scenario: Verify Admin is able to click  First page link
-                Given Admin is on Next Program page
+                Given Admin is on Previous Program page
                 When Admin clicks First page link
                 Then Admin should see the very first page record on the program table with Previous page link are disabled

@@ -88,7 +88,7 @@ async verifyPopupFieldsEnabled() {
   await expect(this.activeButton).toBeEnabled();
   
 }
-
+//*[@id="editProgram"]
   async saveProgram() {
     await this.saveButton.click();
   }
@@ -116,8 +116,8 @@ async verifyPopupFieldsEnabled() {
     await this.cancel_btn.click();
   }
 //check locators from here for edit program
-  editProgram() {
-    return this.page.locator('button').filter({ text: 'Edit' }).first().click();
+   async editProgram() {
+     return await this.page.locator('//*[@id="editProgram"])[1]').click();
   }
 
   Validate_programDetails() {
