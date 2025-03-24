@@ -105,7 +105,12 @@ Feature: Program Module Navigation
 
         Scenario:Verify Admin add program name with minimum 2 characters
                 When Admin enters the program name with minimum 2 characters
-                Then Admin should get a message programName created successfully               
+                Then Admin should get a message programName created successfully  
+
+        Scenario: Verify Admin add program name with missing description
+                When Admin enters the program name with missing description
+                Then Admin should get a message description is required
+                                  
          #verify program details
         Scenario: Verify Admin is able to view the program details
             

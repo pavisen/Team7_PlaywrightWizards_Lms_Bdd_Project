@@ -97,6 +97,23 @@ Then('Admin should get a message programName created successfully', async ({prog
     expect(successMessage.trim()).toBe("Program Created Successfully");
 });
 
+
+When('Admin enters the program name with missing description', async ({programPage,commonFunctions}) => {
+  await commonFunctions.clickMenu('program');
+  await commonFunctions.clickSubMenu('program');
+  // Get the data from the excel file
+  const programName = getTestData(sheetName, 'emptyDes', 'ProgramName');
+  const Description = getTestData(sheetName, 'emptyDes', 'Description');
+  console.log(`programName: ${programName}`);
+  console.log(`Description: ${Description}`);
+  await programPage.enterProgramDetails(programName,  Description); 
+});
+
+Then('Admin should get a message description is required', async ({programPage}) => {
+   const descRequired = await programPage.requiredDesc().textContent();
+   expect(descRequired.trim()).toBe("Description is required.");
+});
+
 When('Admin clicks on New Program under the Program menu bar', async ({programPage, commonFunctions}) => {
     await  commonFunctions.clickMenu('program');
     await programPage.click_addNewProgram();
