@@ -2,7 +2,8 @@ import { test } from '../fixtures/fixture';
 import { expect } from '@playwright/test';
 import { createBdd } from 'playwright-bdd';
 import { getTestData } from '../utils/excelReader';
- 
+import { saveTestData, loadTestData } from "../utils/testDataHelper.js";
+
 const { Given, When, Then } = createBdd();
 
 const sheetName = 'batch';
@@ -10,12 +11,12 @@ Given('Admin is on the Batch Page', async function ({loggedInPage}) {
    
 });
 
-When('Admin Clicks on the Add Batch button and fill the required fields',async function ({batchPage,commonFunctions}) {
+When('Admin Clicks on the Add Batch button and fill the required fields',async function ({batchPage,commonFunctions,testData}) {
     await commonFunctions.clickMenu('batch');
     await commonFunctions.clickSubMenu('batch');
     // Get the data from the excel file
     const ProgramName = getTestData(sheetName, 'valid', 'ProgramName');
-    const BatchName = getTestData(sheetName, 'valid', 'BatchName');
+    const BatchName = getTestData(sheetName, 'valid', 'BatchName')+getRandomNumberString(1);
     const Description = getTestData(sheetName, 'valid', 'Description');
     const NoOfClasses = getTestData(sheetName, 'valid', 'NumberOfClasses');
     console.log(`programName: ${ProgramName}`);
@@ -25,7 +26,21 @@ When('Admin Clicks on the Add Batch button and fill the required fields',async f
     await batchPage.enterBatchDetails(ProgramName, BatchName, Description, NoOfClasses); 
     await batchPage.clickSave();
 
+    //storing variables for chaining
+      const batchNameForBatch=ProgramName+BatchName;
+       console.log(batchNameForBatch);
+        testData.batchNameForBatch = batchNameForBatch;
+        saveTestData(testData); // Store data in file
+        console.log(`Storing batchName: ${testData.batchNameForBatch}`);
 });
+function getRandomNumberString(length) {
+  const numbers = '0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+      result += numbers.charAt(Math.floor(Math.random() * numbers.length));
+  }
+  return result;
+}
     
 When('Admin leaves blank one of the mandatory fields', async function ({batchPage}) {
    
