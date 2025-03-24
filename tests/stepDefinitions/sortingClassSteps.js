@@ -5,11 +5,11 @@ import { getTestData } from '../utils/excelReader.js';
 
 const { Given, When, Then } = createBdd();
 
-When('Admin clicks on the {string} sort icon', async ({commonFunctions}, column) => {
+When('Admin clicks on the {string} sort icon', async ({ commonFunctions }, column) => {
   await commonFunctions.clickMenu('class');
 });
 
-Then('Admin should see Class details are sorted by {string}', async ({commonFunctions}, column) => {
+Then('Admin should see Class details are sorted by {string}', async ({ commonFunctions }, column) => {
   const columns = ['Batch Name', 'Class Topic', 'Class Description', 'Status', 'Class Date', 'Staff Name'];
   const columnIndexMap = {};
   columns.forEach((col, index) => {
@@ -19,14 +19,15 @@ Then('Admin should see Class details are sorted by {string}', async ({commonFunc
   if (columnIndex === undefined) {
     throw new Error(`Invalid column name: ${column}`);
   }
-
-  const element = await commonFunctions.getSortIcon(columns);
+  for (const col of columns) {
+    const element = await commonFunctions.getSortIcon(col);
     await commonFunctions.clickSortIcon(element);
     let elementList = await commonFunctions.getCells(columnIndex)
     await commonFunctions.validateAscendingSort(elementList);
     await commonFunctions.clickSortIcon(element);
     elementList = await commonFunctions.getCells(columnIndex)
     await commonFunctions.validateDescendingSort(elementList);
+  }
 });
 
 
