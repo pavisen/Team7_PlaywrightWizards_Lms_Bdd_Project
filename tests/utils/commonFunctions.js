@@ -362,8 +362,8 @@ class CommonFunctions {
 
   // Sorting
   async getSortIcon(columnName) {
-
-    const regex = new RegExp(`^${columnName}.*`);
+     
+    const regex = new RegExp(`${columnName}`);
     const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
     return sortIcon;
   }
