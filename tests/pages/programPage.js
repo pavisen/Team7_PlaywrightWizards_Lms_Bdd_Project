@@ -6,19 +6,23 @@ import { readDataFromExcelFile } from "../utils/excelReader";
 export class ProgramPage {
   constructor(page) {
     this.page = page;
+    
+    this.closeButton=page.getByRole('button', { name: '' });
     this.program_btn = page.getByRole('button', { name: 'Program' });
     this.logout = page.getByText('Logout');
     this.header = page.getByText('LMS - Learning Management System');
     this.addNewProgram_btn = page.getByRole('menuitem', { name: 'Add New Program' });
     this.manage_program = page.getByText(' Manage Program');
     this.module_names = page.locator('//mat-toolbar//button//span[1]');
-    this.programName = page.getByRole('textbox', { name: 'Program Name' });
-    this.description = page.getByRole('textbox', { name: 'Description' });
+    this.programName = page.locator('//*[@id="programName"]');
+    this.description = page.locator('//*[@id="programDescription"]');
+  
     this.activeButton = page.locator('.p-radiobutton-box').first()
     this.saveButton = page.getByRole('button', { name: 'Save' });
     this.programDetails = page.getByText('Program Details');
     this.mandatoryFields = page.locator('label').filter({ hasText: 'Name*' }).locator('span');
-    
+    this.verifyFieldIsRequired = page.getByText('Program name is required.');
+    this.cancel_btn = page.getByRole('button',{name: 'Cancel'});
   }
 
   async click_program() {
@@ -78,9 +82,10 @@ export class ProgramPage {
   }
 
 async verifyPopupFieldsEnabled() {
+   
   await expect(this.programName).toBeEnabled();
   await expect(this.description).toBeEnabled();
-  await expect(this.programStatus).toBeEnabled();
+  await expect(this.activeButton).toBeEnabled();
   
 }
 
@@ -99,13 +104,24 @@ async verifyPopupFieldsEnabled() {
     const mandatoryField = this.page.locator('label').filter({ hasText: field }).locator('span');
     await expect(mandatoryField).toBeVisible();
   }
+
+  async verifyFieldRequired() {
+    return this.verifyFieldIsRequired;
+  }
+  async clickClose() {
+    await this.closeButton.click();
+  }
+
+  async clickCancel() {
+    await this.cancel_btn.click();
+  }
 //check locators from here for edit program
   editProgram() {
     return this.page.locator('button').filter({ text: 'Edit' }).first().click();
   }
 
   Validate_programDetails() {
-    return this.page.locator('h1').first();
+    return this.page.locator('//*[@id="pr_id_2-label"]') ;
   }
   editProgramName() {
     return this.page.locator('input').filter({ name: 'Name *' }).first().fill('Updated Program Name');
@@ -128,9 +144,7 @@ async verifyPopupFieldsEnabled() {
   verifyUpdatedProgram() {
     return this.page.locator('input').filter({ name: 'Name *' }).first().value();
   }
-  verifyFormDisappears() {
-    return this.page.locator('input').filter({ name: 'Name *' }).first().value();
-  }
+ 
   searchProgram() {
     return this.page.locator('input').filter({ name: 'Name *' }).first().fill('Updated Program Name');
   }

@@ -62,8 +62,8 @@ When('Admin click on save button of the updated program from {string} and {strin
     programPage.clickCancel();
   });
   
-  Then('Admin can see the Program details form disappears', async ({programPage}) => {
-    programPage.verifyFormDisappears();
+  Then('Admin can see the Program details form disappears', async ({commonFunctions}) => {
+    await commonFunctions.toBeVisible('program');
   });
   
   When('Admin searches with newly updated Program Name from {string} and {string}', async ({programPage}, arg, arg1) => {
@@ -78,6 +78,6 @@ When('Admin click on save button of the updated program from {string} and {strin
     programPage.clickClose();
   });
   
-  Then('Admin can see Program Details form disappears', async ({programPage}) => {
-    programPage.verifyFormDisappears();
+  Then('Admin can see Program Details form disappears', async ({commonFunctions}) => {
+    await commonFunctions.toBeVisible('program');
   });

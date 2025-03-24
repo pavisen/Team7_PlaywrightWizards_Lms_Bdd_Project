@@ -66,7 +66,7 @@ class CommonFunctions {
     this.deleteMessage = page.getByText('batch Deleted');
     this.deletedMessage = page.getByText('Batches Deleted');
 
-    }
+  }
 
   async isEditIconVisible() {
     return await this.editIcon.first().isVisible(); // Check if at least one is visible
@@ -81,7 +81,16 @@ class CommonFunctions {
     await this.moduleSelectors[module].menu_btn.click();
   }
 
- 
+  async toBeVisible(module) {
+    console.log(`--- Module : ${module} ---`);
+    if (!this.moduleSelectors[module]) {
+      throw new Error(`Invalid module: ${module}`);
+    }
+    await expect(this.moduleSelectors[module].menu_btn).toBeVisible();
+  }
+
+
+
 
   async clickSubMenu(module) {
     if (!this.moduleSelectors[module]) {
@@ -237,77 +246,77 @@ class CommonFunctions {
   } catch(error) {
     console.error("Error in selecting dropdown option:", error);
   }
-  
-// Method to click anywhere on the screen
-async clickAnywhere(x = 500, y = 300) {
-  await this.page.mouse.click(x, y);
-}
 
-//Delete first record
-async deleteSelectedBatches(count) {
-  if (!this.page) throw new Error("Page context is closed.");
+  // Method to click anywhere on the screen
+  async clickAnywhere(x = 500, y = 300) {
+    await this.page.mouse.click(x, y);
+  }
 
-  // Ensure table is loaded
-  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
+  //Delete first record
+  async deleteSelectedBatches(count) {
+    if (!this.page) throw new Error("Page context is closed.");
 
-  const checkboxes = await this.checkBoxList.all(); // Get all checkboxes
-  const rowCount = checkboxes.length;
+    // Ensure table is loaded
+    await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
 
-  console.log(`Found ${rowCount} checkboxes`);
+    const checkboxes = await this.checkBoxList.all(); // Get all checkboxes
+    const rowCount = checkboxes.length;
 
-  // Ensure there are enough rows to delete
-  if (rowCount < count) {
+    console.log(`Found ${rowCount} checkboxes`);
+
+    // Ensure there are enough rows to delete
+    if (rowCount < count) {
       throw new Error(`Not enough records to delete. Found only ${rowCount} records.`);
-  }
+    }
 
-  // Select checkboxes for deletion
-  for (let i = 0; i < count; i++) {
+    // Select checkboxes for deletion
+    for (let i = 0; i < count; i++) {
       await checkboxes[i].click();
-  }
+    }
 
-  // Handle delete button click based on count
-  if (count === 1) {
-    console.log("Deleting a single record...");
-    await this.page.pause();
-    await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
-} else {
-    console.log(`Deleting ${count} records...`);
-    await this.page.pause();
-    await this.deleteButton.click(); // Use a different button for bulk delete
-}
+    // Handle delete button click based on count
+    if (count === 1) {
+      console.log("Deleting a single record...");
+      await this.page.pause();
+      await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
+    } else {
+      console.log(`Deleting ${count} records...`);
+      await this.page.pause();
+      await this.deleteButton.click(); // Use a different button for bulk delete
+    }
 
-  // Check if a confirmation popup appears and confirm
-  const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
-  const yesDelete=  this.page.locator("//span[contains(text(),'Yes')]");
-  if (await confirmDialog.isVisible()) {
+    // Check if a confirmation popup appears and confirm
+    const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
+    const yesDelete = this.page.locator("//span[contains(text(),'Yes')]");
+    if (await confirmDialog.isVisible()) {
       await yesDelete.click();
+    }
+
+
+    // Wait for table to update dynamically using `waitForSelector`
+    await this.page.waitForSelector("//table/tbody/tr", { state: 'attached', timeout: 5000 });
+
+    console.log(`Successfully deleted ${count} batch(es).`);
   }
 
+  async verifyBatchDeletion() {
+    // Check if a confirmation popup appears and confirm
+    const confirmDialog = this.page.locator("//div[contains(text(),'Successful')]");
+    const deletedMessage = this.page.getByText('Batches Deleted');
 
-  // Wait for table to update dynamically using `waitForSelector`
-  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached', timeout: 5000 });
+    if (await confirmDialog.isVisible()) {
+      await this.page.pause();
+      const messageText = await deletedMessage.textContent();
+      await this.page.pause();
+      console.log(`Deletion message displayed: ${messageText}`);
 
-  console.log(`Successfully deleted ${count} batch(es).`);
-}
+      // Ensure the message is actually visible
+      await expect(deletedMessage).toBeVisible();
+    } else {
+      throw new Error("Batch deletion confirmation message not found.");
+    }
 
-async verifyBatchDeletion() {
-  // Check if a confirmation popup appears and confirm
-  const confirmDialog = this.page.locator("//div[contains(text(),'Successful')]");
-  const deletedMessage = this.page.getByText('Batches Deleted');
-
-  if (await confirmDialog.isVisible()) {
-    await this.page.pause();
-    const messageText = await deletedMessage.textContent();
-    await this.page.pause();
-    console.log(`Deletion message displayed: ${messageText}`);
-
-    // Ensure the message is actually visible
-    await expect(deletedMessage).toBeVisible();
-} else {
-    throw new Error("Batch deletion confirmation message not found.");
-}
-
-}
+  }
 
   //pagination
   async goToNextPage() {
@@ -353,7 +362,7 @@ async verifyBatchDeletion() {
 
   // Sorting
   async getSortIcon(columnName) {
-  
+
     const regex = new RegExp(`^${columnName}.*`);
     const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
     return sortIcon;
@@ -364,7 +373,7 @@ async verifyBatchDeletion() {
     let originalData = await (ele).allTextContents();
     console.log('Ascending Order actual List: ' + originalData)
     let expectedList = originalData.slice().sort((a, b) => a.localeCompare(b));
-     console.log('Ascending Order expected: ' + expectedList)
+    console.log('Ascending Order expected: ' + expectedList)
     expect(originalData).toEqual(expectedList);
   }
 
@@ -385,21 +394,21 @@ async verifyBatchDeletion() {
   async clickSortIcon(ele) {
     await this.clickAnywhere();
     await ele.click();
-      }
+  }
 
-      async search(searchValue) {
-        await this.searchBar.click();
-        console.log("Type of searchValue:", typeof searchValue, "Value:", searchValue);
-        await this.searchBar.fill(searchValue);
-      }
+  async search(searchValue) {
+    await this.searchBar.click();
+    console.log("Type of searchValue:", typeof searchValue, "Value:", searchValue);
+    await this.searchBar.fill(searchValue);
+  }
 
-      async verifySearch(searchValue) {
-        await expect(
-          this.page.getByRole('gridcell', { name: `${searchValue}` }).nth(0).filter({ visible: true })
-        ).toBeVisible();
-    }
+  async verifySearch(searchValue) {
+    await expect(
+      this.page.getByRole('gridcell', { name: `${searchValue}` }).nth(0).filter({ visible: true })
+    ).toBeVisible();
+  }
 
-      
+
 }
 
 export { CommonFunctions };

@@ -28,8 +28,10 @@ function getRandomAlphabet(length) {
     return result;
   }
 
-  Then('Admin should see the program details entered', async ({programPage}) => {
-   programPage.verifyPopupFieldsEnabled();
+  Then('Admin should see the program details entered', async ({commonFunctions,programPage}) => {
+    await  commonFunctions.clickMenu('program');
+    await programPage.click_addNewProgram();
+   await programPage.verifyPopupFieldsEnabled();
   });
   
 Then('Admin should get a message {string}', async function ({programPage},arg ){
@@ -40,14 +42,14 @@ Then('Admin should get a message {string}', async function ({programPage},arg ){
     
 
 
-When('Admin clicks on New Program under the Program menu bar', async ({programPage}) => {
-  
+When('Admin clicks on New Program under the Program menu bar', async ({programPage, commonFunctions}) => {
+    await  commonFunctions.clickMenu('program');
     await programPage.click_addNewProgram();
 });
 
 Then('Admin should see pop up window for program details', async ({programPage}) => {
                           
-     programPage.verifyPopupFieldsEnabled();                  
+   await  programPage.verifyPopupFieldsEnabled();                  
 });
 
 Then('Admin should see window title as Program Details', async ({programPage}) => {
@@ -64,25 +66,33 @@ Given('Admin is on Program details form', async ({}) => {
 Then('Admin should see red {string} mark beside mandatory field {string} in program details form', async ({programPage}, arg, arg1) => {
         
   await (arg1);
+  await programPage.VerifyMandatoryFields();
 });
 
-When('Admin clicks save button without entering mandatory', async ({commonFunctions}) => {
-  await commonFunctions.clickSave();
+When('Admin clicks save button without entering mandatory', async ({commonFunctions, programPage}) => {
+  await commonFunctions.clickMenu('program');
+  await programPage.click_addNewProgram();
+  await programPage.saveProgram();
 });
 
-Then('Admin gets message field is required', async ({commonFunctions}) => {
-  await commonFunctions.verifyFieldIsRequired();
+Then('Admin gets message field is required', async ({programPage}) => {
+ await programPage.verifyFieldRequired();
+ 
 });
 
-When('Admin clicks Cancel button', async ({commonFunctions}) => {
-  await commonFunctions.clickCancel();
+When('Admin clicks Cancel button', async ({commonFunctions,programPage}) => {
+  await commonFunctions.clickMenu('program');
+  await programPage.click_addNewProgram();
+  await programPage.clickClose();
 });
 
 Then('Admin can see Program Details form disappears.', async ({commonFunctions}) => {
-  await commonFunctions.verifyFormDisappears();
+  await commonFunctions.toBeVisible('program');
 });
 
-When('Admin Click on X button.', async ({commonFunctions}) => {
-  await commonFunctions.clickClose();
+When('Admin Click on X button.', async ({commonFunctions, programPage}) => {
+  await commonFunctions.clickMenu('program');
+  await programPage.click_addNewProgram();
+  await programPage.clickClose();
 }); 
 

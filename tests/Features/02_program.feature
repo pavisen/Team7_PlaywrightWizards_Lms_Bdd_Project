@@ -275,6 +275,6 @@ Feature: Program Module Navigation
                 Then Admin should see the previous page record on the table with pagination has previous page link
 
         Scenario: Verify Admin is able to click  First page link
-                Given Admin is on Previous Program page
+                Given Admin is on Next Program page
                 When Admin clicks First page link
                 Then Admin should see the very first page record on the program table with Previous page link are disabled

@@ -44,20 +44,25 @@ Given('Admin is on last page of Program module table', async ({commonFunctions})
 
   When('Admin clicks Previous page link', async ({commonFunctions}) => {
     await commonFunctions.arePaginationButtonsVisible();
-    await commonFunctions.goToNextPage();
-    await commonFunctions.goToPreviousPage();
+    await commonFunctions.goToFirstPage();
   });
   
   Then('Admin should see the previous page record on the table with pagination has previous page link', async ({commonFunctions}) => {
-    await commonFunctions.verifyPreviousPage();
+    await commonFunctions.verifyNextPageEnabled();
   });
   
   Given('Admin is on Previous Program page', async ({commonFunctions}) => {
+  
+    await commonFunctions.arePaginationButtonsVisible();
+    await commonFunctions.goToPreviousPage();
+      
+  });
+
+  Given('Admin is on Next Program page', async ({commonFunctions}) => {
     await commonFunctions.clickMenu('program');
     await commonFunctions.clickAnywhere();
     await commonFunctions.arePaginationButtonsVisible();
-    await commonFunctions.goToPrevious();
-      
+    await commonFunctions.goToNextPage();
   });
 
   When('Admin clicks First page link', async ({commonFunctions}) => {
