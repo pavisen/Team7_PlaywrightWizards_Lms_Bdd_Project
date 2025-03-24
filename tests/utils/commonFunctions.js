@@ -343,6 +343,14 @@ async verifyBatchDeletion() {
     }
   }
 
+  // Sorting
+  async getSortIcon(columnName) {
+     
+    const regex = new RegExp(`${columnName}`);
+    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    return sortIcon;
+  }
+
   async validateAscendingSort(ele) {
     await this.page.waitForLoadState();
     let originalData = await (ele).allTextContents();
