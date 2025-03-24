@@ -370,6 +370,7 @@ class CommonFunctions {
 
   async validateAscendingSort(ele) {
     await this.page.waitForLoadState();
+    
     let originalData = await (ele).allTextContents();
     console.log('Ascending Order actual List: ' + originalData)
     let expectedList = originalData.slice().sort((a, b) => a.localeCompare(b));
@@ -392,7 +393,8 @@ class CommonFunctions {
   }
 
   async clickSortIcon(ele) {
-    await this.clickAnywhere();
+  // send esc key to page
+  await this.page.keyboard.press('Escape');
     await ele.click();
   }
 

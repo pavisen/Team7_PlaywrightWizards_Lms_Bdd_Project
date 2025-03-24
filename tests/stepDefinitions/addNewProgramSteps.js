@@ -2,14 +2,14 @@ import { test } from '../fixtures/fixture';
 import { expect } from '@playwright/test';
 import { createBdd } from 'playwright-bdd';
 import { getTestData } from '../utils/excelReader';
- 
+import { saveTestData, loadTestData } from "../utils/testDataHelper.js"; 
 const { Given, When, Then } = createBdd();
 
 const sheetName = 'program';
 Given('Admin is on the program Page.', async function ({loggedInPage}) {  
 });
 
-When('Admin Clicks on the Add program button and fill the required fields',async function ({programPage,commonFunctions}) {
+When('Admin Clicks on the Add program button and fill the required fields',async function ({programPage,commonFunctions,testData}) {
     await commonFunctions.clickMenu('program');
     await commonFunctions.clickSubMenu('program');
     // Get the data from the excel file
@@ -18,6 +18,13 @@ When('Admin Clicks on the Add program button and fill the required fields',async
     console.log(`programName: ${programName}`);
     console.log(`Description: ${Description}`);
     await programPage.enterProgramDetails(programName,  Description); 
+
+    //storing variables for chaining
+    const programNameForProgram =programName;
+    console.log(programNameForProgram);
+     testData.programNameForProgram = programNameForProgram;
+     saveTestData(testData); // Store data in file
+     console.log(`Storing programName: ${testData.programNameForProgram}`);
 });
 function getRandomAlphabet(length) {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';

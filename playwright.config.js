@@ -47,7 +47,7 @@ const projects = browserCategory
 export default defineConfig({
   testDir, 
   captureGitInfo: { commit: true, diff: true },
-  fullyParallel: false,
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: 0,  // ✅ Set retries to 2 for all environments
