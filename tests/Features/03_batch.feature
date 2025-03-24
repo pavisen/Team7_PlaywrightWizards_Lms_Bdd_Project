@@ -146,7 +146,7 @@ Feature: Batch Module -Batch Page Navigation
       Then Admin should see the very first page on the data table
 
      #Add New Batch DDT
-     @addBatch
+     @smoke
      Scenario: Verify Admin Add Batch successfully
      Given Admin is on the Batch Page 
      When  Admin Clicks on the Add Batch button and fill the required fields
@@ -157,7 +157,16 @@ Feature: Batch Module -Batch Page Navigation
      Scenario:  Validate logout option in the header is visible and enabled from the batch page	
      Given Admin is on the batch Page 
      When Admin clicks on the logout button	
-     Then Admin should see the Login screen Page title "LMS"																				
+     Then Admin should see the Login screen Page title "LMS"				
+
+     #BatchSearch
+     @smoke
+     Scenario: Validate search box functionality	
+     Given Admin is on the batch page
+     When Admin enters the batch name in the search text box
+     Then Admin should see the filtered batches in the data table																				
+																									
+																																									
 
 
    

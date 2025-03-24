@@ -2,7 +2,6 @@ import fs from 'fs';
 
 const TEST_DATA_FILE = "testData.json";
 
-// Save data to a JSON file
 export function saveTestData(data) {
     fs.writeFileSync(TEST_DATA_FILE, JSON.stringify(data, null, 2));
 }
