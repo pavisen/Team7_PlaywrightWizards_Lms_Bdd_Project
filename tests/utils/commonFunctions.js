@@ -410,6 +410,10 @@ class CommonFunctions {
     ).toBeVisible();
   }
 
+  async clickEdit() {
+    await this.editIcon.click();
+  }
+
 
 }
 

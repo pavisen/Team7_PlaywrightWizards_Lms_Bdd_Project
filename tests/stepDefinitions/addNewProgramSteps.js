@@ -34,6 +34,7 @@ function getRandomAlphabet(length) {
     }
     return result;
   }
+  
 
   Then('Admin should see the program details entered', async ({commonFunctions,programPage}) => {
     await  commonFunctions.clickMenu('program');
@@ -48,6 +49,53 @@ Then('Admin should get a message {string}', async function ({programPage},arg ){
 })
     
 
+When('Admin enters the program name with numbers', async ({programPage,commonFunctions}) => {
+  await commonFunctions.clickMenu('program');
+  await commonFunctions.clickSubMenu('program');
+  // Get the data from the excel file
+  const programName = getTestData(sheetName, 'invalidPName', 'ProgramName') +getRandomAlphabet(3);
+  const Description = getTestData(sheetName, 'invalidPName', 'Description');
+  console.log(`programName: ${programName}`);
+  console.log(`Description: ${Description}`);
+  await programPage.enterProgramDetails(programName,  Description); 
+});
+Then('Admin should get a message programName Must contain only letters and sometimes hyphens', async ({programPage}) => {
+   const failureMessage = await programPage.programCreationFailure().textContent();
+   expect(failureMessage.trim()).toBe("programName Must contain only letters and sometimes hyphens");
+
+});
+
+
+When('Admin enters the program name with special characters', async ({programPage,commonFunctions}) => {
+  await commonFunctions.clickMenu('program');
+  await commonFunctions.clickSubMenu('program');
+  // Get the data from the excel file
+  const programName = getTestData(sheetName, 'specialChar', 'ProgramName') +getRandomAlphabet(3);
+  const Description = getTestData(sheetName, 'specialChar', 'Description');
+  console.log(`programName: ${programName}`);
+  console.log(`Description: ${Description}`);
+  await programPage.enterProgramDetails(programName,  Description); 
+});
+Then('Admin should get a message This field should start with an alphabet, no special char and min {int} char', async ({programPage}, arg) => {
+  const failuremsg = await programPage.programNameWith2Char().textContent();
+  expect(failuremsg.trim()).toBe("This field should start with an alphabet, no special char and min 2 char.");
+});
+
+When('Admin enters the program name with minimum {int} characters', async ({programPage,commonFunctions}, arg) => {
+  await commonFunctions.clickMenu('program');
+  await commonFunctions.clickSubMenu('program');
+  // Get the data from the excel file
+  const programName = getTestData(sheetName, 'min2Char', 'ProgramName');
+  const Description = getTestData(sheetName, 'min2Char', 'Description');
+  console.log(`programName: ${programName}`);
+  console.log(`Description: ${Description}`);
+  await programPage.enterProgramDetails(programName,  Description); 
+});
+
+Then('Admin should get a message programName created successfully', async ({programPage}) => {
+  const successMessage = await programPage.programCreatedSuccess().textContent();
+    expect(successMessage.trim()).toBe("Program Created Successfully");
+});
 
 When('Admin clicks on New Program under the Program menu bar', async ({programPage, commonFunctions}) => {
     await  commonFunctions.clickMenu('program');

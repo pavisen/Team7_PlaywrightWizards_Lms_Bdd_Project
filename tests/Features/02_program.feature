@@ -95,7 +95,17 @@ Feature: Program Module Navigation
                 When  Admin Clicks on the Add program button and fill the required fields
 
                 Then Admin should get a message "new program successfully"
+        Scenario: Verify Admin add program name with numbers
+                When Admin enters the program name with numbers
+                Then Admin should get a message programName Must contain only letters and sometimes hyphens
 
+        Scenario: Verify Admin add program name with special characters
+                When Admin enters the program name with special characters
+                Then Admin should get a message This field should start with an alphabet, no special char and min 2 char
+
+        Scenario:Verify Admin add program name with minimum 2 characters
+                When Admin enters the program name with minimum 2 characters
+                Then Admin should get a message programName created successfully               
          #verify program details
         Scenario: Verify Admin is able to view the program details
             

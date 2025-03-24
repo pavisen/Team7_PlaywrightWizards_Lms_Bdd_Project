@@ -2,16 +2,24 @@ import { test } from '../fixtures/fixture';
 import { expect } from '@playwright/test';
 import { createBdd } from 'playwright-bdd';
 import { getTestData } from '../utils/excelReader';
+import { send } from 'process';
+import { loadTestData } from "../utils/testDataHelper.js";
 const { Given, When, Then } = createBdd();
 
 Given('Admin is on Program module for editing', async ({programPage,commonFunctions}) => {
   await commonFunctions.clickMenu('program');
   await commonFunctions.clickSubMenu('program');
-  await programPage.addNewProgram();
+  
 
   });
-When('Admin clicks on Edit option for particular program from {string} and {string}', async ({programPage}, arg, arg1) => {
-    programPage.editProgram();
+When('Admin clicks on Edit option for particular program from {string} and {string}', async ({programPage, commonFunctions}, arg, arg1) => {
+    const storedData = loadTestData();
+        console.log("Retrieved program Name: ", storedprogramNameForProgram);
+        await commonFunctions.search(storedprogramNameForProgram);
+        await commonFunctions.clickEdit
+        
+      
+      
     
   });
   
@@ -30,8 +38,9 @@ When('Admin clicks on Edit option for particular program from {string} and {stri
 
   });
   
-  When('Admin edits the program name and click on save button from {string} and {string}', async ({programPage}, arg, arg1) => {
-        programPage.editProgramName();
+  When('Admin edits the program name and click on save button from {string} and {string}', async ({programPage,commonFunctions}, arg, arg1) => {
+    await programPage.enterProgramDetails
+    await commonFunctions.clickSave();
 
   });
   

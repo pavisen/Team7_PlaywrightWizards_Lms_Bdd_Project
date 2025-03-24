@@ -95,6 +95,12 @@ async verifyPopupFieldsEnabled() {
   programCreatedSuccess() {
     return this.page.getByText('Program Created Successfully')
   }
+  programCreationFailure() {
+    return this.page.getByText('programName Must contain only letters and sometimes hyphens')
+  }
+  programNameWith2Char() {
+    return this.page.getByText('This field should start with an alphabet, no special char and min 2 char')
+  }
   async clickAnywhere(x = 500, y = 300) {
     await this.page.mouse.click(x, y);
     console.log(`Clicked at coordinates (${x}, ${y})`);
