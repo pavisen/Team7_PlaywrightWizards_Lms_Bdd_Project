@@ -91,11 +91,11 @@ When(
     );
     await classPage.clickSave();
     //storing variables for chaining
-    testData.batchName = batchName;
+    //testData.batchName = batchName;
     testData.classTopic = classTopic;
     testData.staffName = staffName;
     saveTestData(testData); // Store data in file
-    console.log(`Storing batchName: ${testData.batchName}`);
+    //console.log(`Storing batchName: ${testData.batchName}`);
     console.log(`Storing classTopic: ${testData.classTopic}`);
     console.log(`Storing staffName: ${testData.staffName}`);
   },

@@ -106,6 +106,28 @@ Feature: Batch Module -Batch Page Navigation
      When Admin clicks on the close icon	
      Then batch details pop up closes
 
+
+    #Delete batch validation
+   
+     Scenario: validate delete Icon on any row	
+     Given Admin is on the Batch page
+     When 	Admin clicks the delete Icon on any row	
+     Then  Admin should see the confirm alert box with yes and no button
+     
+     Scenario: Validate yes button on the confirm alert box	
+     Given Admin is on the batch confirm popup page	
+     When Admin clicks on the delete icon and click yes button	
+     Then Admin should see the successful message and the batch should be deleted
+     
+     Scenario: validate no button on the confirm alert box	
+     Given Admin is on the batch confirm popup page	
+     When Admin clicks on the delete icon and click no button	
+     Then Admin should see the alert box closed and the batch is not deleted
+
+     Scenario: validate close Icon on the alert box	
+     Given Admin is on the batch confirm popup page	
+     When Admin clicks on the close icon	
+     Then Admin should see the alert box closed 
           
    #Delete multiple batches with checkbox
       #Background: 
@@ -146,7 +168,7 @@ Feature: Batch Module -Batch Page Navigation
       Then Admin should see the very first page on the data table
 
      #Add New Batch DDT
-     @addBatch
+     @smoke
      Scenario: Verify Admin Add Batch successfully
      Given Admin is on the Batch Page 
      When  Admin Clicks on the Add Batch button and fill the required fields
@@ -157,7 +179,16 @@ Feature: Batch Module -Batch Page Navigation
      Scenario:  Validate logout option in the header is visible and enabled from the batch page	
      Given Admin is on the batch Page 
      When Admin clicks on the logout button	
-     Then Admin should see the Login screen Page title "LMS"																				
+     Then Admin should see the Login screen Page title "LMS"				
+
+     #BatchSearch
+     @smoke
+     Scenario: Validate search box functionality	
+     Given Admin is on the batch page
+     When Admin enters the batch name in the search text box
+     Then Admin should see the filtered batches in the data table																				
+																									
+																																									
 
 
    
