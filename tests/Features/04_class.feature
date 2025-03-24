@@ -118,9 +118,8 @@ When Admin enter the Batch Name in search textbox
 Then Admin should see Class details are searched by Batch Name
 
 
-
-
 #Edit New class
+@smoke
 Scenario: Validate row level edit icon
 Given Admin is on the Manage Class page
 When Admin clicks on the edit icon 
