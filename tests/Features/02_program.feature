@@ -105,93 +105,65 @@ Feature: Program Module Navigation
 
         Scenario:Verify Admin add program name with minimum 2 characters
                 When Admin enters the program name with minimum 2 characters
-                Then Admin should get a message programName created successfully  
+                Then Admin should get a message programName created successfully
 
         Scenario: Verify Admin add program name with missing description
                 When Admin enters the program name with missing description
                 Then Admin should get a message description is required
-                                  
-         #verify program details
+
+        #verify program details
         Scenario: Verify Admin is able to view the program details
-            
-                Then Admin should see the program details entered      
+
+                Then Admin should see the program details entered
 
         #edit program
 
-        Scenario Outline: Verify Edit option
+        Scenario: Verify Edit option
                 Given Admin is on Program module for editing
-        
+
                 When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
                 Then Admin lands on Program details form
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify title of the pop up window
+        Scenario: Verify title of the pop up window for Edit
                 When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
                 Then Admin should see window title as "Program Details"
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify mandatory fields with red "*" mark
+        Scenario: Verify mandatory fields with red "*" mark for Edit
                 When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
                 Then Admin should see red "*" mark beside mandatory field "Name"
 
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
-        Scenario Outline: Verify edit Program Name
-                When Admin edits the program name and click on save button from "<KeyOption>" and "<sheetname>"
+
+        Scenario: Verify edit Program Name
+                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
+                And Admin edits the program name and click on save button from "<KeyOption>" and "<sheetname>"
                 Then Updated program name is seen by the Admin
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
 
-        Scenario Outline: Verify edit Description
+        Scenario: Verify edit Description
                 When Admin edits the description text and click on save button from "<KeyOption>" and "<sheetname>"
                 Then Admin can see the description is updated
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify edit Status
+        Scenario: Verify edit Status
                 When Admin can change the status of the program from "<KeyOption>" and "<sheetname>" and click on save button
                 Then Status updated can be viewed by the Admin
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-
-        Scenario Outline: Verify Admin is able to click Save
+        Scenario: Verify Admin is able to click Save
                 When Admin click on save button of the updated program from "<KeyOption>" and "<sheetname>"
                 Then Admin can see the updated program details
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
 
-        Scenario Outline: Verify Admin is able to click Cancel
+        Scenario: Verify Admin is able to click Cancel
                 When Admin click on cancel button of the updated program from "<KeyOption>" and "<sheetname>"
                 Then Admin can see the Program details form disappears
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify edited Program details
+        Scenario: Verify edited Program details
                 When Admin searches with newly updated Program Name from "<KeyOption>" and "<sheetname>"
                 Then Admin verifies that the details are correctly updated from "<KeyOption>" and "<sheetname>"
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify close the window with "X"
+
+        Scenario: Verify close the window with "X"
                 When Admin Click on X button of the updated program from "<KeyOption>" and "<sheetname>"
                 Then Admin can see Program Details form disappears
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
 
         #delete program
@@ -266,15 +238,7 @@ Feature: Program Module Navigation
                 When Admin clicks on Arrow next to Program status
                 Then Admin See the  Program Status is sorted in Ascending order/Descending order
 
-
-
-
         #program Pagination
-
-
-
-
-
 
         Scenario: Verify Admin is able to click Next page link
                 Given Admin is on Program module
@@ -297,9 +261,9 @@ Feature: Program Module Navigation
                 Then Admin should see the very first page record on the program table with Previous page link are disabled
 
 
-         #programSearch
-     @smoke
-     Scenario: Validate search box functionality	
-     Given Admin is on the program page
-     When Admin enters the program name in the search text box
-     Then Admin should see the filtered programs in the data table		        
+        #programSearch
+        @smoke
+        Scenario: Validate search box functionality
+                Given Admin is on the program page
+                When Admin enters the program name in the search text box
+                Then Admin should see the filtered programs in the data table

@@ -37,7 +37,7 @@ Then('Admin should see Logout option', async ({commonFunctions}) => {
 
 
 Then('Admin should see the page names as in order Home Program Batch Class', async ({programPage}) => {
-  await programPage.clickProgram();
+  await programPage.click_program();
   const actual_modules = await programPage.modulenames();
   const expected_modulenames = ['Home', 'Program', 'Batch', 'Class','Logout'];
   expect(await actual_modules).toBe(expected_modulenames);

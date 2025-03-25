@@ -414,7 +414,15 @@ class CommonFunctions {
     await this.editIcon.click();
   }
 
-
+    getRandomAlphabet(length) {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+    }
+    return result;
+  }
+  
 }
 
 export { CommonFunctions };

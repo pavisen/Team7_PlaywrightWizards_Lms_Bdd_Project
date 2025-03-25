@@ -14,10 +14,10 @@ When('Admin Clicks on the Add program button and fill the required fields',async
     await commonFunctions.clickSubMenu('program');
     // Get the data from the excel file
     const programName = getTestData(sheetName, 'valid', 'ProgramName') +getRandomAlphabet(3);
-    const Description = getTestData(sheetName, 'valid', 'Description');
+    const description = getTestData(sheetName, 'valid', 'Description');
     console.log(`programName: ${programName}`);
-    console.log(`Description: ${Description}`);
-    await programPage.enterProgramDetails(programName,  Description); 
+    console.log(`Description: ${description}`);
+    await programPage.enterProgramDetails(programName,  description); 
 
     //storing variables for chaining
     const programNameForProgram =programName;
@@ -44,7 +44,7 @@ function getRandomAlphabet(length) {
   
 Then('Admin should get a message {string}', async function ({programPage},arg ){
     
-    const successMessage = await programPage.programCreatedSuccess().textContent();
+    const successMessage = await (await programPage.programCreatedSuccess()).textContent();
     expect(successMessage.trim()).toBe("Program Created Successfully");
 })
     
@@ -60,7 +60,8 @@ When('Admin enters the program name with numbers', async ({programPage,commonFun
   await programPage.enterProgramDetails(programName,  Description); 
 });
 Then('Admin should get a message programName Must contain only letters and sometimes hyphens', async ({programPage}) => {
-   const failureMessage = await programPage.programCreationFailure().textContent();
+  
+   const failureMessage = await (await programPage.programCreationFailure()).textContent();
    expect(failureMessage.trim()).toBe("programName Must contain only letters and sometimes hyphens");
 
 });
@@ -77,7 +78,7 @@ When('Admin enters the program name with special characters', async ({programPag
   await programPage.enterProgramDetails(programName,  Description); 
 });
 Then('Admin should get a message This field should start with an alphabet, no special char and min {int} char', async ({programPage}, arg) => {
-  const failuremsg = await programPage.programNameWith2Char().textContent();
+  const failuremsg = await(await programPage.programNameWith2Char()).textContent();
   expect(failuremsg.trim()).toBe("This field should start with an alphabet, no special char and min 2 char.");
 });
 
@@ -93,7 +94,7 @@ When('Admin enters the program name with minimum {int} characters', async ({prog
 });
 
 Then('Admin should get a message programName created successfully', async ({programPage}) => {
-  const successMessage = await programPage.programCreatedSuccess().textContent();
+  const successMessage = await (await programPage.programCreatedSuccess()).textContent();
     expect(successMessage.trim()).toBe("Program Created Successfully");
 });
 
@@ -103,14 +104,14 @@ When('Admin enters the program name with missing description', async ({programPa
   await commonFunctions.clickSubMenu('program');
   // Get the data from the excel file
   const programName = getTestData(sheetName, 'emptyDes', 'ProgramName');
-  const Description = getTestData(sheetName, 'emptyDes', 'Description');
+  const description = getTestData(sheetName, 'emptyDes', 'Description');
   console.log(`programName: ${programName}`);
-  console.log(`Description: ${Description}`);
-  await programPage.enterProgramDetails(programName,  Description); 
+  console.log(`Description: ${description}`);
+  await programPage.enterProgramDetails(programName,  description||''); 
 });
 
 Then('Admin should get a message description is required', async ({programPage}) => {
-   const descRequired = await programPage.requiredDesc().textContent();
+   const descRequired = await(await programPage.requiredDesc()).textContent();
    expect(descRequired.trim()).toBe("Description is required.");
 });
 
@@ -125,7 +126,7 @@ Then('Admin should see pop up window for program details', async ({programPage})
 });
 
 Then('Admin should see window title as Program Details', async ({programPage}) => {
-  const programDetails = await programPage.Validate_programDetails().textContent();
+  const programDetails =await( await programPage.Validate_programDetails()).textContent();
   expect(programDetails.trim()).toBe("Program Details");               
 });
 
