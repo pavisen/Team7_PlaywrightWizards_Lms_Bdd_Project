@@ -110,37 +110,37 @@ test.describe('Batch Module -Batch Page Navigation', () => {
     await Then('batch details pop up closes', null, { commonFunctions }); 
   });
 
-  test('validate delete Icon on any row', async ({ Given, When, Then }) => { 
-    await Given('Admin is on the Batch page'); 
-    await When('Admin clicks the delete Icon on any row'); 
-    await Then('Admin should see the confirm alert box with yes and no button'); 
+  test('validate delete Icon on any row', async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on the Batch page', null, { commonFunctions }); 
+    await When('Admin clicks the delete Icon on any row', null, { commonFunctions }); 
+    await Then('Admin should see the confirm alert box with yes and no button', null, { commonFunctions }); 
   });
 
-  test('Validate yes button on the confirm alert box', async ({ Given, When, Then }) => { 
-    await Given('Admin is on the batch confirm popup page'); 
-    await When('Admin clicks on the delete icon and click yes button'); 
-    await Then('Admin should see the successful message and the batch should be deleted'); 
+  test('Validate yes button on the confirm alert box', async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on the batch confirm popup page', null, { commonFunctions }); 
+    await When('Admin clicks on the delete icon and click yes button', null, { commonFunctions }); 
+    await Then('Admin should see the successful message and the batch should be deleted', null, { commonFunctions }); 
   });
 
-  test('validate no button on the confirm alert box', async ({ Given, When, Then }) => { 
-    await Given('Admin is on the batch confirm popup page'); 
-    await When('Admin clicks on the delete icon and click no button'); 
-    await Then('Admin should see the alert box closed and the batch is not deleted'); 
+  test('validate no button on the confirm alert box', async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on the batch confirm popup page', null, { commonFunctions }); 
+    await When('Admin clicks on the delete icon and click no button', null, { commonFunctions }); 
+    await Then('Admin should see the alert box closed and the batch is not deleted', null, { commonFunctions }); 
   });
 
-  test('validate close Icon on the alert box', async ({ Given, When, batchPage, commonFunctions, Then }) => { 
-    await Given('Admin is on the batch confirm popup page'); 
-    await When('Admin clicks on the close icon', null, { batchPage, commonFunctions }); 
-    await Then('Admin should see the alert box closed'); 
+  test('validate close Icon on the alert box', { tag: ['@DeleteBatch'] }, async ({ Given, commonFunctions, When, Then, batchPage }) => { 
+    await Given('Admin is on the batch confirm popup page', null, { commonFunctions }); 
+    await When('Admin clicks on the close icon on delete', null, { commonFunctions }); 
+    await Then('Admin should see the alert box closed', null, { batchPage, commonFunctions }); 
   });
 
-  test('Validate single row delete with checkbox', { tag: ['@Delete'] }, async ({ Given, paginationPage, commonFunctions, When, Then, batchPage }) => { 
+  test('Validate single row delete with checkbox', { tag: ['@Deletion'] }, async ({ Given, paginationPage, commonFunctions, When, Then, batchPage }) => { 
     await Given('Admin is on the batch Page', null, { paginationPage, commonFunctions }); 
     await When('Admin clicks on the delete icon under the Manage batch header', null, { commonFunctions }); 
     await Then('The respective row in the table should be deleted', null, { batchPage, commonFunctions }); 
   });
 
-  test('Validate multiple row delete with checkbox', { tag: ['@Delete'] }, async ({ Given, paginationPage, commonFunctions, When, Then, batchPage }) => { 
+  test('Validate multiple row delete with checkbox', { tag: ['@Deletion'] }, async ({ Given, paginationPage, commonFunctions, When, Then, batchPage }) => { 
     await Given('Admin is on the batch Page', null, { paginationPage, commonFunctions }); 
     await When('Admin clicks on the delete icon under the Manage batch header for multiple rows', null, { commonFunctions }); 
     await Then('The respective multiple rows in the table should be deleted', null, { batchPage, commonFunctions }); 
@@ -221,9 +221,9 @@ const bddFileData = [ // bdd-data-start
   {"pwTestLine":113,"pickleLine":112,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":114,"gherkinStepLine":113,"keywordType":"Context","textWithKeyword":"Given Admin is on the Batch page","stepMatchArguments":[]},{"pwStepLine":115,"gherkinStepLine":114,"keywordType":"Action","textWithKeyword":"When Admin clicks the delete Icon on any row","stepMatchArguments":[]},{"pwStepLine":116,"gherkinStepLine":115,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the confirm alert box with yes and no button","stepMatchArguments":[]}]},
   {"pwTestLine":119,"pickleLine":117,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":120,"gherkinStepLine":118,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch confirm popup page","stepMatchArguments":[]},{"pwStepLine":121,"gherkinStepLine":119,"keywordType":"Action","textWithKeyword":"When Admin clicks on the delete icon and click yes button","stepMatchArguments":[]},{"pwStepLine":122,"gherkinStepLine":120,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the successful message and the batch should be deleted","stepMatchArguments":[]}]},
   {"pwTestLine":125,"pickleLine":122,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":126,"gherkinStepLine":123,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch confirm popup page","stepMatchArguments":[]},{"pwStepLine":127,"gherkinStepLine":124,"keywordType":"Action","textWithKeyword":"When Admin clicks on the delete icon and click no button","stepMatchArguments":[]},{"pwStepLine":128,"gherkinStepLine":125,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the alert box closed and the batch is not deleted","stepMatchArguments":[]}]},
-  {"pwTestLine":131,"pickleLine":127,"tags":[],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":132,"gherkinStepLine":128,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch confirm popup page","stepMatchArguments":[]},{"pwStepLine":133,"gherkinStepLine":129,"keywordType":"Action","textWithKeyword":"When Admin clicks on the close icon","stepMatchArguments":[]},{"pwStepLine":134,"gherkinStepLine":130,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the alert box closed","stepMatchArguments":[]}]},
-  {"pwTestLine":137,"pickleLine":136,"tags":["@Delete"],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":138,"gherkinStepLine":137,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch Page","stepMatchArguments":[]},{"pwStepLine":139,"gherkinStepLine":138,"keywordType":"Action","textWithKeyword":"When Admin clicks on the delete icon under the Manage batch header","stepMatchArguments":[]},{"pwStepLine":140,"gherkinStepLine":139,"keywordType":"Outcome","textWithKeyword":"Then The respective row in the table should be deleted","stepMatchArguments":[]}]},
-  {"pwTestLine":143,"pickleLine":141,"tags":["@Delete"],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":144,"gherkinStepLine":142,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch Page","stepMatchArguments":[]},{"pwStepLine":145,"gherkinStepLine":143,"keywordType":"Action","textWithKeyword":"When Admin clicks on the delete icon under the Manage batch header for multiple rows","stepMatchArguments":[]},{"pwStepLine":146,"gherkinStepLine":144,"keywordType":"Outcome","textWithKeyword":"Then The respective multiple rows in the table should be deleted","stepMatchArguments":[]}]},
+  {"pwTestLine":131,"pickleLine":127,"tags":["@DeleteBatch"],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":132,"gherkinStepLine":128,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch confirm popup page","stepMatchArguments":[]},{"pwStepLine":133,"gherkinStepLine":129,"keywordType":"Action","textWithKeyword":"When Admin clicks on the close icon on delete","stepMatchArguments":[]},{"pwStepLine":134,"gherkinStepLine":130,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the alert box closed","stepMatchArguments":[]}]},
+  {"pwTestLine":137,"pickleLine":136,"tags":["@Deletion"],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":138,"gherkinStepLine":137,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch Page","stepMatchArguments":[]},{"pwStepLine":139,"gherkinStepLine":138,"keywordType":"Action","textWithKeyword":"When Admin clicks on the delete icon under the Manage batch header","stepMatchArguments":[]},{"pwStepLine":140,"gherkinStepLine":139,"keywordType":"Outcome","textWithKeyword":"Then The respective row in the table should be deleted","stepMatchArguments":[]}]},
+  {"pwTestLine":143,"pickleLine":141,"tags":["@Deletion"],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":144,"gherkinStepLine":142,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch Page","stepMatchArguments":[]},{"pwStepLine":145,"gherkinStepLine":143,"keywordType":"Action","textWithKeyword":"When Admin clicks on the delete icon under the Manage batch header for multiple rows","stepMatchArguments":[]},{"pwStepLine":146,"gherkinStepLine":144,"keywordType":"Outcome","textWithKeyword":"Then The respective multiple rows in the table should be deleted","stepMatchArguments":[]}]},
   {"pwTestLine":149,"pickleLine":150,"tags":["@pagination"],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":150,"gherkinStepLine":151,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch Page","stepMatchArguments":[]},{"pwStepLine":151,"gherkinStepLine":152,"keywordType":"Action","textWithKeyword":"When Admin clicks next page link on the data table","stepMatchArguments":[]},{"pwStepLine":152,"gherkinStepLine":153,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the Next enabled link","stepMatchArguments":[]}]},
   {"pwTestLine":155,"pickleLine":155,"tags":["@pagination"],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":156,"gherkinStepLine":156,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch Page","stepMatchArguments":[]},{"pwStepLine":157,"gherkinStepLine":157,"keywordType":"Action","textWithKeyword":"When Admin clicks last page link on the data table","stepMatchArguments":[]},{"pwStepLine":158,"gherkinStepLine":158,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the last page link with next page link disabled on the table","stepMatchArguments":[]}]},
   {"pwTestLine":161,"pickleLine":160,"tags":["@pagination"],"steps":[{"pwStepLine":7,"gherkinStepLine":5,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after Login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":162,"gherkinStepLine":161,"keywordType":"Context","textWithKeyword":"Given Admin is on the batch Page","stepMatchArguments":[]},{"pwStepLine":163,"gherkinStepLine":162,"keywordType":"Action","textWithKeyword":"When Admin clicks previous page link on the data table","stepMatchArguments":[]},{"pwStepLine":164,"gherkinStepLine":163,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the previous page on the table","stepMatchArguments":[]}]},

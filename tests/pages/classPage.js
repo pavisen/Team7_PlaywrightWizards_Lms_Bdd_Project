@@ -21,6 +21,7 @@ class ClassPage {
     this.recording = page.locator("#classRecordingPath");
     this.saveButton = page.getByRole("button", { name: "Save" });
     this.cancelButton = page.getByRole("button", { name: "Cancel" });
+    this.cancelButton = page.getByRole("button", { name: "Cancel" });
     this.closeBatchpop = page.getByRole("button", { name: "" });
     this.successfullMsg = page.getByText("Successful", { exact: true });
     this.classCreatedSuccess = page.getByText("Class Created");

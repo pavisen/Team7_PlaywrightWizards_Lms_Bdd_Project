@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
+import logger from '../utils/logger.js';
 
 const { Given, When, Then } = createBdd();
 
@@ -64,6 +65,10 @@ class CommonFunctions {
     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
     this.deleteMessage = page.getByText('batch Deleted');
     this.deletedMessage = page.getByText('Batches Deleted');
+    this.confirmDialog=page.locator("//span[contains(text(),'Confirm')]");
+    this.yesDelete=page.locator("//span[contains(text(),'Yes')]");
+    this.NoDelete=page.locator("//span[contains(text(),'No')]");
+    this.closeDelete=page.locator("//button[@class='ng-tns-c204-18 p-confirm-dialog-accept p-ripple p-button p-component ng-star-inserted']");
 
     }
 
@@ -235,71 +240,115 @@ async clickAnywhere(x = 500, y = 300) {
   await this.page.mouse.click(x, y);
 }
 
-//Delete first record
+//Deletion
 async deleteSelectedBatches(count) {
   if (!this.page) throw new Error("Page context is closed.");
-
-  // Ensure table is loaded
   await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
 
   const checkboxes = await this.checkBoxList.all(); // Get all checkboxes
   const rowCount = checkboxes.length;
-
   console.log(`Found ${rowCount} checkboxes`);
-
   // Ensure there are enough rows to delete
   if (rowCount < count) {
       throw new Error(`Not enough records to delete. Found only ${rowCount} records.`);
   }
-
   // Select checkboxes for deletion
   for (let i = 0; i < count; i++) {
       await checkboxes[i].click();
   }
-
   // Handle delete button click based on count
   if (count === 1) {
     console.log("Deleting a single record...");
-    await this.page.pause();
     await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
 } else {
     console.log(`Deleting ${count} records...`);
-    await this.page.pause();
     await this.deleteButton.click(); // Use a different button for bulk delete
 }
-
   // Check if a confirmation popup appears and confirm
   const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
   const yesDelete=  this.page.locator("//span[contains(text(),'Yes')]");
   if (await confirmDialog.isVisible()) {
       await yesDelete.click();
   }
-
-
   // Wait for table to update dynamically using `waitForSelector`
   await this.page.waitForSelector("//table/tbody/tr", { state: 'attached', timeout: 5000 });
-
   console.log(`Successfully deleted ${count} batch(es).`);
 }
 
-async verifyBatchDeletion() {
-  // Check if a confirmation popup appears and confirm
-  const confirmDialog = this.page.locator("//div[contains(text(),'Successful')]");
-  const deletedMessage = this.page.getByText('Batches Deleted');
 
-  if (await confirmDialog.isVisible()) {
-    await this.page.pause();
-    const messageText = await deletedMessage.textContent();
-    await this.page.pause();
-    console.log(`Deletion message displayed: ${messageText}`);
-
-    // Ensure the message is actually visible
-    await expect(deletedMessage).toBeVisible();
+async clickDeleteRow(count)
+{
+  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
+  const checkboxes = await this.checkBoxList.all(); 
+  const rowCount = checkboxes.length;
+  // Ensure there are enough rows to delete
+  if (rowCount < count) {
+      throw new Error(`Not enough records to delete. Found only ${rowCount} records.`);
+  }
+  // Select checkboxes for deletion
+  for (let i = 0; i < count; i++) {
+      await checkboxes[i].click();
+  }
+  // Handle delete button click based on count
+  if (count === 1) {
+    console.log("Deleting a single record...");
+    await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
 } else {
-    throw new Error("Batch deletion confirmation message not found.");
+   console.log(`Deleting ${count} records...`);
+    await this.deleteButton.click(); // Use a different button for bulk delete
+}
+}
+  
+async confirmDeleteDialog()
+{
+  const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
+  const yesDelete =  this.page.locator("//span[contains(text(),'Yes')]");
+  const noDelete  =  this.page.locator("//span[contains(text(),'No')]");
+  if (await confirmDialog.isVisible()) {
+    console.log("Confirm Dialog is displayed");
+    if (await yesDelete.isVisible() && await noDelete.isVisible()) {
+      console.log("'Yes' and 'No' buttons are present in the dialog.");
+    } else {
+      console.warn("'Yes' or 'No' button is missing in the dialog.");
+    }
+    return { confirmDialog, yesDelete, noDelete };
+  } else {
+    console.warn("Confirm Dialog is not displayed.");
+    return null;
+  }
 }
 
-}
+ async clickConfirmYesDelete(){
+  const confirmDialog = this.confirmDialog;
+  const yesDelete=  this.yesDelete;
+  if (await confirmDialog.isVisible()) {
+    await yesDelete.click();
+  }
+ } 
+
+ async clickConfirmNoDelete(){
+  const confirmDialog = this.confirmDialog;
+  const noDelete=  this.NoDelete;
+  if (await confirmDialog.isVisible()) {
+      await noDelete.click();
+  }
+ } 
+
+ async clickCloseDelete() {
+  try {
+    const closeButton = this.page.getByRole('button', { name: '' });
+    // Wait for the button to appear
+    await closeButton.waitFor({ state: "visible", timeout: 5000 });
+    if (await closeButton.isVisible()) {
+      await closeButton.click();
+      console.log("Close button clicked successfully.");
+    } else {
+      console.warn("Close button is not visible, cannot click.");
+    }
+  } catch (error) {
+    console.error("Error clicking close button:", error);
+  }
+  }
 
   //pagination
   async goToNextPage() {
