@@ -9,11 +9,9 @@ import logger from '../utils/logger.js';
 
 
 Given('Admin is on the home page after Login', async ({loggedInPage}) => {
-
 });
 
 When('Admin Clicks on the Batch menu from the header', async function ({commonFunctions}) {
-  // Initialize CommonFunctions for Batch module
   await commonFunctions.clickMenu('batch');
   
 });
@@ -41,7 +39,6 @@ Then('Admin should see the {string} Heading', async ({commonFunctions},expectedT
 
 Then('Admin should see the disabled Delete Icon under the header', async ({commonFunctions}) => {
   await expect(commonFunctions.deleteButton).toBeVisible(); 
- // expect(actual).toBe(expected);
 });
 
 Then('Admin should see the enabled pagination controls under the data table', async ({commonFunctions}) => {
@@ -73,7 +70,6 @@ Then('Admin should see the checkbox  in the datatable header row', async ({commo
 });
 
 Then('Admin should see the sort icon next to all Datatable headers', async ({commonFunctions}) => {
-  //await commonFunctions.sortIcon.waitFor({ state: 'visible' });
   const isSortIconPresent = await commonFunctions.isElementPresent('sortIcon', 'header');
     expect(isSortIconPresent).toBe(true);
 });
@@ -97,15 +93,12 @@ When('Admin clicks on the delete icon under the Manage batch header for multiple
 });
 
 Then('The respective row in the table should be deleted', async ({batchPage,commonFunctions}) => {
-
-
   const successMessage = await commonFunctions.deleteMessage.textContent();
   expect(successMessage.trim()).toBe("batch Deleted");
  
 });
 
 Then('The respective multiple rows in the table should be deleted', async ({batchPage,commonFunctions}) => {
-
 
   const successMessage = await commonFunctions.deletedMessage.textContent();
   expect(successMessage.trim()).toBe("Batches Deleted");
