@@ -8,7 +8,7 @@ import { CommonFunctions } from '../utils/commonFunctions';
 const { Given, When, Then } = createBdd();
 Given('Admin is on Program module', async ({paginationPage,commonFunctions}) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.clickAnywhere();
+  await commonFunctions.escape();
   });
   
   When('Admin clicks Next page link on the program table', async ({commonFunctions}) => {
@@ -34,7 +34,7 @@ Then('Admin should see the last page record on the program table with Next page 
   
 Given('Admin is on last page of Program module table', async ({commonFunctions}) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.clickAnywhere();
+  await commonFunctions.escape();
   await commonFunctions.arePaginationButtonsVisible();
   await commonFunctions.goToLastPage();
 });
@@ -60,7 +60,7 @@ Given('Admin is on last page of Program module table', async ({commonFunctions})
 
   Given('Admin is on Next Program page', async ({commonFunctions}) => {
     await commonFunctions.clickMenu('program');
-    await commonFunctions.clickAnywhere();
+    await commonFunctions.escape();
     await commonFunctions.arePaginationButtonsVisible();
     await commonFunctions.goToNextPage();
   });

@@ -77,6 +77,18 @@ class CommonFunctions {
     return await this.editIcon.first().isVisible(); // Check if at least one is visible
   }
 
+ async escape() {
+    await this.page.keyboard.press('Escape');
+  }
+
+  async toBeVisible(module) {
+    console.log(`--- Module : ${module} ---`);
+    if (!this.moduleSelectors[module]) {
+      throw new Error(`Invalid module: ${module}`);
+    }
+    await expect(this.moduleSelectors[module].menu_btn).toBeVisible();
+  }
+
   async clickMenu(module) {
     console.log(`--- Module : ${module} ---`);
     if (!this.moduleSelectors[module]) {
@@ -252,7 +264,10 @@ class CommonFunctions {
     console.error("Error in selecting dropdown option:", error);
   }
 
-  //Deletion
+  // Method to click anywhere on the screen
+  async clickAnywhere(x = 500, y = 300) {
+    await this.page.mouse.click(x, y);
+  }
   async deleteSelectedBatches(count) {
     if (!this.page) throw new Error("Page context is closed.");
     await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
@@ -443,14 +458,7 @@ class CommonFunctions {
       throw new Error("First page validation failed. Previous link is still enabled.");
     }
   }
-
-  // Sorting
-  async getSortIcon(columnName) {
-    const regex = new RegExp(`${columnName}`);
-    const sortIcon = await this.page.getByRole('columnheader', { name: regex });
-    return sortIcon;
-  }
-
+ 
   async validateAscendingSort(ele) {
     await this.page.waitForLoadState();
 
@@ -507,7 +515,13 @@ class CommonFunctions {
     return result;
   }
 
-
+  // Sorting
+  async getSortIcon(columnName) {
+     
+    const regex = new RegExp(`${columnName}`);
+    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    return sortIcon;
+  }
 }
 
 export { CommonFunctions };
