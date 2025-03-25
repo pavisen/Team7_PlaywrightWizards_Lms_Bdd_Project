@@ -25,6 +25,7 @@ class ClassPage {
     this.successfullMsg = page.getByText("Successful", { exact: true });
     this.classCreatedSuccess = page.getByText("Class Created");
     this.errorMessages = page.locator("//*[@class='p-invalid ng-star-inserted']");
+    this.editPageTitle = page.getByText('Class Details');
     this.classTopicCreated = "";
   }
 
@@ -145,6 +146,12 @@ for (let i = 0; i < errorMessageElements.length; i++) {
 
 return errorMessages;
 }
+
+async clickEdit(value){
+  this.page.getByRole('row', { name: `${value}` }).getByRole('button').first().click();
+}
+
+
 
 
 }

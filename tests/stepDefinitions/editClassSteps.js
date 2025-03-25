@@ -2,25 +2,30 @@ import { test } from "../fixtures/fixture";
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
 import { getTestData } from "../utils/excelReader";
+import logger, { attachLogsAfterEachTest } from '../utils/logger.js';
+import { saveTestData, loadTestData } from "../utils/testDataHelper.js";
 
 // Create BDD steps
 const { Given, When, Then } = createBdd();
 const sheetName = "class";
+const storedData = loadTestData(); // Retrieve stored data
 
 
-Given('Admin is on the Manage Class page', async ({}) => {
-    // Step: Given Admin is on the Manage Class page
-    // From: tests/Features/04_class.feature:102:1
+Given('Admin is on the Manage Class page', async ({loggedInPage,commonFunctions}) => {  
+  await commonFunctions.clickMenu("class");
+  await commonFunctions.clickAnywhere();
+});
+  
+  When('Admin clicks on the edit icon', async ({commonFunctions,classPage}) => {
+    await commonFunctions.search("mathumathi");
+   await classPage.clickEdit("Java Batch 01 mathumathi");
   });
   
-  When('Admin clicks on the edit icon', async ({}) => {
-    // Step: When Admin clicks on the edit icon
-    // From: tests/Features/04_class.feature:103:1
-  });
-  
-  Then('A new pop up with class details appears', async ({}) => {
-    // Step: Then A new pop up with class details appears
-    // From: tests/Features/04_class.feature:104:1
+  Then('A new pop up with class details appears', async ({classPage}) => {
+    const actualTitle = await classPage.editPageTitle.textContent();
+    const expectedTitle = "Class Details";
+    expect(actualTitle).toBe(expectedTitle);
+    logger.info('Admin opens Edit Class Page');
   });
   
   Then('Admin should see batch name field is disabled', async ({}) => {
