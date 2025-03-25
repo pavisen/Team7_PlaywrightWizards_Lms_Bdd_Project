@@ -5,7 +5,7 @@ import { test } from '../fixtures/fixture';
 const { Given, When, Then } = createBdd();
 Given('Admin is on the program Page.', async function ({loggedInPage,commonFunctions}) {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
 //  await commonFunctions.clickSubMenu('program');
 });
 When('Admin clicks on delete button for a program', async ({commonFunctions}) => {

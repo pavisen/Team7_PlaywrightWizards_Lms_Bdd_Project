@@ -44,11 +44,10 @@ class CommonFunctions {
 
     // Table icons locators
     this.locators = {
-      editIcon: ".//span[@class='p-button-icon pi pi-pencil']",
-      deleteIcon: ".//span[@class='p-button-icon pi pi-trash']",
-      checkbox: ".//span[@class='p-checkbox-icon']",
-      sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
-
+      editIcon: "span.p-button-icon.pi.pi-pencil",
+      deleteIcon: "span.p-button-icon.pi.pi-trash",
+      checkbox: "span.p-checkbox-icon",
+      sortIcon: ".p-sortable-column-icon.pi.pi-fw.pi-sort-alt",
     };
 
     this.checkBoxList = page.locator("//tbody[@class='p-datatable-tbody']//div[@role='checkbox']");
@@ -75,11 +74,11 @@ class CommonFunctions {
   }
 
   async isEditIconVisible() {
-    return await this.editIcon.first().isVisible(); // Check if at least one is visible
+    return await this.page.locator(this.locators.editIcon).first().isVisible(); // Check if at least one is visible
   }
 
  async escape() {
-    await this.page.keyboard.press('Escape');
+    await this.page.press('Escape');
   }
 
   async toBeVisible(module) {
@@ -487,6 +486,7 @@ class CommonFunctions {
   async clickSortIcon(ele) {
     // send esc key to page
     await this.page.keyboard.press('Escape');
+
     await ele.click();
   }
 
@@ -503,7 +503,7 @@ class CommonFunctions {
   }
 
   async clickEdit() {
-    await this.editIcon.click();
+    await this.page.locator(this.locators.editIcon+'[1]').click();
   }
 
 

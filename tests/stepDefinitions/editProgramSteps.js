@@ -9,16 +9,15 @@ const sheetName = 'program';
 
 Given('Admin is on Program module for editing', async ({ programPage, commonFunctions }) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.clickSubMenu('program');
-
+  
+  await commonFunctions.clickAnywhere();
 
 });
 When('Admin clicks on Edit option for particular program from {string} and {string}', async ({ programPage, commonFunctions }, arg, arg1) => {
   const storedData = loadTestData();
   console.log("Retrieved program Name: ", storedData.programNameForProgram);
   await commonFunctions.clickMenu('program');
-  await commonFunctions.clickSubMenu('program');
-  await commonFunctions.clickAnywhere();
+    await commonFunctions.clickAnywhere();
   await commonFunctions.search(storedData.programNameForProgram);
   await commonFunctions.clickEdit();
 });

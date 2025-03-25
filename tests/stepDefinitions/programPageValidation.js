@@ -53,7 +53,7 @@ Then('Admin should see sub menu in menu bar as Add New Program', async ({program
 Then('Admin should able to see Program name, description, and status for each program', async ({ commonFunctions}) => {
  
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
   const expectedHeaders = ['', 'Program Name','Program Description', 'Program Status', 'Edit / Delete'];
   const headerCells = (await commonFunctions.tableHeader.allTextContents()).map((header) => header.trim());
   expect(headerCells).toEqual(expectedHeaders); 
@@ -61,13 +61,13 @@ Then('Admin should able to see Program name, description, and status for each pr
 
 Then('Admin should see a Delete button in left top is disabled', async ({commonFunctions}) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
   await expect(commonFunctions.deleteButton).toBeVisible();
 });
 
 Then('Admin should see Search bar with text as {string}', async ({commonFunctions}, arg) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
   await expect(commonFunctions.searchBar).toBeVisible();
     const actualText = await commonFunctions.searchBarByPlaceholder.getAttribute('placeholder');
     expect(actualText.trim()).toBe(arg);
@@ -76,21 +76,21 @@ Then('Admin should see Search bar with text as {string}', async ({commonFunction
  
 Then('Admin should see checkbox default state as unchecked beside Program Name column as header', async ({commonFunctions}) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
    await expect(commonFunctions.checkboxHeaderTableBatch).toBeVisible();
  
 });
 
 Then('Admin should see check box default state as unchecked on the left side in all rows against program name', async ({commonFunctions}) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
     await expect(commonFunctions.checkboxHeaderTableBatch).toBeVisible();
  
 });
 
 Then('Admin should see the sort arrow icon beside to each column header except Edit and Delete', async ({commonFunctions}) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
     const isSortIconPresent = await commonFunctions.isElementPresent('sortIcon', 'header');
   expect(isSortIconPresent).toBe(true);
   
@@ -99,7 +99,7 @@ Then('Admin should see the sort arrow icon beside to each column header except E
 
 Then('Admin should see the Edit and Delete buttons on each row of the data table', async ({commonFunctions}) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
   const isEditPresent = await commonFunctions.isElementPresent(
     "editIcon",
     
@@ -117,14 +117,14 @@ Then('Admin should see the Edit and Delete buttons on each row of the data table
 
 Then('Admin should see the text as {string} where \\\\d+ is a number', async ({commonFunctions}, expectedText) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
    const actualText = await commonFunctions.paginationText.textContent();
   
   expect(new RegExp(expectedText).test(actualText)).toBe(true);
 });
 Then('Admin should see the footer as In total there are z programs.', async ({commonFunctions}) => {
   await commonFunctions.clickMenu('program');
-  await commonFunctions.escape();
+  await commonFunctions.clickAnywhere();
    await commonFunctions.getTotalPrograms();
 });
 
