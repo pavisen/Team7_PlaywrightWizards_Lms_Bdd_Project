@@ -148,7 +148,7 @@ return errorMessages;
 }
 
 async clickEdit(value){
-  this.page.getByRole('row', { name: '${value}' }).getByRole('button').first().click();
+  this.page.getByRole('row', { name: `${value}` }).getByRole('button').first().click();
 }
 
 

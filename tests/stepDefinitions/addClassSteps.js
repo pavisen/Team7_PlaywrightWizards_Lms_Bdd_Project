@@ -57,9 +57,12 @@ Given(
 
 When(
   "Admin enters all fields in the form and clicks on save button",
-  async ({ classPage, commonFunctions, testData }) => {
+  async ({ classPage, commonFunctions, testData,page}) => {
+
     const batchName = getTestData(sheetName, "validAll", "batchName");
-    const classTopic = getTestData(sheetName, "validAll", "classTopic");
+    const newclassTopic = await commonFunctions.getRandomAlphabet(3);
+    console.log(newclassTopic);
+    const classTopic = getTestData(sheetName, "validAll", "classTopic")+newclassTopic;
     const classDescription = getTestData(
       sheetName,
       "validAll",
@@ -78,6 +81,7 @@ When(
     console.log(`comments: ${comments}`);
     console.log(`notes: ${notes}`);
     console.log(`recording: ${recording}`);
+
     await classPage.enterClassDetails(
       batchName,
       classTopic,
@@ -89,7 +93,9 @@ When(
       recording,
       commonFunctions,
     );
+
     await classPage.clickSave();
+
     //storing variables for chaining
     //testData.batchName = batchName;
     testData.classTopic = classTopic;
@@ -105,7 +111,9 @@ When(
   "Admin enters mandatory fields in the form and clicks on save button",
   async ({ classPage, commonFunctions, testData}) => {
     const batchName = getTestData(sheetName, "onlyMandatory", "batchName") ;
-    const classTopic = getTestData(sheetName, "onlyMandatory", "classTopic");
+    const newclassTopic = await commonFunctions.getRandomAlphabet(3);
+    console.log(newclassTopic);
+    const classTopic = getTestData(sheetName, "onlyMandatory", "classTopic")+newclassTopic;
     const classDate = getTestData(sheetName, "onlyMandatory", "classDate") ;
     const staffName = getTestData(sheetName, "onlyMandatory", "staffName");
     console.log(`batchName: ${batchName}`);
@@ -135,7 +143,7 @@ When(
   },
 );
 
-Then("Admin gets message Class added Successfully", async ({ classPage }) => {
+Then("Admin gets message Class added Successfully", async ({ classPage , page}) => {
   const successMessage = await classPage.getClassCreatedSuccessMessage();
   expect(successMessage.trim()).toBe("Class Created");
   logger.info('Class created successfully');

@@ -84,6 +84,7 @@ class CommonFunctions {
   
     const regex = new RegExp(`^${columnName}.*`);
     const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    console.log(sortIcon)
     return sortIcon;
   }
 
@@ -260,11 +261,11 @@ async deleteSelectedBatches(count) {
   // Handle delete button click based on count
   if (count === 1) {
     console.log("Deleting a single record...");
-    await this.page.pause();
+ //   await this.page.pause();
     await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
 } else {
     console.log(`Deleting ${count} records...`);
-    await this.page.pause();
+ //   await this.page.pause();
     await this.deleteButton.click(); // Use a different button for bulk delete
 }
 
@@ -288,9 +289,9 @@ async verifyBatchDeletion() {
   const deletedMessage = this.page.getByText('Batches Deleted');
 
   if (await confirmDialog.isVisible()) {
-    await this.page.pause();
+    //await this.page.pause();
     const messageText = await deletedMessage.textContent();
-    await this.page.pause();
+   // await this.page.pause();
     console.log(`Deletion message displayed: ${messageText}`);
 
     // Ensure the message is actually visible
@@ -345,9 +346,8 @@ async verifyBatchDeletion() {
 
   // Sorting
   async getSortIcon(columnName) {
-     
     const regex = new RegExp(`${columnName}`);
-    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+ const sortIcon = await this.page.getByRole('columnheader', { name: regex });
     return sortIcon;
   }
 
@@ -367,15 +367,14 @@ async verifyBatchDeletion() {
 
   async validateDescendingSort(ele) {
     const originalData = await (ele).allTextContents();
-    console.log('Ascending Order ' + originalData)
+    console.log('Descending Order actual ' + originalData)
     const expectedList = originalData.sort((a, b) => b.localeCompare(a));
     const sortedList = await (ele).allTextContents();
-    console.log('Descending Order' + expectedList)
+    console.log('Descending Order expected' + expectedList)
     expect(originalData).toEqual(expectedList);
   }
 
   async clickSortIcon(ele) {
-    await this.clickAnywhere();
     await ele.click();
       }
 
@@ -389,6 +388,15 @@ async verifyBatchDeletion() {
         await expect(
           this.page.getByRole('gridcell', { name: `${searchValue}` }).nth(0).filter({ visible: true })
         ).toBeVisible();
+    }
+
+    async  getRandomAlphabet(length) {
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+      }
+      return result;
     }
 
       

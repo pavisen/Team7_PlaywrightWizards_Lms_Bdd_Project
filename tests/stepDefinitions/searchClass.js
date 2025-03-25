@@ -8,7 +8,7 @@ import { saveTestData, loadTestData } from "../utils/testDataHelper.js";
 // Create BDD steps
 const { Given, When, Then } = createBdd();
 const sheetName = "class";
-const storedData = loadTestData(); // Retrieve stored data
+
 
 Given('Admin is on the Manage class page for search', async ({commonFunctions}) => {
     await commonFunctions.clickMenu("class");
@@ -16,18 +16,21 @@ Given('Admin is on the Manage class page for search', async ({commonFunctions}) 
 });
 
 When('Admin enter the Batch Name in search textbox', async ({commonFunctions}) => {
-    const storedBatchName = storedData.batchName;
-    console.log("Retrieved Batch Name: ", storedBatchName);
-    await commonFunctions.search(storedBatchName);
+  const storedData = loadTestData();
+  const storedbatchNameForBatch = storedData.batchNameForBatch; 
+  console.log("Retrieved Batch Name in class: ", storedbatchNameForBatch);
+  await commonFunctions.search(storedbatchNameForBatch);
   });
   
   Then('Admin should see Class details are searched by Batch Name', async ({commonFunctions}) => {
-    const storedBatchName = storedData.batchName;
-    console.log("Retrieved Batch Name: ", storedBatchName);
-    await commonFunctions.verifySearch(storedBatchName);
+    const storedData = loadTestData();
+    const storedbatchNameForBatch = storedData.batchNameForBatch;
+    console.log("Retrieved Batch Name in class: ", storedbatchNameForBatch);
+    await commonFunctions.verifySearch(storedbatchNameForBatch);
   });
   
   When('Admin enter the Class topic in search textbox', async ({commonFunctions}) => {
+    const storedData = loadTestData(); 
       // Retrieving the stored test data
     const storedClassTopic = storedData.classTopic;
     console.log("Retrieved Class Topic: ", storedClassTopic);
@@ -35,18 +38,21 @@ When('Admin enter the Batch Name in search textbox', async ({commonFunctions}) =
   });
   
   Then('Admin should see Class details are searched by Class topic', async ({commonFunctions}) => {
+    const storedData = loadTestData(); 
     const storedClassTopic = storedData.classTopic;
     console.log("Retrieved Class Topic: ", storedClassTopic);
     await commonFunctions.verifySearch(storedClassTopic);
   });
   
   When('Admin enter the Staff Name in search textbox', async ({commonFunctions}) => {
+    const storedData = loadTestData(); 
     const storedStaffName = storedData.staffName;
     console.log("Retrieved Staff Name: ", storedStaffName);
     await commonFunctions.search(storedStaffName);
   });
   
   Then('Admin should see Class details are searched by Staff name', async ({commonFunctions}) => {
+    const storedData = loadTestData(); 
     const storedStaffName = storedData.staffName;
     console.log("Retrieved Staff Name: ", storedStaffName);
     await commonFunctions.verifySearch(storedStaffName);

@@ -2,6 +2,7 @@ import { test } from "../fixtures/fixture";
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
 import { getTestData } from "../utils/excelReader";
+import logger, { attachLogsAfterEachTest } from '../utils/logger.js';
 import { saveTestData, loadTestData } from "../utils/testDataHelper.js";
 
 // Create BDD steps
@@ -10,12 +11,14 @@ const sheetName = "class";
 const storedData = loadTestData(); // Retrieve stored data
 
 
-Given('Admin is on the Manage Class page', async ({loggedInPage}) => {  });
+Given('Admin is on the Manage Class page', async ({loggedInPage,commonFunctions}) => {  
+  await commonFunctions.clickMenu("class");
+  await commonFunctions.clickAnywhere();
+});
   
-  When('Admin clicks on the edit icon', async ({classPage}) => {
-    console.log("Edit Class Topic: ", storedData.classTopic);
-    classPage.clickEdit(storedData.classTopic);
-
+  When('Admin clicks on the edit icon', async ({commonFunctions,classPage}) => {
+    await commonFunctions.search("mathumathi");
+   await classPage.clickEdit("Java Batch 01 mathumathi");
   });
   
   Then('A new pop up with class details appears', async ({classPage}) => {
