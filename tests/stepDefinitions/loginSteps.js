@@ -5,7 +5,7 @@ import { getTestData } from '../utils/excelReader';
 import logger, { attachLogsAfterEachTest } from '../utils/logger.js';
 import { assert } from 'console';
 const { Given, When, Then } = createBdd();
-
+import ImageUtils from '../utils/imageUtils.js';
 const sheet_Name = 'login';
 
 // Step Definitions for Login Feature
@@ -173,16 +173,24 @@ Then('Admin should see LMS - Learning Management System', async ({loginPage,comm
   expect(actualTitle.trim()).toBe(expectedTitle);
 });
 
-Then('Admin should see company name below the app name', async ({}) => {
- 
+Then('Admin should see company name below the app name', async ({loginPage}) => {
+  await loginPage.ExtractTextFromImage();
+  console.log("Extracted Text: ", extractedText);
+  expect(extractedText).toContain('LMS - Learning Management System')
 });
 
  
 
 Then('Admin should see Please login to LMS application', async ({loginPage}) => {
-  loginPage.navigateToLoginPage(process.env.LOGIN_URL);
-  const loginText = await loginPage.getLoginText();
-  expect(loginText.trim()).toBe("Please login to LMS application");
+  try {
+
+    await loginPage.ExtractTextFromImage();
+    //console.log("Extracted Text: ", extractedText);
+    expect(extractedText).toEqual('LMS - Learning Management System');
+  } catch (error) {
+    console.error('Error in "Admin should see company name below the app name" step:', error);
+    throw error; // Re-throw the error to fail the test
+  }
 });
 
 Then('Admin should see two text field', async ({loginPage}) => {

@@ -19,6 +19,7 @@ class LoginPage {
     //this.asterisk = page.locator('//span[contains(text(),"*")]');
     this.logoutButton = this.page.getByRole('button', { name: 'Logout' });
     this.lmsTitle = this.page.locator('text=LMS - Learning Management System');
+    this.Home_image = page.locator('.image-container'); 
 
 
 
@@ -173,6 +174,40 @@ class LoginPage {
   }
   async clickBackButton() {
     await this.page.goBack();
+  }
+  async ExtractTextFromImage() {
+    try {
+      if (!this.Home_image) {
+        throw new Error('Home_image locator is not defined.');
+      }
+  
+      // Wait for the Home_image element to be visible
+      await this.Home_image.waitFor({ state: 'visible', timeout: 10000 }); // Wait up to 10 seconds
+  
+      if (!await this.Home_image.isVisible()) {
+        throw new Error('Home_image is not visible.');
+      }
+  
+      await this.Home_image.screenshot({ path: 'homePage.png', timeout: 10000 });
+      await sharp('homePage.png')
+        .grayscale()
+        .threshold(150)
+        .toFile('homePage_processed.png');
+  
+      const text = await Tesseract
+        .recognize('homePage_processed.png', {
+          lang: 'eng',
+          tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 -',
+        })
+        .then(({ data: { text } }) => {
+          return text;
+        });
+  
+      extractedText = text;
+    } catch (error) {
+      console.error('Error extracting text from image:', error);
+      throw error; // Re-throw the error to fail the test
+    }
   }
 
 }
