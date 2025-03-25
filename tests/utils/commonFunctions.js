@@ -89,6 +89,7 @@ class CommonFunctions {
   
     const regex = new RegExp(`^${columnName}.*`);
     const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    console.log(sortIcon)
     return sortIcon;
   }
 
@@ -392,6 +393,13 @@ async confirmDeleteDialog()
     }
   }
 
+  // Sorting
+  async getSortIcon(columnName) {
+    const regex = new RegExp(`${columnName}`);
+ const sortIcon = await this.page.getByRole('columnheader', { name: regex });
+    return sortIcon;
+  }
+
   async validateAscendingSort(ele) {
     await this.page.waitForLoadState();
     let originalData = await (ele).allTextContents();
@@ -408,15 +416,14 @@ async confirmDeleteDialog()
 
   async validateDescendingSort(ele) {
     const originalData = await (ele).allTextContents();
-    console.log('Ascending Order ' + originalData)
+    console.log('Descending Order actual ' + originalData)
     const expectedList = originalData.sort((a, b) => b.localeCompare(a));
     const sortedList = await (ele).allTextContents();
-    console.log('Descending Order' + expectedList)
+    console.log('Descending Order expected' + expectedList)
     expect(originalData).toEqual(expectedList);
   }
 
   async clickSortIcon(ele) {
-    await this.clickAnywhere();
     await ele.click();
       }
 
@@ -430,6 +437,15 @@ async confirmDeleteDialog()
         await expect(
           this.page.getByRole('gridcell', { name: `${searchValue}` }).nth(0).filter({ visible: true })
         ).toBeVisible();
+    }
+
+    async  getRandomAlphabet(length) {
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+      }
+      return result;
     }
 
       

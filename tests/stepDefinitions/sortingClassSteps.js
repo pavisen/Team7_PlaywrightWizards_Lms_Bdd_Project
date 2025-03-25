@@ -4,29 +4,37 @@ import { test } from '../fixtures/fixture';
 import { getTestData } from '../utils/excelReader.js';
 
 const { Given, When, Then } = createBdd();
+let currentColumnIndex = 2;
 
-When('Admin clicks on the {string} sort icon', async ({commonFunctions}, column) => {
+When('Admin clicks on the {string} sort icon', async ({ commonFunctions }, column) => {
   await commonFunctions.clickMenu('class');
+  await commonFunctions.clickAnywhere();
 });
 
-Then('Admin should see Class details are sorted by {string}', async ({commonFunctions}, column) => {
-  const columns = ['Batch Name', 'Class Topic', 'Class Description', 'Status', 'Class Date', 'Staff Name'];
-  const columnIndexMap = {};
-  columns.forEach((col, index) => {
-    columnIndexMap[col] = index + 2; // Start index from 2
-  });
-  const columnIndex = columnIndexMap[column];
-  if (columnIndex === undefined) {
-    throw new Error(`Invalid column name: ${column}`);
-  }
+Then('Admin should see Class details are sorted by {string}', async ({ commonFunctions }, columnField) => {
 
-  const element = await commonFunctions.getSortIcon(columns);
-    await commonFunctions.clickSortIcon(element);
-    let elementList = await commonFunctions.getCells(columnIndex)
-    await commonFunctions.validateAscendingSort(elementList);
-    await commonFunctions.clickSortIcon(element);
-    elementList = await commonFunctions.getCells(columnIndex)
-    await commonFunctions.validateDescendingSort(elementList);
+ // Get the column index for the given columnField (using it directly without predefined columns array)
+ if (!columnField) {
+   throw new Error("columnField is undefined or empty");
+ }
+ // Perform ascending sort
+ const element = await commonFunctions.getSortIcon(columnField);
+ try {
+  await commonFunctions.clickSortIcon(element);
+  let elementList = await commonFunctions.getCells(currentColumnIndex); 
+  console.log("Ascending Sort List:", elementList);
+  await commonFunctions.validateAscendingSort(elementList);
+
+  // Perform descending sort
+  await commonFunctions.clickSortIcon(element);
+  elementList = await commonFunctions.getCells(currentColumnIndex);
+  console.log("Descending Sort List:", elementList);
+  await commonFunctions.validateDescendingSort(elementList);
+} finally {
+  // Ensuring the column index increments even if assertions fail
+  currentColumnIndex += 1;
+  console.log(`Next column index: ${currentColumnIndex}`);
+}
 });
 
 
