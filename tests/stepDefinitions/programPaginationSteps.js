@@ -6,7 +6,7 @@ import { getTestData } from '../utils/excelReader.js';
 import { CommonFunctions } from '../utils/commonFunctions';
 
 const { Given, When, Then } = createBdd();
-Given('Admin is on Program module', async ({paginationPage,commonFunctions}) => {
+Given('Admin is on Program module', async ({loggedInPage,paginationPage,commonFunctions}) => {
   await commonFunctions.clickMenu('program');
   await commonFunctions.escape();
   });

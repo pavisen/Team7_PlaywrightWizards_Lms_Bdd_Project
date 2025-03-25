@@ -263,7 +263,7 @@ Feature: Program Module Navigation
 
         #programSearch
         @smoke
-        Scenario: Validate search box functionality
+        Scenario: Validate search box functionality 
                 Given Admin is on the program page
                 When Admin enters the program name in the search text box
                 Then Admin should see the filtered programs in the data table
