@@ -188,30 +188,6 @@ async  verifyUpdatedProgram() {
   async VerifyMandatoryFields() {
     await expect(this.mandatoryFields).toBeVisible();
   }
-  //check locators from here for delete program
- async clickDelete() {
-    return await this.page.locator('button').filter({ text: 'Delete' }).first().click();
-  }
- async confirmDeletion() {
-    return await this.page.locator('h1').first();
-  }
- async clickYes() {
-    return await this.page.locator('button').filter({ text: 'Yes' }).first().click();
-  }
- async confirmationMessage() {
-    return await this.page.locator('h1').first();
-  } 
-async  noResults() {
-    return await this.page.locator('p').first();
-  }
-async  clickNo() {
-    return await this.page.locator('button').filter({ text: 'No' }).first().click();
-  }
- async clickX() {
-    return await this.page.locator('button').filter({ text: '' }).first().click();
-  }
- async clickCancel() {
-    return await this.page.locator('button').filter({ text: 'Cancel' }).first().click();
-  }
+
  
 } 
