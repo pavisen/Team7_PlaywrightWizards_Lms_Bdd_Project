@@ -1,5 +1,6 @@
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
+import logger from '../utils/logger.js';
 
 const { Given, When, Then } = createBdd();
 
@@ -29,6 +30,7 @@ class CommonFunctions {
     this.logout = page.getByText("Logout");
     this.header = page.getByText("LMS - Learning Management System");
     this.searchBar = page.getByRole("textbox", { name: "Search..." });
+    this.searchBarByPlaceholder = page.locator("//input[@placeholder='Search...']");
     this.tableHeader = page.locator("//*[@class='p-datatable-thead']/tr/th");
     this.tableRows = page.locator("//tbody/tr");
 
@@ -42,11 +44,10 @@ class CommonFunctions {
 
     // Table icons locators
     this.locators = {
-      editIcon: ".//span[@class='p-button-icon pi pi-pencil']",
-      deleteIcon: ".//span[@class='p-button-icon pi pi-trash']",
-      checkbox: ".//span[@class='p-checkbox-icon']",
-      sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
-
+      editIcon: "span.p-button-icon.pi.pi-pencil",
+      deleteIcon: "span.p-button-icon.pi.pi-trash",
+      checkbox: "span.p-checkbox-icon",
+      sortIcon: ".p-sortable-column-icon.pi.pi-fw.pi-sort-alt",
     };
 
     this.checkBoxList = page.locator("//tbody[@class='p-datatable-tbody']//div[@role='checkbox']");
@@ -62,13 +63,30 @@ class CommonFunctions {
     this.paginationLast = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-right']");
     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
-    this.deleteMessage = page.getByText('batch Deleted');
+    this.deleteMessage = page.getByText('Batch Deleted');
+    
     this.deletedMessage = page.getByText('Batches Deleted');
+    this.confirmDialog = page.locator("//span[contains(text(),'Confirm')]");
+    this.yesDelete = page.locator("//span[contains(text(),'Yes')]");
+    this.NoDelete = page.locator("//span[contains(text(),'No')]");
+    this.closeDelete = page.locator("//button[@class='ng-tns-c204-18 p-confirm-dialog-accept p-ripple p-button p-component ng-star-inserted']");
 
-    }
+  }
 
   async isEditIconVisible() {
-    return await this.editIcon.first().isVisible(); // Check if at least one is visible
+    return await this.page.locator(this.locators.editIcon).first().isVisible(); // Check if at least one is visible
+  }
+
+ async escape() {
+    await this.page.press('Escape');
+  }
+
+  async toBeVisible(module) {
+    console.log(`--- Module : ${module} ---`);
+    if (!this.moduleSelectors[module]) {
+      throw new Error(`Invalid module: ${module}`);
+    }
+    await expect(this.moduleSelectors[module].menu_btn).toBeVisible();
   }
 
   async clickMenu(module) {
@@ -81,12 +99,15 @@ class CommonFunctions {
   }
 
   async getSortIcon(columnName) {
-  
+
     const regex = new RegExp(`^${columnName}.*`);
     const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
     console.log(sortIcon)
     return sortIcon;
   }
+
+
+
 
   async clickSubMenu(module) {
     if (!this.moduleSelectors[module]) {
@@ -202,7 +223,7 @@ class CommonFunctions {
   }
 
   async getTotalClasses() {
-    const footerText = await this.totalClassesText.textContent(); // Get the full text
+    const footerText = (await this.totalClassesText.textContent()).trim(); // Get the full text
     const match = footerText.match(/In total there are (\d+) classes\./); // Extract the number
 
     if (match) {
@@ -214,7 +235,19 @@ class CommonFunctions {
       );
     }
   }
+  async getTotalPrograms() {
+    const footerText = (await this.totalClassesText.textContent()).trim(); // Get the full text
+    const match = footerText.match(/In total there are (\d+) programs\./); // Extract the number
 
+    if (match) {
+      const totalClasses = parseInt(match[1], 10); // Convert to number
+      return totalClasses;
+    } else {
+      throw new Error(
+        `Could not extract total classes count from text: "${footerText}"`,
+      );
+    }
+  }
   async selectDropdownOption(dropdown, optionText) {
     await dropdown.click();
     const optionLocator = this.page.getByRole("option", { name: optionText });
@@ -230,77 +263,159 @@ class CommonFunctions {
   } catch(error) {
     console.error("Error in selecting dropdown option:", error);
   }
-  
-// Method to click anywhere on the screen
-async clickAnywhere(x = 500, y = 300) {
-  await this.page.mouse.click(x, y);
-}
 
-//Delete first record
-async deleteSelectedBatches(count) {
-  if (!this.page) throw new Error("Page context is closed.");
+  // Method to click anywhere on the screen
+  async clickAnywhere(x = 500, y = 300) {
+    await this.page.mouse.click(x, y);
+  }
+  async deleteSelectedBatches(count) {
+    if (!this.page) throw new Error("Page context is closed.");
+    await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
 
-  // Ensure table is loaded
-  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
-
-  const checkboxes = await this.checkBoxList.all(); // Get all checkboxes
-  const rowCount = checkboxes.length;
-
-  console.log(`Found ${rowCount} checkboxes`);
-
-  // Ensure there are enough rows to delete
-  if (rowCount < count) {
+    const checkboxes = await this.checkBoxList.all(); // Get all checkboxes
+    const rowCount = checkboxes.length;
+    console.log(`Found ${rowCount} checkboxes`);
+    // Ensure there are enough rows to delete
+    if (rowCount < count) {
       throw new Error(`Not enough records to delete. Found only ${rowCount} records.`);
-  }
-
-  // Select checkboxes for deletion
-  for (let i = 0; i < count; i++) {
+    }
+    // Select checkboxes for deletion
+    for (let i = 0; i < count; i++) {
       await checkboxes[i].click();
-  }
-
-  // Handle delete button click based on count
-  if (count === 1) {
-    console.log("Deleting a single record...");
- //   await this.page.pause();
-    await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
-} else {
-    console.log(`Deleting ${count} records...`);
- //   await this.page.pause();
-    await this.deleteButton.click(); // Use a different button for bulk delete
-}
-
-  // Check if a confirmation popup appears and confirm
-  const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
-  const yesDelete=  this.page.locator("//span[contains(text(),'Yes')]");
-  if (await confirmDialog.isVisible()) {
+    }
+    // Handle delete button click based on count
+    if (count === 1) {
+      console.log("Deleting a single record...");
+      await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
+    } else {
+      console.log(`Deleting ${count} records...`);
+      await this.deleteButton.click(); // Use a different button for bulk delete
+    }
+    // Check if a confirmation popup appears and confirm
+    const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
+    const yesDelete = this.page.locator("//span[contains(text(),'Yes')]");
+    if (await confirmDialog.isVisible()) {
       await yesDelete.click();
+    }
+
+
+    // Wait for table to update dynamically using `waitForSelector`
+    await this.page.waitForSelector("//table/tbody/tr", { state: 'attached', timeout: 5000 });
+
+    console.log(`Successfully deleted ${count} batch(es).`);
+  }
+
+  async verifyBatchDeletion() {
+    // Check if a confirmation popup appears and confirm
+    const confirmDialog = this.page.locator("//div[contains(text(),'Successful')]");
+    const deletedMessage = this.page.getByText('Batches Deleted');
+
+    if (await confirmDialog.isVisible()) {
+      await this.page.pause();
+      const messageText = await deletedMessage.textContent();
+      await this.page.pause();
+      console.log(`Deletion message displayed: ${messageText}`);
+
+      // Ensure the message is actually visible
+      await expect(deletedMessage).toBeVisible();
+    } else {
+      throw new Error("Batch deletion confirmation message not found.");
+    }
+  }
+  async verifyBatchDeletion() {
+    // Check if a confirmation popup appears and confirm
+    const confirmDialog = this.page.locator("//div[contains(text(),'Successful')]");
+    const deletedMessage = this.page.getByText('Batches Deleted');
+
+    if (await confirmDialog.isVisible()) {
+      //await this.page.pause();
+      const messageText = await deletedMessage.textContent();
+      // await this.page.pause();
+      console.log(`Deletion message displayed: ${messageText}`);
+
+      // Ensure the message is actually visible
+      await expect(deletedMessage).toBeVisible();
+    } else {
+      throw new Error("Batch deletion confirmation message not found.");
+    }
+
+    // Wait for table to update dynamically using `waitForSelector`
+    await this.page.waitForSelector("//table/tbody/tr", { state: 'attached', timeout: 5000 });
+    console.log(`Successfully deleted ${count} batch(es).`);
   }
 
 
-  // Wait for table to update dynamically using `waitForSelector`
-  await this.page.waitForSelector("//table/tbody/tr", { state: 'attached', timeout: 5000 });
+  async clickDeleteRow(count) {
+    await this.page.waitForSelector("//table/tbody/tr", { state: 'attached' });
+    const checkboxes = await this.checkBoxList.all();
+    const rowCount = checkboxes.length;
+    // Ensure there are enough rows to delete
+    if (rowCount < count) {
+      throw new Error(`Not enough records to delete. Found only ${rowCount} records.`);
+    }
+    // Select checkboxes for deletion
+    for (let i = 0; i < count; i++) {
+      await checkboxes[i].click();
+    }
+    // Handle delete button click based on count
+    if (count === 1) {
+      console.log("Deleting a single record...");
+      await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
+    } else {
+      console.log(`Deleting ${count} records...`);
+      await this.deleteButton.click(); // Use a different button for bulk delete
+    }
+  }
 
-  console.log(`Successfully deleted ${count} batch(es).`);
-}
+  async confirmDeleteDialog() {
+    const confirmDialog = this.page.locator("//span[contains(text(),'Confirm')]");
+    const yesDelete = this.page.locator("//span[contains(text(),'Yes')]");
+    const noDelete = this.page.locator("//span[contains(text(),'No')]");
+    if (await confirmDialog.isVisible()) {
+      console.log("Confirm Dialog is displayed");
+      if (await yesDelete.isVisible() && await noDelete.isVisible()) {
+        console.log("'Yes' and 'No' buttons are present in the dialog.");
+      } else {
+        console.warn("'Yes' or 'No' button is missing in the dialog.");
+      }
+      return { confirmDialog, yesDelete, noDelete };
+    } else {
+      console.warn("Confirm Dialog is not displayed.");
+      return null;
+    }
+  }
 
-async verifyBatchDeletion() {
-  // Check if a confirmation popup appears and confirm
-  const confirmDialog = this.page.locator("//div[contains(text(),'Successful')]");
-  const deletedMessage = this.page.getByText('Batches Deleted');
+  async clickConfirmYesDelete() {
+    const confirmDialog = this.confirmDialog;
+    const yesDelete = this.yesDelete;
+    if (await confirmDialog.isVisible()) {
+      await yesDelete.click();
+    }
+  }
 
-  if (await confirmDialog.isVisible()) {
-    //await this.page.pause();
-    const messageText = await deletedMessage.textContent();
-   // await this.page.pause();
-    console.log(`Deletion message displayed: ${messageText}`);
+  async clickConfirmNoDelete() {
+    const confirmDialog = this.confirmDialog;
+    const noDelete = this.NoDelete;
+    if (await confirmDialog.isVisible()) {
+      await noDelete.click();
+    }
+  }
 
-    // Ensure the message is actually visible
-    await expect(deletedMessage).toBeVisible();
-} else {
-    throw new Error("Batch deletion confirmation message not found.");
-}
-
-}
+  async clickCloseDelete() {
+    try {
+      const closeButton = this.page.getByRole('button', { name: '' });
+      // Wait for the button to appear
+      await closeButton.waitFor({ state: "visible", timeout: 5000 });
+      if (await closeButton.isVisible()) {
+        await closeButton.click();
+        console.log("Close button clicked successfully.");
+      } else {
+        console.warn("Close button is not visible, cannot click.");
+      }
+    } catch (error) {
+      console.error("Error clicking close button:", error);
+    }
+  }
 
   //pagination
   async goToNextPage() {
@@ -343,20 +458,14 @@ async verifyBatchDeletion() {
       throw new Error("First page validation failed. Previous link is still enabled.");
     }
   }
-
-  // Sorting
-  async getSortIcon(columnName) {
-    const regex = new RegExp(`${columnName}`);
- const sortIcon = await this.page.getByRole('columnheader', { name: regex });
-    return sortIcon;
-  }
-
+ 
   async validateAscendingSort(ele) {
     await this.page.waitForLoadState();
+
     let originalData = await (ele).allTextContents();
     console.log('Ascending Order actual List: ' + originalData)
     let expectedList = originalData.slice().sort((a, b) => a.localeCompare(b));
-     console.log('Ascending Order expected: ' + expectedList)
+    console.log('Ascending Order expected: ' + expectedList)
     expect(originalData).toEqual(expectedList);
   }
 
@@ -375,31 +484,45 @@ async verifyBatchDeletion() {
   }
 
   async clickSortIcon(ele) {
+    // send esc key to page
+    await this.page.keyboard.press('Escape');
+
     await ele.click();
-      }
+  }
 
-      async search(searchValue) {
-        await this.searchBar.click();
-        console.log("Type of searchValue:", typeof searchValue, "Value:", searchValue);
-        await this.searchBar.fill(searchValue);
-      }
+  async search(searchValue) {
+    await this.searchBar.click();
+    console.log("Type of searchValue:", typeof searchValue, "Value:", searchValue);
+    await this.searchBar.fill(searchValue);
+  }
 
-      async verifySearch(searchValue) {
-        await expect(
-          this.page.getByRole('gridcell', { name: `${searchValue}` }).nth(0).filter({ visible: true })
-        ).toBeVisible();
+  async verifySearch(searchValue) {
+    await expect(
+      this.page.getByRole('gridcell', { name: `${searchValue}` }).nth(0).filter({ visible: true })
+    ).toBeVisible();
+  }
+
+  async clickEdit() {
+    await this.page.locator(this.locators.editIcon+'[1]').click();
+  }
+
+
+  async getRandomAlphabet(length) {
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
     }
+    return result;
+  }
 
-    async  getRandomAlphabet(length) {
-      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-      let result = '';
-      for (let i = 0; i < length; i++) {
-        result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-      }
-      return result;
-    }
-
-      
+  // Sorting
+  async getSortIcon(columnName) {
+     
+    const regex = new RegExp(`${columnName}`);
+    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    return sortIcon;
+  }
 }
 
 export { CommonFunctions };

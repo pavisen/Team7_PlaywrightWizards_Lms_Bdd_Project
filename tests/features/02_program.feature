@@ -24,15 +24,16 @@ Feature: Program Module Navigation
                 Then Admin should able to see Program name, description, and status for each program
 
         Scenario:Verify the Multiple Delete button stat
+
                 Then Admin should see a Delete button in left top is disabled
 
         Scenario:Verify the Search button
+
                 Then Admin should see Search bar with text as "Search..."
 
-        Scenario: Verify column header name of data table
-                Then Admin should see data table with column header on the Manage Program Page as  Program Name, Program Description, Program Status, Edit/Delete
 
         Scenario: Verify checkbox default state beside Program Name column header
+
                 Then Admin should see checkbox default state as unchecked beside Program Name column as header
 
         Scenario: Verify checkboxes default state beside each Program names in the data table
@@ -45,91 +46,179 @@ Feature: Program Module Navigation
                 Then Admin should see the Edit and Delete buttons on each row of the data table
 
         Scenario: Verify pagination icons below data table in manage program
-                Then Admin should see the text as "Showing x to y of z entries" along with Pagination icon below the table. x- starting record number on that page y-ending record number on that page z-Total number of records
+                Then Admin should see the text as "Showing \d+ to \d+ of \d+ entries" where \d+ is a number
 
         Scenario: Verify footer message in manage program
                 Then Admin should see the footer as In total there are z programs.
 
+
+        #add program  Validation
+        Scenario: Verify add New Program
+                Given Admin is on Program module
+                When Admin clicks on New Program under the Program menu bar
+                Then Admin should see pop up window for program details
+
+        Scenario:Verify title of the pop up window
+                Given Admin is on Program module
+                When Admin clicks on New Program under the Program menu bar
+                Then Admin should see window title as Program Details
+
+        Scenario:Verify mandatory fields with red "*" mark
+                Given Admin is on Program module
+                When Admin clicks on New Program under the Program menu bar
+                Then Admin should see red "*" mark beside mandatory field "Name" in program details form
+
+
+        Scenario:Verify empty form submission
+                Given Admin is on Program details form
+                When Admin clicks save button without entering mandatory
+                Then Admin gets message field is required
+
+
+        Scenario:Verify cancel button
+                Given Admin is on Program details form
+                When Admin clicks Cancel button
+                Then Admin can see Program Details form disappears
+
+        Scenario:Verify cancel program details
+                Given Admin is on Program details form
+                When Admin clicks Cancel button
+                Then Admin can see Program Details form disappears.
+
+        Scenario: Verify close window with "X"
+                Given Admin is on Program details form
+                When Admin Click on X button.
+                Then Admin can see Program Details form disappears
+
         #add program
         Scenario: Verify Admin Add program successfully
                 When  Admin Clicks on the Add program button and fill the required fields
+
                 Then Admin should get a message "new program successfully"
+        Scenario: Verify Admin add program name with numbers
+                When Admin enters the program name with numbers
+                Then Admin should get a message programName Must contain only letters and sometimes hyphens
+
+        Scenario: Verify Admin add program name with special characters
+                When Admin enters the program name with special characters
+                Then Admin should get a message This field should start with an alphabet, no special char and min 2 char
+
+        Scenario:Verify Admin add program name with minimum 2 characters
+                When Admin enters the program name with minimum 2 characters
+                Then Admin should get a message programName created successfully
+
+        Scenario: Verify Admin add program name with missing description
+                When Admin enters the program name with missing description
+                Then Admin should get a message description is required
+
+        #verify program details
+        Scenario: Verify Admin is able to view the program details
+
+                Then Admin should see the program details entered
 
         #edit program
 
-        Scenario Outline: Verify Edit option
+        Scenario: Verify Edit option
+                Given Admin is on Program module for editing
+
                 When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
                 Then Admin lands on Program details form
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify title of the pop up window
+        Scenario: Verify title of the pop up window for Edit
                 When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
                 Then Admin should see window title as "Program Details"
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify mandatory fields with red "*" mark
+        Scenario: Verify mandatory fields with red "*" mark for Edit
                 When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
                 Then Admin should see red "*" mark beside mandatory field "Name"
 
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
-        Scenario Outline: Verify edit Program Name
-                When Admin edits the program name and click on save button from "<KeyOption>" and "<sheetname>"
+
+        Scenario: Verify edit Program Name
+                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
+                And Admin edits the program name and click on save button from "<KeyOption>" and "<sheetname>"
                 Then Updated program name is seen by the Admin
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
 
-        Scenario Outline: Verify edit Description
+        Scenario: Verify edit Description
                 When Admin edits the description text and click on save button from "<KeyOption>" and "<sheetname>"
                 Then Admin can see the description is updated
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify edit Status
+        Scenario: Verify edit Status
                 When Admin can change the status of the program from "<KeyOption>" and "<sheetname>" and click on save button
                 Then Status updated can be viewed by the Admin
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-
-        Scenario Outline: Verify Admin is able to click Save
+        Scenario: Verify Admin is able to click Save
                 When Admin click on save button of the updated program from "<KeyOption>" and "<sheetname>"
                 Then Admin can see the updated program details
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
 
-        Scenario Outline: Verify Admin is able to click Cancel
+        Scenario: Verify Admin is able to click Cancel
                 When Admin click on cancel button of the updated program from "<KeyOption>" and "<sheetname>"
                 Then Admin can see the Program details form disappears
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify edited Program details
+        Scenario: Verify edited Program details
                 When Admin searches with newly updated Program Name from "<KeyOption>" and "<sheetname>"
                 Then Admin verifies that the details are correctly updated from "<KeyOption>" and "<sheetname>"
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
-        Scenario Outline: Verify close the window with "X"
+
+        Scenario: Verify close the window with "X"
                 When Admin Click on X button of the updated program from "<KeyOption>" and "<sheetname>"
                 Then Admin can see Program Details form disappears
-                Examples:
-                        | KeyOption   | sheetname |
-                        | editprogram | Program   |
 
+
+        #delete program
+
+        Scenario: Verify delete feature
+                Given Admin is on Program module
+                When Admin clicks on delete button for a program
+                Then Admin will get confirm deletion popup
+
+
+        Scenario: Verify Admin is able to click 'Yes'
+                Given Admin is on Confirm deletion form
+                When Admin clicks on "Yes" button
+                Then Admin can see 'Successful Program Deleted' message
+
+
+        Scenario: Verify Admin is able to deleted program
+                Given Admin is on Program module
+                When Admin Searches for "Deleted Program name"
+                Then There should be zero results.
+
+
+        Scenario: Verify Admin is able to click 'No'
+                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+                When Admin clicks on No button
+                Then Admin can see Confirmation form disappears
+
+
+        Scenario: Verify Admin is able to close the window with "X"
+                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+                When Admin Click on X button
+                Then Admin can see Confirm Deletion form disappear
+        #search program
+
+        # Scenario: Verify Admin is able to search results found for program name
+        #         Given Admin is on Program module
+        #         When Admin enter the program to search By program name
+        #         Then Admin should able to see Program name, description, and status for searched program name
+
+
+        # Scenario: Admin should able to see Program name, description, and status for searched program name
+        #         Given Admin is on Program module
+        #         When Admin enter the program to search By program description
+        #         Then Admin should able to see Program name, description, and status for searched program description
+
+
+        # Scenario: Verify Admin is able to search results not found
+        #         Given Admin is on Program module
+        #         When Admin enter the program to search By program name that does not exist
+        #         Then There should be zero results.
+
+        # Scenario: Verify Admin is able to search with partial program name
+        #         Given Admin is on Program module
+        #         When Admin enter the program to search By partial name of program
+        #         Then Admin should able to see Program name, description, and status for searched program name for partial search
         #sort program
 
 
@@ -148,3 +237,33 @@ Feature: Program Module Navigation
 
                 When Admin clicks on Arrow next to Program status
                 Then Admin See the  Program Status is sorted in Ascending order/Descending order
+
+        #program Pagination
+
+        Scenario: Verify Admin is able to click Next page link
+                Given Admin is on Program module
+                When Admin clicks Next page link on the program table
+                Then Admin should see the Pagination has "Next" active link
+
+        Scenario: Verify Admin is able to click  Last page link
+                Given Admin is on Program module
+                When Admin clicks Last page link in program table
+                Then Admin should see the last page record on the program table with Next page link are disabled
+
+        Scenario: Verify Admin is able to click Previous page link
+                Given Admin is on last page of Program module table
+                When Admin clicks Previous page link
+                Then Admin should see the previous page record on the table with pagination has previous page link
+
+        Scenario: Verify Admin is able to click  First page link
+                Given Admin is on Previous Program page
+                When Admin clicks First page link
+                Then Admin should see the very first page record on the program table with Previous page link are disabled
+
+
+        #programSearch
+        @smoke
+        Scenario: Validate search box functionality 
+                Given Admin is on the program page
+                When Admin enters the program name in the search text box
+                Then Admin should see the filtered programs in the data table

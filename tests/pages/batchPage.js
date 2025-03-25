@@ -118,7 +118,9 @@ async enterBatchPrefix() {
       console.log("Batch Name Prefix is not editable as expected.");
   }
 }
-
+async getTitle() {
+  return this.page.title(); // Correct way to get the title
+}
 async enterBatchSuffix(){
   const batchNamefieldsec= this.page.locator("//body//app-root//input[2]");
   const batchNameSuffixBox = await batchNamefieldsec.isEditable();  

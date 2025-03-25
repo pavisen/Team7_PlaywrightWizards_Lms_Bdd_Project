@@ -6,59 +6,59 @@ Feature: Batch Module -Batch Page Navigation
 
   
 #Batch Page Navigation
-  
+  @BatchPageNavigation
   Scenario: Verify Admin Navigate to Batch page successfully
    # Given  Admin is on the home Page
       When  Admin Clicks on the Batch menu from the header
       Then  Admin should be in the " Manage Batch" Page
     
 #Batch Page Validation
-  
+  @BatchPageValidation
   Scenario: Validate "Title" in Batch Page
    # Given  Admin is on the home Page
       When  Admin Clicks on the Batch menu from the header
       Then  Admin should see the " LMS - Learning Management System " Title in the Batch Page
-
+   @BatchPageValidation
    Scenario:Validate "heading" in the Batch Page	
    # Given Admin is on the home page	
     When  Admin Clicks on the Batch menu from the header	
     Then  Admin should see the " Manage Batch" Heading
-
+   @BatchPageValidation
    Scenario: Validate disabled "Delete Icon" under the header in the Batch Page	
    # Given Admin is on the home page	
     When  Admin Clicks on the Batch menu from the header
     Then Admin should see the disabled Delete Icon under the header
-
+   @BatchPageValidation
    Scenario: Validate pagination in the Batch Page	
    # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the enabled pagination controls under the data table
-
+   @BatchPageValidation
    Scenario: Validate edit icon in each data rows	
    # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the edit icon in each row
-
+   @BatchPageValidation
    Scenario: Validate delete icon in each data rows
    # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the delete icon in each row
-
+  @BatchPageValidation
     Scenario: Validate checkbox in each data rows	
    # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the checkbox in each row
-
+  @BatchPageValidation
     Scenario: Validate Datatable headers	
    # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the datatable headers Batch name, Batch Description,Batch Status, No Of Classes, Program Name, Edit/Delete
-
+  @BatchPageValidation
     Scenario:Validate "Checkbox" in the Datatable header row	
    # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the checkbox  in the datatable header row
-
+  @BatchPageValidation
     Scenario: Validate "sort icon" next to all the datatable header	
    # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
@@ -108,38 +108,38 @@ Feature: Batch Module -Batch Page Navigation
 
 
     #Delete batch validation
-   
+     @DeleteBatch
      Scenario: validate delete Icon on any row	
      Given Admin is on the Batch page
      When 	Admin clicks the delete Icon on any row	
      Then  Admin should see the confirm alert box with yes and no button
-     
+     @DeleteBatch
      Scenario: Validate yes button on the confirm alert box	
      Given Admin is on the batch confirm popup page	
      When Admin clicks on the delete icon and click yes button	
      Then Admin should see the successful message and the batch should be deleted
-     
+     @DeleteBatch
      Scenario: validate no button on the confirm alert box	
      Given Admin is on the batch confirm popup page	
      When Admin clicks on the delete icon and click no button	
      Then Admin should see the alert box closed and the batch is not deleted
-
+     @DeleteBatch
      Scenario: validate close Icon on the alert box	
      Given Admin is on the batch confirm popup page	
-     When Admin clicks on the close icon	
+     When Admin clicks on the close icon on delete	
      Then Admin should see the alert box closed 
           
    #Delete multiple batches with checkbox
       #Background: 
       #Given Admin is on the batch page	
-     @Delete
+      @Deletion
       Scenario: Validate single row delete with checkbox	
      Given Admin is on the batch Page 
       When Admin clicks on the delete icon under the Manage batch header	
       Then The respective row in the table should be deleted
-      @Delete
+      @Deletion
       Scenario: Validate multiple row delete with checkbox
-     Given Admin is on the batch Page 
+       Given Admin is on the batch Page 
        When  Admin clicks on the delete icon under the Manage batch header for multiple rows
        Then  The respective multiple rows in the table should be deleted
     
@@ -147,42 +147,45 @@ Feature: Batch Module -Batch Page Navigation
      #Background:
      #Given Admin is on the batch page	
       @pagination
-     Scenario: Validate next page link	
-     Given Admin is on the batch Page 
+      Scenario: Validate next page link	
+      Given Admin is on the batch Page 
       When Admin clicks next page link on the data table
-     Then  Admin should see the Next enabled link
-         @pagination
+      Then  Admin should see the Next enabled link
+      @pagination
 		Scenario: validate last page link	
-     Given Admin is on the batch Page 
+      Given Admin is on the batch Page 
       When Admin clicks last page link on the data table	
       Then Admin should see the last page link with next page link disabled on the table 
-	       @pagination
+	   @pagination
       Scenario: validate the previous page link	
-     Given Admin is on the batch Page 
+      Given Admin is on the batch Page 
       When Admin clicks previous page link on the data table	
-     Then  Admin should see the previous page on the table
-       @pagination
+      Then  Admin should see the previous page on the table
+      @pagination
 		Scenario: validate the first page link
-     Given Admin is on the batch Page 
+      Given Admin is on the batch Page 
       When Admin clicks first page link on the data table	
       Then Admin should see the very first page on the data table
 
      #Add New Batch DDT
-     @smoke
+     @AddNewBatch
      Scenario: Verify Admin Add Batch successfully
      Given Admin is on the Batch Page 
      When  Admin Clicks on the Add Batch button and fill the required fields
      Then  Admin should create a "new Batch successfully"
 
+     @EditBatch
+     
+
      #logout from batchpage
-     @logout
+     @logoutfromBatch
      Scenario:  Validate logout option in the header is visible and enabled from the batch page	
      Given Admin is on the batch Page 
      When Admin clicks on the logout button	
      Then Admin should see the Login screen Page title "LMS"				
 
      #BatchSearch
-     @smoke
+     @BatchSearch
      Scenario: Validate search box functionality	
      Given Admin is on the batch page
      When Admin enters the batch name in the search text box

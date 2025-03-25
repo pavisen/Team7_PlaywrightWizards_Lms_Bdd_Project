@@ -12,7 +12,7 @@
   "devDependencies": {
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.13.9",
-    "allure-playwright": "^3.2.0",
+    "allure-playwright": "^3.2.1",
     "chai": "^5.2.0",
     "dotenv": "^16.4.7",
     "eslint": "^9.21.0",

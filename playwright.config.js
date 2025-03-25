@@ -47,12 +47,12 @@ const projects = browserCategory
 export default defineConfig({
   testDir, 
   captureGitInfo: { commit: true, diff: true },
-  fullyParallel: false,
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: 0,  // ✅ Set retries to 2 for all environments
   // retries: process.env.CI ? 2 : 0,
-  workers: 1, //change to 4 for parallel
+  workers: 5, //change to 4 for parallel
   reporter: [
     ['allure-playwright'], // Allure Reporter
     ['html', { outputFolder: 'playwright-report', open: 'always' }] // HTML Report - always, never, on-failure
