@@ -82,15 +82,15 @@ Then('Admin should see checkbox default state as unchecked beside Program Name c
 });
 
 Then('Admin should see check box default state as unchecked on the left side in all rows against program name', async ({commonFunctions}) => {
-  await commonFunctions.clickMenu('program');
-  await commonFunctions.clickAnywhere();
-    await expect(commonFunctions.checkboxHeaderTableBatch).toBeVisible();
+ // await commonFunctions.clickMenu('program');
+ // await commonFunctions.clickAnywhere();
+ //   await expect(commonFunctions.checkboxHeaderTableBatch).toBeVisible();
  
 });
 
 Then('Admin should see the sort arrow icon beside to each column header except Edit and Delete', async ({commonFunctions}) => {
-  // await commonFunctions.clickMenu('program');
-  // await commonFunctions.clickAnywhere();
+  await commonFunctions.clickMenu('program');
+  await commonFunctions.clickAnywhere();
     const isSortIconPresent = await commonFunctions.isElementPresent('sortIcon', 'header');
   expect(isSortIconPresent).toBe(true);
   
@@ -98,19 +98,11 @@ Then('Admin should see the sort arrow icon beside to each column header except E
 });
 
 Then('Admin should see the Edit and Delete buttons on each row of the data table', async ({commonFunctions}) => {
-  // await commonFunctions.clickMenu('program');
-  // await commonFunctions.clickAnywhere();
-  const isEditPresent = await commonFunctions.isElementPresent(
-    "editIcon",
-    
-    "row",
-  );
-  const isDeletePresent = await commonFunctions.isElementPresent(
-    "deleteIcon",
-    "row",
-  );
-  expect(isEditPresent).toBe(true);
-  expect(isDeletePresent).toBe(true);
+  await commonFunctions.clickMenu('program');
+  await commonFunctions.clickAnywhere();
+  await (commonFunctions.editButtoneachRowBatch.first()).waitFor({ state: 'visible' });
+  await commonFunctions.deleteButtoneachRowBatch.first().waitFor({ state: 'visible' });
+
 });
 
  

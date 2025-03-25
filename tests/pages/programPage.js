@@ -136,9 +136,9 @@ async verifyPopupFieldsEnabled() {
    async editProgram() {
      return await this.page.locator('//*[@id="editProgram"])[1]').click();
   }
-
   async clickEdit(value){
     this.page.getByRole('row', { name: `${value}` }).getByRole('button').first().click();
+
   }
   editProgramName() {
     return this.page.locator('input').filter({ name: 'Name *' }).first().fill('Updated Program Name');

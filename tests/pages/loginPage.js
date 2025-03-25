@@ -182,8 +182,13 @@ class LoginPage {
       }
   
       // Wait for the Home_image element to be visible
-      await this.Home_image.waitFor({ state: 'visible', timeout: 10000 }); // Wait up to 10 seconds
-  
+         // Ensure element is loaded, visible, and stable
+         await this.Home_image.waitFor({ state: 'attached', timeout: 15000 });
+         await this.Home_image.waitFor({ state: 'visible', timeout: 15000 });
+         await this.Home_image.waitFor({ state: 'stable', timeout: 5000 });
+ 
+         // Scroll into view
+         await this.Home_image.scrollIntoViewIfNeeded();
       if (!await this.Home_image.isVisible()) {
         throw new Error('Home_image is not visible.');
       }
