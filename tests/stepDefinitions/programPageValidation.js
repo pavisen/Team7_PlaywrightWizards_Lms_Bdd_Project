@@ -89,8 +89,8 @@ Then('Admin should see check box default state as unchecked on the left side in 
 });
 
 Then('Admin should see the sort arrow icon beside to each column header except Edit and Delete', async ({commonFunctions}) => {
-  await commonFunctions.clickMenu('program');
-  await commonFunctions.clickAnywhere();
+  // await commonFunctions.clickMenu('program');
+  // await commonFunctions.clickAnywhere();
     const isSortIconPresent = await commonFunctions.isElementPresent('sortIcon', 'header');
   expect(isSortIconPresent).toBe(true);
   
