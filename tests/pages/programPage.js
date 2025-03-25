@@ -16,7 +16,7 @@ export class ProgramPage {
     this.module_names = page.locator('//mat-toolbar//button//span[1]');
     this.programName = page.locator('//*[@id="programName"]');
     this.description = page.locator('//*[@id="programDescription"]');
-  
+    this.programdeleteMessage = page.getByText('Program Deleted');
     this.activeButton = page.locator('.p-radiobutton-box').first()
     this.saveButton = page.getByRole('button', { name: 'Save' });
     this.programDetails = page.getByText('Program Details');

@@ -64,7 +64,8 @@ class CommonFunctions {
     this.paginationLast = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-right']");
     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
-    this.deleteMessage = page.getByText('batch Deleted');
+    this.deleteMessage = page.getByText('Batch Deleted');
+    
     this.deletedMessage = page.getByText('Batches Deleted');
     this.confirmDialog = page.locator("//span[contains(text(),'Confirm')]");
     this.yesDelete = page.locator("//span[contains(text(),'Yes')]");
