@@ -17,6 +17,7 @@ export class ProgramPage {
     this.programName = page.locator('//*[@id="programName"]');
     this.description = page.locator('//*[@id="programDescription"]');
     this.programdeleteMessage = page.getByText('Program Deleted');
+    this.programdeletedMessage = page.getByText('Programs Deleted');
     this.activeButton = page.locator('.p-radiobutton-box').first()
     this.saveButton = page.getByRole('button', { name: 'Save' });
     this.programDetails = page.getByText('Program Details');
@@ -24,6 +25,7 @@ export class ProgramPage {
     this.verifyFieldIsRequired = page.getByText('Program name is required.');
     this.cancel_btn = page.getByRole('button',{name: 'Cancel'});
     this.closeButton=page.getByRole('button', { name: '' });
+    this.editPageTitle = page.getByText('Program Details');
   }
 
   async click_program() {
@@ -135,7 +137,9 @@ async verifyPopupFieldsEnabled() {
      return await this.page.locator('//*[@id="editProgram"])[1]').click();
   }
 
- 
+  async clickEdit(value){
+    this.page.getByRole('row', { name: `${value}` }).getByRole('button').first().click();
+  }
   editProgramName() {
     return this.page.locator('input').filter({ name: 'Name *' }).first().fill('Updated Program Name');
   }
