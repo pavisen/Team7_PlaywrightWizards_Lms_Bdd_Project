@@ -81,12 +81,12 @@ class CommonFunctions {
     await this.moduleSelectors[module].menu_btn.click();
   }
 
-  async toBeVisible(module) {
-    console.log(`--- Module : ${module} ---`);
-    if (!this.moduleSelectors[module]) {
-      throw new Error(`Invalid module: ${module}`);
-    }
-    await expect(this.moduleSelectors[module].menu_btn).toBeVisible();
+  async getSortIcon(columnName) {
+
+    const regex = new RegExp(`^${columnName}.*`);
+    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    console.log(sortIcon)
+    return sortIcon;
   }
 
 
@@ -277,11 +277,11 @@ class CommonFunctions {
     // Handle delete button click based on count
     if (count === 1) {
       console.log("Deleting a single record...");
-      await this.page.pause();
+      //   await this.page.pause();
       await this.deleteButtoneachRowBatch.nth(1).click(); // Use a specific button for single delete
     } else {
       console.log(`Deleting ${count} records...`);
-      await this.page.pause();
+      //   await this.page.pause();
       await this.deleteButton.click(); // Use a different button for bulk delete
     }
 
@@ -308,6 +308,23 @@ class CommonFunctions {
       await this.page.pause();
       const messageText = await deletedMessage.textContent();
       await this.page.pause();
+      console.log(`Deletion message displayed: ${messageText}`);
+
+      // Ensure the message is actually visible
+      await expect(deletedMessage).toBeVisible();
+    } else {
+      throw new Error("Batch deletion confirmation message not found.");
+    }
+  }
+  async verifyBatchDeletion() {
+    // Check if a confirmation popup appears and confirm
+    const confirmDialog = this.page.locator("//div[contains(text(),'Successful')]");
+    const deletedMessage = this.page.getByText('Batches Deleted');
+
+    if (await confirmDialog.isVisible()) {
+      //await this.page.pause();
+      const messageText = await deletedMessage.textContent();
+      // await this.page.pause();
       console.log(`Deletion message displayed: ${messageText}`);
 
       // Ensure the message is actually visible
@@ -362,15 +379,14 @@ class CommonFunctions {
 
   // Sorting
   async getSortIcon(columnName) {
-     
     const regex = new RegExp(`${columnName}`);
-    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+    const sortIcon = await this.page.getByRole('columnheader', { name: regex });
     return sortIcon;
   }
 
   async validateAscendingSort(ele) {
     await this.page.waitForLoadState();
-    
+
     let originalData = await (ele).allTextContents();
     console.log('Ascending Order actual List: ' + originalData)
     let expectedList = originalData.slice().sort((a, b) => a.localeCompare(b));
@@ -385,16 +401,16 @@ class CommonFunctions {
 
   async validateDescendingSort(ele) {
     const originalData = await (ele).allTextContents();
-    console.log('Ascending Order ' + originalData)
+    console.log('Descending Order actual ' + originalData)
     const expectedList = originalData.sort((a, b) => b.localeCompare(a));
     const sortedList = await (ele).allTextContents();
-    console.log('Descending Order' + expectedList)
+    console.log('Descending Order expected' + expectedList)
     expect(originalData).toEqual(expectedList);
   }
 
   async clickSortIcon(ele) {
-  // send esc key to page
-  await this.page.keyboard.press('Escape');
+    // send esc key to page
+    await this.page.keyboard.press('Escape');
     await ele.click();
   }
 
@@ -414,7 +430,8 @@ class CommonFunctions {
     await this.editIcon.click();
   }
 
-    getRandomAlphabet(length) {
+
+  async getRandomAlphabet(length) {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let result = '';
     for (let i = 0; i < length; i++) {
@@ -422,7 +439,8 @@ class CommonFunctions {
     }
     return result;
   }
-  
+
+
 }
 
 export { CommonFunctions };

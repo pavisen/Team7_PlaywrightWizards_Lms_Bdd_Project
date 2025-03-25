@@ -13,6 +13,7 @@ Given('Admin is on the program Page', async function ({ loggedInPage }) {
 When('Admin clicks on Arrow next to programName', async ({ commonFunctions }) => {
 
     await commonFunctions.clickMenu('program');
+    await commonFunctions.clickAnywhere();
 
 });
 
@@ -29,6 +30,7 @@ Then('Admin See the Program Name is sorted in Ascending order\\/Descending order
 
 When('Admin clicks on Arrow next to Program Description', async ({ commonFunctions}) => {
     await commonFunctions.clickMenu('program');
+    await commonFunctions.clickAnywhere();
     const ele = await commonFunctions.getSortIcon('Program Description');
     await commonFunctions.clickSortIcon(ele);
 
@@ -46,6 +48,7 @@ Then('Admin See the program Description is sorted in Ascending order\\/Descendin
 
 When('Admin clicks on Arrow next to Program status', async ({ commonFunctions}) => {
     await commonFunctions.clickMenu('program');
+    await commonFunctions.clickAnywhere();
     const ele = await commonFunctions.getSortIcon('Program Status');
     await commonFunctions.clickSortIcon(ele);
 });
