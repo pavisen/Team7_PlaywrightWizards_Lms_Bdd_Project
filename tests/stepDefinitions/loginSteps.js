@@ -174,9 +174,10 @@ Then('Admin should see LMS - Learning Management System', async ({loginPage,comm
 });
 
 Then('Admin should see company name below the app name', async ({loginPage}) => {
-  await loginPage.ExtractTextFromImage();
+  const extractedText =await loginPage.ExtractTextFromImage();
   console.log("Extracted Text: ", extractedText);
   expect(extractedText).toContain('LMS - Learning Management System')
+  expect(extractedText).toContain('NumpyNinja')
 });
 
  
