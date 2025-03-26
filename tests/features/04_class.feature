@@ -28,7 +28,7 @@ Then Admin should see the " showing x to y of  z entries" and enabled pagination
 
 Scenario: Validate the sort icon of all the field in datatable
 When Admin clicks the Class Navigation bar in the Header
-Then Admin should see the Sort icon of all the field in the datatable.
+Then Admin should see the Sort icon of all the field in the datatable
 
 Scenario: Validating the Delete button under the Manage class 
 When Admin clicks the Class Navigation bar in the Header
@@ -223,14 +223,14 @@ Then Admin can see the deletion alert disappears without any changes
 
 Scenario: Validate multiple class deletion by selecting Single checkbox and Yes Button
 Given Admin is in Manage Class page
-When Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert
+When Admin clicks single checkbox in the data table and Admin clicks <YES> button on the alert
 Then Admin should land on Manage class page and can see the selected class is deleted from the data table
 
 Scenario: Validate multiple class deletion by selecting Single checkbox and No button
 Given Admin is in Manage Class page
-When Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert
+When Admin clicks single checkbox in the data table and Admin clicks <NO> button on the alert
 Then Admin should land on Manage class page and can see the selected class is not deleted from the data table
-
+@delete
 Scenario: Validate multiple class deletion by selecting multiple check boxes with YES button
 Given Admin is in Manage Class page
 When Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert for multiple

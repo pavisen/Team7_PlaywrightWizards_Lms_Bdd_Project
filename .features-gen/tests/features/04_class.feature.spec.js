@@ -34,7 +34,7 @@ test.describe('Class Page Validation', () => {
 
   test('Validate the sort icon of all the field in datatable', { tag: ['@class'] }, async ({ When, commonFunctions, Then }) => { 
     await When('Admin clicks the Class Navigation bar in the Header', null, { commonFunctions }); 
-    await Then('Admin should see the Sort icon of all the field in the datatable.', null, { commonFunctions }); 
+    await Then('Admin should see the Sort icon of all the field in the datatable', null, { commonFunctions }); 
   });
 
   test('Validating the Delete button under the Manage class', { tag: ['@class'] }, async ({ When, commonFunctions, Then }) => { 
@@ -243,52 +243,52 @@ test.describe('Class Page Validation', () => {
     await Then('Admin should see the very first page record on the table with Previous page link are disabled', null, { commonFunctions }); 
   });
 
-  test('Validate row level delete icon', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
-    await Given('Admin is on Manage Class Page'); 
-    await When('Admin clicks the delete icon'); 
-    await Then('Admin should see a alert open with heading "Confirm" along with  <YES> and <NO> button for deletion'); 
+  test('Validate row level delete icon', { tag: ['@class'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on Manage Class Page', null, { commonFunctions }); 
+    await When('Admin clicks the delete icon', null, { commonFunctions }); 
+    await Then('Admin should see a alert open with heading "Confirm" along with  <YES> and <NO> button for deletion', null, { commonFunctions }); 
   });
 
-  test('Click Yes on deletion window', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
-    await Given('Admin is on Confirm Deletion alert'); 
-    await When('Admin clicks yes option'); 
-    await Then('Admin gets a message "Successful Class Deleted" alert and do not see that Class in the data table'); 
+  test('Click Yes on deletion window', { tag: ['@class'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on Confirm Deletion alert', null, { commonFunctions }); 
+    await When('Admin clicks yes option', null, { commonFunctions }); 
+    await Then('Admin gets a message "Successful Class Deleted" alert and do not see that Class in the data table', null, { commonFunctions }); 
   });
 
-  test('Click No on deletion window', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
-    await Given('Admin is on Confirm Deletion alert'); 
-    await When('Admin clicks  No option'); 
-    await Then('Admin can see the deletion alert disappears without deleting'); 
+  test('Click No on deletion window', { tag: ['@class'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on Confirm Deletion alert', null, { commonFunctions }); 
+    await When('Admin clicks  No option', null, { commonFunctions }); 
+    await Then('Admin can see the deletion alert disappears without deleting', null, { commonFunctions }); 
   });
 
-  test('Validate Close(X) icon on Confirm Deletion alert', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
-    await Given('Admin is on Confirm Deletion alert'); 
-    await When('Admin clicks on close button'); 
-    await Then('Admin can see the deletion alert disappears without any changes'); 
+  test('Validate Close(X) icon on Confirm Deletion alert', { tag: ['@class'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on Confirm Deletion alert', null, { commonFunctions }); 
+    await When('Admin clicks on close button', null, { commonFunctions }); 
+    await Then('Admin can see the deletion alert disappears without any changes', null, { commonFunctions }); 
   });
 
-  test('Validate multiple class deletion by selecting Single checkbox and Yes Button', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
-    await Given('Admin is in Manage Class page'); 
-    await When('Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert'); 
-    await Then('Admin should land on Manage class page and can see the selected class is deleted from the data table'); 
+  test('Validate multiple class deletion by selecting Single checkbox and Yes Button', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, Then }) => { 
+    await Given('Admin is in Manage Class page', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks single checkbox in the data table and Admin clicks <YES> button on the alert', null, { commonFunctions }); 
+    await Then('Admin should land on Manage class page and can see the selected class is deleted from the data table', null, { commonFunctions }); 
   });
 
-  test('Validate multiple class deletion by selecting Single checkbox and No button', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
-    await Given('Admin is in Manage Class page'); 
-    await When('Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert'); 
-    await Then('Admin should land on Manage class page and can see the selected class is not deleted from the data table'); 
+  test('Validate multiple class deletion by selecting Single checkbox and No button', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, Then }) => { 
+    await Given('Admin is in Manage Class page', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks single checkbox in the data table and Admin clicks <NO> button on the alert', null, { commonFunctions }); 
+    await Then('Admin should land on Manage class page and can see the selected class is not deleted from the data table', null, { commonFunctions }); 
   });
 
-  test('Validate multiple class deletion by selecting multiple check boxes with YES button', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
-    await Given('Admin is in Manage Class page'); 
-    await When('Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert for multiple'); 
-    await Then('Admin should land on Manage class page and can see the selected class are deleted from the data table'); 
+  test('Validate multiple class deletion by selecting multiple check boxes with YES button', { tag: ['@class', '@delete'] }, async ({ Given, loggedInPage, commonFunctions, When, Then }) => { 
+    await Given('Admin is in Manage Class page', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert for multiple', null, { commonFunctions }); 
+    await Then('Admin should land on Manage class page and can see the selected class are deleted from the data table', null, { commonFunctions }); 
   });
 
-  test('Validate multiple class deletion by selecting multiple check boxes with NO button', { tag: ['@class'] }, async ({ Given, When, Then }) => { 
-    await Given('Admin is in Manage Class page'); 
-    await When('Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert for multiple'); 
-    await Then('Admin should land on Manage class page and can see the selected class is not deleted from the data table'); 
+  test('Validate multiple class deletion by selecting multiple check boxes with NO button', { tag: ['@class'] }, async ({ Given, loggedInPage, commonFunctions, When, Then }) => { 
+    await Given('Admin is in Manage Class page', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert for multiple', null, { commonFunctions }); 
+    await Then('Admin should land on Manage class page and can see the selected class is not deleted from the data table', null, { commonFunctions }); 
   });
 
 });
@@ -307,7 +307,7 @@ const bddFileData = [ // bdd-data-start
   {"pwTestLine":20,"pickleLine":17,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":21,"gherkinStepLine":18,"keywordType":"Action","textWithKeyword":"When Admin clicks the Class Navigation bar in the Header","stepMatchArguments":[]},{"pwStepLine":22,"gherkinStepLine":19,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the Search Bar in Manage class page","stepMatchArguments":[]}]},
   {"pwTestLine":25,"pickleLine":21,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":26,"gherkinStepLine":22,"keywordType":"Action","textWithKeyword":"When Admin clicks the Class Navigation bar in the Header","stepMatchArguments":[]},{"pwStepLine":27,"gherkinStepLine":23,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the datatable headings","stepMatchArguments":[]}]},
   {"pwTestLine":30,"pickleLine":25,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":31,"gherkinStepLine":26,"keywordType":"Action","textWithKeyword":"When Admin clicks the Class Navigation bar in the Header","stepMatchArguments":[]},{"pwStepLine":32,"gherkinStepLine":27,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the \" showing x to y of  z entries\" and enabled pagination controls under the data table","stepMatchArguments":[{"group":{"start":21,"value":"\" showing x to y of  z entries\"","children":[{"start":22,"value":" showing x to y of  z entries","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
-  {"pwTestLine":35,"pickleLine":29,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":36,"gherkinStepLine":30,"keywordType":"Action","textWithKeyword":"When Admin clicks the Class Navigation bar in the Header","stepMatchArguments":[]},{"pwStepLine":37,"gherkinStepLine":31,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the Sort icon of all the field in the datatable.","stepMatchArguments":[]}]},
+  {"pwTestLine":35,"pickleLine":29,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":36,"gherkinStepLine":30,"keywordType":"Action","textWithKeyword":"When Admin clicks the Class Navigation bar in the Header","stepMatchArguments":[]},{"pwStepLine":37,"gherkinStepLine":31,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the Sort icon of all the field in the datatable","stepMatchArguments":[]}]},
   {"pwTestLine":40,"pickleLine":33,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":41,"gherkinStepLine":34,"keywordType":"Action","textWithKeyword":"When Admin clicks the Class Navigation bar in the Header","stepMatchArguments":[]},{"pwStepLine":42,"gherkinStepLine":35,"keywordType":"Outcome","textWithKeyword":"Then Admin should see the Delete button under the Manage class page header.","stepMatchArguments":[]}]},
   {"pwTestLine":45,"pickleLine":37,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":46,"gherkinStepLine":38,"keywordType":"Action","textWithKeyword":"When Admin clicks the Class Navigation bar in the Header","stepMatchArguments":[]},{"pwStepLine":47,"gherkinStepLine":39,"keywordType":"Outcome","textWithKeyword":"Then Admin should see Total no of classes in below of the data table.","stepMatchArguments":[]}]},
   {"pwTestLine":50,"pickleLine":42,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":51,"gherkinStepLine":43,"keywordType":"Context","textWithKeyword":"Given Admin is on the Manage class page","stepMatchArguments":[]},{"pwStepLine":52,"gherkinStepLine":44,"keywordType":"Action","textWithKeyword":"When Admin clicks a add new class under the class menu bar","stepMatchArguments":[]},{"pwStepLine":53,"gherkinStepLine":45,"keywordType":"Outcome","textWithKeyword":"Then Admin should see a popup open for class details with empty form along with save and cancel button and Close Icon on the top right corner of the window","stepMatchArguments":[]}]},
@@ -346,8 +346,8 @@ const bddFileData = [ // bdd-data-start
   {"pwTestLine":252,"pickleLine":209,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":253,"gherkinStepLine":210,"keywordType":"Context","textWithKeyword":"Given Admin is on Confirm Deletion alert","stepMatchArguments":[]},{"pwStepLine":254,"gherkinStepLine":211,"keywordType":"Action","textWithKeyword":"When Admin clicks yes option","stepMatchArguments":[]},{"pwStepLine":255,"gherkinStepLine":212,"keywordType":"Outcome","textWithKeyword":"Then Admin gets a message \"Successful Class Deleted\" alert and do not see that Class in the data table","stepMatchArguments":[{"group":{"start":21,"value":"\"Successful Class Deleted\"","children":[{"start":22,"value":"Successful Class Deleted","children":[{"children":[]}]},{"children":[{"children":[]}]}]},"parameterTypeName":"string"}]}]},
   {"pwTestLine":258,"pickleLine":214,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":259,"gherkinStepLine":215,"keywordType":"Context","textWithKeyword":"Given Admin is on Confirm Deletion alert","stepMatchArguments":[]},{"pwStepLine":260,"gherkinStepLine":216,"keywordType":"Action","textWithKeyword":"When Admin clicks  No option","stepMatchArguments":[]},{"pwStepLine":261,"gherkinStepLine":217,"keywordType":"Outcome","textWithKeyword":"Then Admin can see the deletion alert disappears without deleting","stepMatchArguments":[]}]},
   {"pwTestLine":264,"pickleLine":219,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":265,"gherkinStepLine":220,"keywordType":"Context","textWithKeyword":"Given Admin is on Confirm Deletion alert","stepMatchArguments":[]},{"pwStepLine":266,"gherkinStepLine":221,"keywordType":"Action","textWithKeyword":"When Admin clicks on close button","stepMatchArguments":[]},{"pwStepLine":267,"gherkinStepLine":222,"keywordType":"Outcome","textWithKeyword":"Then Admin can see the deletion alert disappears without any changes","stepMatchArguments":[]}]},
-  {"pwTestLine":270,"pickleLine":224,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":271,"gherkinStepLine":225,"keywordType":"Context","textWithKeyword":"Given Admin is in Manage Class page","stepMatchArguments":[]},{"pwStepLine":272,"gherkinStepLine":226,"keywordType":"Action","textWithKeyword":"When Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert","stepMatchArguments":[]},{"pwStepLine":273,"gherkinStepLine":227,"keywordType":"Outcome","textWithKeyword":"Then Admin should land on Manage class page and can see the selected class is deleted from the data table","stepMatchArguments":[]}]},
-  {"pwTestLine":276,"pickleLine":229,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":277,"gherkinStepLine":230,"keywordType":"Context","textWithKeyword":"Given Admin is in Manage Class page","stepMatchArguments":[]},{"pwStepLine":278,"gherkinStepLine":231,"keywordType":"Action","textWithKeyword":"When Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert","stepMatchArguments":[]},{"pwStepLine":279,"gherkinStepLine":232,"keywordType":"Outcome","textWithKeyword":"Then Admin should land on Manage class page and can see the selected class is not deleted from the data table","stepMatchArguments":[]}]},
-  {"pwTestLine":282,"pickleLine":234,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":283,"gherkinStepLine":235,"keywordType":"Context","textWithKeyword":"Given Admin is in Manage Class page","stepMatchArguments":[]},{"pwStepLine":284,"gherkinStepLine":236,"keywordType":"Action","textWithKeyword":"When Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert for multiple","stepMatchArguments":[]},{"pwStepLine":285,"gherkinStepLine":237,"keywordType":"Outcome","textWithKeyword":"Then Admin should land on Manage class page and can see the selected class are deleted from the data table","stepMatchArguments":[]}]},
+  {"pwTestLine":270,"pickleLine":224,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":271,"gherkinStepLine":225,"keywordType":"Context","textWithKeyword":"Given Admin is in Manage Class page","stepMatchArguments":[]},{"pwStepLine":272,"gherkinStepLine":226,"keywordType":"Action","textWithKeyword":"When Admin clicks single checkbox in the data table and Admin clicks <YES> button on the alert","stepMatchArguments":[]},{"pwStepLine":273,"gherkinStepLine":227,"keywordType":"Outcome","textWithKeyword":"Then Admin should land on Manage class page and can see the selected class is deleted from the data table","stepMatchArguments":[]}]},
+  {"pwTestLine":276,"pickleLine":229,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":277,"gherkinStepLine":230,"keywordType":"Context","textWithKeyword":"Given Admin is in Manage Class page","stepMatchArguments":[]},{"pwStepLine":278,"gherkinStepLine":231,"keywordType":"Action","textWithKeyword":"When Admin clicks single checkbox in the data table and Admin clicks <NO> button on the alert","stepMatchArguments":[]},{"pwStepLine":279,"gherkinStepLine":232,"keywordType":"Outcome","textWithKeyword":"Then Admin should land on Manage class page and can see the selected class is not deleted from the data table","stepMatchArguments":[]}]},
+  {"pwTestLine":282,"pickleLine":234,"tags":["@class","@delete"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":283,"gherkinStepLine":235,"keywordType":"Context","textWithKeyword":"Given Admin is in Manage Class page","stepMatchArguments":[]},{"pwStepLine":284,"gherkinStepLine":236,"keywordType":"Action","textWithKeyword":"When Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert for multiple","stepMatchArguments":[]},{"pwStepLine":285,"gherkinStepLine":237,"keywordType":"Outcome","textWithKeyword":"Then Admin should land on Manage class page and can see the selected class are deleted from the data table","stepMatchArguments":[]}]},
   {"pwTestLine":288,"pickleLine":239,"tags":["@class"],"steps":[{"pwStepLine":7,"gherkinStepLine":6,"keywordType":"Context","textWithKeyword":"Given Admin is on the home page after login","isBg":true,"stepMatchArguments":[]},{"pwStepLine":289,"gherkinStepLine":240,"keywordType":"Context","textWithKeyword":"Given Admin is in Manage Class page","stepMatchArguments":[]},{"pwStepLine":290,"gherkinStepLine":241,"keywordType":"Action","textWithKeyword":"When Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert for multiple","stepMatchArguments":[]},{"pwStepLine":291,"gherkinStepLine":242,"keywordType":"Outcome","textWithKeyword":"Then Admin should land on Manage class page and can see the selected class is not deleted from the data table","stepMatchArguments":[]}]},
 ]; // bdd-data-end

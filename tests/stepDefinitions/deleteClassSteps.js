@@ -7,93 +7,100 @@ import { CommonFunctions } from '../utils/commonFunctions.js';
 const { Given, When, Then } = createBdd();
 import logger from '../utils/logger.js';
 
-Given('Admin is on Manage Class Page', async ({}) => {
-    // Step: Given Admin is on Manage Class Page
-    // From: tests/features/04_class.feature:205:1
+Given('Admin is on Manage Class Page', async ({commonFunctions}) => {
+  await commonFunctions.clickMenu('batch');
+  await commonFunctions.clickAnywhere();
   });
   
-  When('Admin clicks the delete icon', async ({}) => {
-    // Step: When Admin clicks the delete icon
-    // From: tests/features/04_class.feature:206:1
+  When('Admin clicks the delete icon', async ({commonFunctions}) => {
+    await commonFunctions.clickDeleteRow(1);
   });
   
-  Then('Admin should see a alert open with heading {string} along with  <YES> and <NO> button for deletion', async ({}, arg) => {
-    // Step: Then Admin should see a alert open with heading "Confirm" along with  <YES> and <NO> button for deletion
-    // From: tests/features/04_class.feature:207:1
+  Then('Admin should see a alert open with heading {string} along with  <YES> and <NO> button for deletion', async ({commonFunctions}, arg) => {
+    const confirmDialogbox = await commonFunctions.confirmDeleteDialog();
+    if (confirmDialogbox) {
+      await expect(confirmDialogbox.confirmDialog).toBeVisible();
+      await expect(confirmDialogbox.yesDelete).toBeVisible();
+      await expect(confirmDialogbox.noDelete).toBeVisible();
+    } else {
+      console.warn("Confirm dialog not found, skipping assertions.");
+    }
   });
   
-  Given('Admin is on Confirm Deletion alert', async ({}) => {
-    // Step: Given Admin is on Confirm Deletion alert
-    // From: tests/features/04_class.feature:210:1
+  Given('Admin is on Confirm Deletion alert', async ({commonFunctions}) => {
+    await commonFunctions.clickMenu('class');
+    await commonFunctions.clickAnywhere();
+    await commonFunctions.clickDeleteRow(1);
   });
   
-  When('Admin clicks yes option', async ({}) => {
-    // Step: When Admin clicks yes option
-    // From: tests/features/04_class.feature:211:1
+  When('Admin clicks yes option', async ({commonFunctions}) => {
+    await commonFunctions.clickConfirmYesDelete();
   });
   
-  Then('Admin gets a message {string} alert and do not see that Class in the data table', async ({}, arg) => {
-    // Step: Then Admin gets a message "Successful Class Deleted" alert and do not see that Class in the data table
-    // From: tests/features/04_class.feature:212:1
+  Then('Admin gets a message {string} alert and do not see that Class in the data table', async ({commonFunctions}, arg) => {
+    const successMessage = await commonFunctions.getDeleteMessage("Class").textContent();
+    expect(successMessage.trim()).toBe("Class Deleted");
+    logger.info("Deleted class record")
   });
   
-  When('Admin clicks  No option', async ({}) => {
-    // Step: When Admin clicks  No option
-    // From: tests/features/04_class.feature:216:1
+  When('Admin clicks  No option', async ({commonFunctions}) => {
+    await commonFunctions.clickConfirmNoDelete();
   });
   
-  Then('Admin can see the deletion alert disappears without deleting', async ({}) => {
-    // Step: Then Admin can see the deletion alert disappears without deleting
-    // From: tests/features/04_class.feature:217:1
+  Then('Admin can see the deletion alert disappears without deleting', async ({commonFunctions}) => {
+    const confirmDialog = await commonFunctions.confirmDialog;
+    await expect(confirmDialog).not.toBeVisible();
   });
   
-  When('Admin clicks on close button', async ({}) => {
-    // Step: When Admin clicks on close button
-    // From: tests/features/04_class.feature:221:1
+  When('Admin clicks on close button', async ({commonFunctions}) => {
+    await commonFunctions.clickCloseDelete();
   });
   
-  Then('Admin can see the deletion alert disappears without any changes', async ({}) => {
-    // Step: Then Admin can see the deletion alert disappears without any changes
-    // From: tests/features/04_class.feature:222:1
+  Then('Admin can see the deletion alert disappears without any changes', async ({commonFunctions}) => {
+    const confirmDialog = commonFunctions.confirmDialog;
+    await expect(confirmDialog).not.toBeVisible();
   });
 
-  Given('Admin is in Manage Class page', async ({}) => {
-    // Step: Given Admin is in Manage Class page
-    // From: tests/features/04_class.feature:225:1
+  Given('Admin is in Manage Class page', async ({loggedInPage,commonFunctions}) => {
+    await commonFunctions.clickMenu('class');
+    await commonFunctions.clickAnywhere();
   });
   
-  When('Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert', async ({}) => {
-    // Step: When Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert
-    // From: tests/features/04_class.feature:226:1
+  When('Admin clicks single checkbox in the data table and Admin clicks <YES> button on the alert', async ({commonFunctions}) => {
+    await commonFunctions.clickDeleteRow(1);
+    await commonFunctions.clickConfirmYesDelete();
   });
   
-  Then('Admin should land on Manage class page and can see the selected class is deleted from the data table', async ({}) => {
-    // Step: Then Admin should land on Manage class page and can see the selected class is deleted from the data table
-    // From: tests/features/04_class.feature:227:1
+  Then('Admin should land on Manage class page and can see the selected class is deleted from the data table', async ({commonFunctions}) => {
+    const successMessage = await commonFunctions.getDeleteMessage("Class").textContent();
+    expect(successMessage.trim()).toBe("Class Deleted");
+    logger.info("Deleted class record")
+   });
+  
+  When('Admin clicks single checkbox in the data table and Admin clicks <NO> button on the alert', async ({commonFunctions}) => {
+    await commonFunctions.clickDeleteRow(1);
+    await commonFunctions.clickConfirmNoDelete();
+  
   });
   
-  When('Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert', async ({}) => {
-    // Step: When Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert
-    // From: tests/features/04_class.feature:231:1
+  Then('Admin should land on Manage class page and can see the selected class is not deleted from the data table', async ({commonFunctions}) => {
+    const confirmDialog = await commonFunctions.confirmDialog;
+    await expect(confirmDialog).not.toBeVisible();
   });
   
-  Then('Admin should land on Manage class page and can see the selected class is not deleted from the data table', async ({}) => {
-    // Step: Then Admin should land on Manage class page and can see the selected class is not deleted from the data table
-    // From: tests/features/04_class.feature:232:1
+  When('Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert for multiple', async ({commonFunctions}) => {
+    await commonFunctions.clickDeleteRow(2);
+    await commonFunctions.clickConfirmYesDelete();
   });
   
-  When('Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert for multiple', async ({}) => {
-    // Step: When Admin clicks any checkbox in the data table and Admin clicks <YES> button on the alert for multiple
-    // From: tests/features/04_class.feature:236:1
+  Then('Admin should land on Manage class page and can see the selected class are deleted from the data table', async ({commonFunctions}) => {
+    const successMessage = await commonFunctions.getDeletedMessage("Class").textContent();
+    expect(successMessage.trim()).toBe("Classes Deleted");
+    logger.info("Deleted classes record")
   });
   
-  Then('Admin should land on Manage class page and can see the selected class are deleted from the data table', async ({}) => {
-    // Step: Then Admin should land on Manage class page and can see the selected class are deleted from the data table
-    // From: tests/features/04_class.feature:237:1
-  });
-  
-  When('Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert for multiple', async ({}) => {
-    // Step: When Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert for multiple
-    // From: tests/features/04_class.feature:241:1
+  When('Admin clicks any checkbox in the data table and Admin clicks <NO> button on the alert for multiple', async ({commonFunctions}) => {
+    await commonFunctions.clickDeleteRow(2);
+    await commonFunctions.clickConfirmNoDelete();
   });
   

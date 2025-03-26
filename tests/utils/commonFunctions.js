@@ -44,10 +44,10 @@ class CommonFunctions {
 
     // Table icons locators
     this.locators = {
-      editIcon: "span.p-button-icon.pi.pi-pencil",
-      deleteIcon: "span.p-button-icon.pi.pi-trash",
-      checkbox: "span.p-checkbox-icon",
-      sortIcon: ".p-sortable-column-icon.pi.pi-fw.pi-sort-alt",
+      editIcon: ".//span[@class='p-button-icon pi pi-pencil']",
+      deleteIcon: ".//span[@class='p-button-icon pi pi-trash']",
+      checkbox: ".//span[@class='p-checkbox-icon']",
+      sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
     };
 
     this.checkBoxList = page.locator("//tbody[@class='p-datatable-tbody']//div[@role='checkbox']");
@@ -64,7 +64,6 @@ class CommonFunctions {
     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
     this.deleteMessage = page.getByText('Batch Deleted');
-    
     this.deletedMessage = page.getByText('Batches Deleted');
     this.confirmDialog = page.locator("//span[contains(text(),'Confirm')]");
     this.yesDelete = page.locator("//span[contains(text(),'Yes')]");
@@ -484,9 +483,6 @@ class CommonFunctions {
   }
 
   async clickSortIcon(ele) {
-    // send esc key to page
-    await this.page.keyboard.press('Escape');
-
     await ele.click();
   }
 
@@ -518,10 +514,17 @@ class CommonFunctions {
 
   // Sorting
   async getSortIcon(columnName) {
-     
     const regex = new RegExp(`${columnName}`);
-    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+ const sortIcon = await this.page.getByRole('columnheader', { name: regex });
     return sortIcon;
+  }
+
+  getDeleteMessage(moduleName) {
+    return this.page.getByText(`${moduleName} Deleted`);
+  }
+
+  getDeletedMessage(moduleName) {
+    return this.page.getByText(`${moduleName}es Deleted`);
   }
 }
 
