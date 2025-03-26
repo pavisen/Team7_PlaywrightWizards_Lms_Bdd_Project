@@ -13,7 +13,7 @@ test.describe('Logout functionality', () => {
     await Then('Admin should be redirected to login page', null, { loginPage }); 
   });
 
-  test('Verify back button function', async ({ Given, loginPage, When, Then }) => { 
+  test('Verify back button function 	--fail case', async ({ Given, loginPage, When, Then }) => { 
     await Given('Admin is logged out of the application', null, { loginPage }); 
     await When('Admin is in login page and clicks browser back button', null, { loginPage }); 
     await Then('Admin should receive error message', null, { loginPage }); 
