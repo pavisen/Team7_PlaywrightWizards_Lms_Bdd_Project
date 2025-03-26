@@ -17,7 +17,7 @@ Scenario: Click Yes on deletion window
 Given Admin is on Confirm Deletion alert
 When Admin clicks yes option
 Then Admin gets a message "Successful Class Deleted" alert and do not see that Class in the data table
-
+@smoke
 Scenario: Validate multiple class deletion by selecting Single checkbox and Yes Button
 Given Admin is in Manage Class page
 When Admin clicks single checkbox in the data table and Admin clicks <YES> button on the alert
@@ -35,7 +35,7 @@ Then Admin should land on Manage class page and can see the selected class are d
      When Admin clicks on the delete icon and click yes button	
      Then Admin should see the successful message and the batch should be deleted
    #Delete multiple batches with checkbox
-      @Deletion
+    @smoke
       Scenario: Validate single row delete with checkbox for batch	
      Given Admin is on the batch Page 
       When Admin clicks on the delete icon under the Manage batch header	
@@ -53,7 +53,7 @@ Then Admin should land on Manage class page and can see the selected class are d
                 When Admin clicks on "Yes" button
                 Then Admin can see Successful Program Deleted message
         #Delete multiple program with checkbox
-        @Deletion
+       @smoke
         Scenario: Validate single row delete with checkbox for program
                 Given Admin is on the program page for delete
                 When Admin clicks on the delete icon under the Manage program header

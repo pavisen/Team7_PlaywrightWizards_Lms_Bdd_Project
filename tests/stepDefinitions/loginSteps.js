@@ -182,15 +182,9 @@ Then('Admin should see company name below the app name', async ({loginPage}) => 
  
 
 Then('Admin should see Please login to LMS application', async ({loginPage}) => {
-  try {
-
-    await loginPage.ExtractTextFromImage();
-    //console.log("Extracted Text: ", extractedText);
-    expect(extractedText).toEqual('LMS - Learning Management System');
-  } catch (error) {
-    console.error('Error in "Admin should see company name below the app name" step:', error);
-    throw error; // Re-throw the error to fail the test
-  }
+  const actualText = await loginPage.login_header.textContent();
+  const expectedText = 'Please login to LMS application';
+  expect(actualText.trim()).toBe(expectedText);
 });
 
 Then('Admin should see two text field', async ({loginPage}) => {
