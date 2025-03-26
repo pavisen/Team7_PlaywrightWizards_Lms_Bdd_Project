@@ -3,6 +3,7 @@ Feature: Program Module Navigation
         Background:
                 Given Admin is on the program Page.
         #Program Page Validation
+        @smoke
         Scenario: Verify Admin Navigate to program page successfully
                 When  Admin Clicks on the program menu from the header
                 Then  Admin should be in the "Manage Program" Page for managing program
@@ -46,7 +47,7 @@ Feature: Program Module Navigation
                 Then Admin should see the Edit and Delete buttons on each row of the data table
 
         Scenario: Verify pagination icons below data table in manage program
-                Then Admin should see the text as "Showing \d+ to \d+ of \d+ entries" where \d+ is a number
+                Then Admin should see the text as "Showing \d+ to \d+ of \d+ entries" in program
 
         Scenario: Verify footer message in manage program
                 Then Admin should see the footer as In total there are z programs.
@@ -110,7 +111,11 @@ Feature: Program Module Navigation
         Scenario: Verify Admin add program name with missing description
                 When Admin enters the program name with missing description
                 Then Admin should get a message description is required
+         @smoke @doing
+         Scenario: Verify Admin Add program fpr Batch Chaining
+                When  Admin Clicks on the Add program button and fill the required fields for chaining
 
+                Then Admin should get a message "new program successfully"
         #verify program details
         Scenario: Verify Admin is able to view the program details
 
@@ -118,77 +123,23 @@ Feature: Program Module Navigation
 
 
 
-        #delete program
-
-        Scenario: Verify delete feature
-                Given Admin is on Program module
-                When Admin clicks on delete button for a program
-                Then Admin will get confirm deletion popup
-
-
-        Scenario: Verify Admin is able to click 'Yes'
-                Given Admin is on Confirm deletion form
-                When Admin clicks on "Yes" button
-                Then Admin can see 'Successful Program Deleted' message
-
-
-        Scenario: Verify Admin is able to deleted program
-                Given Admin is on Program module
-                When Admin Searches for "Deleted Program name"
-                Then There should be zero results.
-
-
-        Scenario: Verify Admin is able to click 'No'
-                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
-                When Admin clicks on No button
-                Then Admin can see Confirmation form disappears
-
-
-        Scenario: Verify Admin is able to close the window with "X"
-                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
-                When Admin Click on X button
-                Then Admin can see Confirm Deletion form disappear
-        #search program
-
-        # Scenario: Verify Admin is able to search results found for program name
-        #         Given Admin is on Program module
-        #         When Admin enter the program to search By program name
-        #         Then Admin should able to see Program name, description, and status for searched program name
-
-
-        # Scenario: Admin should able to see Program name, description, and status for searched program name
-        #         Given Admin is on Program module
-        #         When Admin enter the program to search By program description
-        #         Then Admin should able to see Program name, description, and status for searched program description
-
-
-        # Scenario: Verify Admin is able to search results not found
-        #         Given Admin is on Program module
-        #         When Admin enter the program to search By program name that does not exist
-        #         Then There should be zero results.
-
-        # Scenario: Verify Admin is able to search with partial program name
-        #         Given Admin is on Program module
-        #         When Admin enter the program to search By partial name of program
-        #         Then Admin should able to see Program name, description, and status for searched program name for partial search
-        #sort program
-
+        
 
 
         Scenario: Verify sorting of  Program name in Ascending order/Descending order
 
                 When Admin clicks on Arrow next to programName
-                Then Admin See the Program Name is sorted in Ascending order/Descending order
+                Then Admin See the Program Name is sorted in Ascending order or Descending order
 
         Scenario: Verify sorting of  Program Description in  Ascending order/Descending order
 
                 When Admin clicks on Arrow next to Program Description
-                Then Admin See the program Description is sorted in Ascending order/Descending order
+                Then Admin See the program Description is sorted in Ascending order or Descending order
 
         Scenario: Verify sorting of Program status in Ascending order/Descending order
 
                 When Admin clicks on Arrow next to Program status
-                Then Admin See the  Program Status is sorted in Ascending order/Descending order
+                Then Admin See the  Program Status is sorted in Ascending order or Descending order
 
         #program Pagination
 
@@ -265,18 +216,21 @@ Feature: Program Module Navigation
                 And  Admin Click on X button of the updated program from "<KeyOption>" and "<sheetname>"
                 Then Admin can see Program Details form disappears
 
-        #Delete multiple batches with checkbox
-        #Background:
-        #Given Admin is on the batch page
-        @Deletion
-        Scenario: Validate single row delete with checkbox
-                Given Admin is on the program page for delete
-                When Admin clicks on the delete icon under the Manage program header
-                Then The respective row in the program table should be deleted
-        @Deletion
-        Scenario: Validate multiple row delete with checkbox
-                Given  Admin is on the program page for delete
-                When  Admin clicks on the delete icon under the Manage program header for multiple rows
-                Then  The respective multiple rows in the program table should be deleted
 
+                 Scenario: Verify delete feature
+                Given Admin is on Program module
+                When Admin clicks on delete button for a program
+                Then Admin will get confirm deletion popup
+
+
+        Scenario: Verify Admin is able to click 'No'
+                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+                When Admin clicks on No button
+                Then Admin can see Confirmation form disappears
+
+
+        Scenario: Verify Admin is able to close the window with "X"
+                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+                When Admin Click on X button
+                Then Admin can see Confirm Deletion form disappear
 

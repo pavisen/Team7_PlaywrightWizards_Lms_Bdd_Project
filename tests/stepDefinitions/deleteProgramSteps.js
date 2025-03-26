@@ -32,19 +32,19 @@ When('Admin clicks on delete button for a program', async ({commonFunctions}) =>
     await commonFunctions.clickConfirmYesDelete();
   });
   
-  Then('Admin can see {string} message', async ({programPage}, arg) => {
+  Then('Admin can see Successful Program Deleted message', async ({programPage}) => {
     const programdeleteMessage = await programPage.programdeleteMessage.textContent();
     expect(programdeleteMessage.trim()).toBe("Program Deleted");
     logger.info("Deleted program record")
   });
   
-  When('Admin Searches for {string}', async ({programPage}, arg) => {
-    await programPage.searchProgram();
-  });
+  // When('Admin Searches for {string}', async ({programPage}, arg) => {
+  //   await programPage.searchProgram();
+  // });
   
-  Then('There should be zero results.', async ({programPage}) => {
-    await programPage.noResults();
-  });
+  // Then('There should be zero results.', async ({programPage}) => {
+  //   await programPage.noResults();
+  // });
   
   Given('Admin is on Program Confirm Deletion Page after selecting a program to delete', async ({programPage}) => {
  

@@ -17,7 +17,7 @@ When('Admin clicks on Arrow next to programName', async ({ commonFunctions }) =>
 
 });
 
-Then('Admin See the Program Name is sorted in Ascending order\\/Descending order', async ({ commonFunctions}) => {
+Then('Admin See the Program Name is sorted in Ascending order or Descending order', async ({ commonFunctions}) => {
     const element = await commonFunctions.getSortIcon('Program Name');
     await commonFunctions.clickSortIcon(element);
     const PROGRAM_NAME = 2;
@@ -36,7 +36,7 @@ When('Admin clicks on Arrow next to Program Description', async ({ commonFunctio
 
 });
 
-Then('Admin See the program Description is sorted in Ascending order\\/Descending order', async ({commonFunctions }) => {
+Then('Admin See the program Description is sorted in Ascending order or Descending order', async ({commonFunctions }) => {
     const PROGRAM_DESC = 3;
     let els = await commonFunctions.getCells(PROGRAM_DESC)
     const ele = await commonFunctions.getSortIcon('Program Description');
@@ -53,7 +53,7 @@ When('Admin clicks on Arrow next to Program status', async ({ commonFunctions}) 
     await commonFunctions.clickSortIcon(ele);
 });
 
-Then('Admin See the  Program Status is sorted in Ascending order\\/Descending order', async ({ commonFunctions}) => {
+Then('Admin See the  Program Status is sorted in Ascending order or Descending order', async ({ commonFunctions}) => {
     const PROGRAM_STATUS = 4;
     let els = await commonFunctions.getCells(PROGRAM_STATUS)
     const ele = await commonFunctions.getSortIcon('Program Status');

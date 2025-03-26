@@ -108,7 +108,7 @@ Then('Admin should see the Edit and Delete buttons on each row of the data table
 
  
 
-Then('Admin should see the text as {string} where \\\\d+ is a number', async ({commonFunctions}, expectedText) => {
+Then('Admin should see the text as {string} in program', async ({commonFunctions}, expectedText) => {
   await commonFunctions.clickMenu('program');
   await commonFunctions.clickAnywhere();
    const actualText = await commonFunctions.paginationText.textContent();
