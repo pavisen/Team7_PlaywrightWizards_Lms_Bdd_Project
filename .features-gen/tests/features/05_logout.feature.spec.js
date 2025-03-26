@@ -43,14 +43,14 @@ test.describe('Logout functionality', () => {
     await Then('Admin should see the successful message and the batch should be deleted', null, { commonFunctions }); 
   });
 
-  test('Validate single row delete with checkbox for batch', { tag: ['@smoke'] }, async ({ Given, paginationPage, commonFunctions, When, Then, batchPage }) => { 
-    await Given('Admin is on the batch Page', null, { paginationPage, commonFunctions }); 
+  test('Validate single row delete with checkbox for batch', { tag: ['@smoke'] }, async ({ Given, commonFunctions, When, Then, batchPage }) => { 
+    await Given('Admin is on the batch Page', null, { commonFunctions }); 
     await When('Admin clicks on the delete icon under the Manage batch header', null, { commonFunctions }); 
     await Then('The respective row in the table should be deleted', null, { batchPage, commonFunctions }); 
   });
 
-  test('Validate multiple row delete with checkbox for batch', { tag: ['@Deletion'] }, async ({ Given, paginationPage, commonFunctions, When, Then, batchPage }) => { 
-    await Given('Admin is on the batch Page', null, { paginationPage, commonFunctions }); 
+  test('Validate multiple row delete with checkbox for batch', { tag: ['@Deletion'] }, async ({ Given, commonFunctions, When, Then, batchPage }) => { 
+    await Given('Admin is on the batch Page', null, { commonFunctions }); 
     await When('Admin clicks on the delete icon under the Manage batch header for multiple rows', null, { commonFunctions }); 
     await Then('The respective multiple rows in the table should be deleted', null, { batchPage, commonFunctions }); 
   });

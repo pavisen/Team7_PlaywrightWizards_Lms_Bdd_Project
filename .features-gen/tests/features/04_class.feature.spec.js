@@ -219,14 +219,14 @@ test.describe('Class Page Validation', () => {
 
   });
 
-  test('Verify Next page link(>)', { tag: ['@class', '@smoke'] }, async ({ Given, paginationPage, commonFunctions, When, Then }) => { 
-    await Given('Admin is on Manage class page', null, { paginationPage, commonFunctions }); 
+  test('Verify Next page link(>)', { tag: ['@class', '@smoke'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on Manage class page', null, { commonFunctions }); 
     await When('Admin clicks Next page link on the class table', null, { commonFunctions }); 
     await Then('Admin should see the next page record on the table  with Pagination has next active link enabled', null, { commonFunctions }); 
   });
 
-  test('Verify Last page link(>>)', { tag: ['@class'] }, async ({ Given, paginationPage, commonFunctions, When, Then }) => { 
-    await Given('Admin is on Manage class page', null, { paginationPage, commonFunctions }); 
+  test('Verify Last page link(>>)', { tag: ['@class'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on Manage class page', null, { commonFunctions }); 
     await When('Admin clicks Last page link', null, { commonFunctions }); 
     await Then('Admin should see the last page record on the table with Next page link are disabled', null, { commonFunctions }); 
   });
