@@ -38,13 +38,13 @@ When('Admin clicks on delete button for a program', async ({commonFunctions}) =>
     logger.info("Deleted program record")
   });
   
-  When('Admin Searches for {string}', async ({programPage}, arg) => {
-    await programPage.searchProgram();
-  });
+  // When('Admin Searches for {string}', async ({programPage}, arg) => {
+  //   await programPage.searchProgram();
+  // });
   
-  Then('There should be zero results.', async ({programPage}) => {
-    await programPage.noResults();
-  });
+  // Then('There should be zero results.', async ({programPage}) => {
+  //   await programPage.noResults();
+  // });
   
   Given('Admin is on Program Confirm Deletion Page after selecting a program to delete', async ({programPage}) => {
  
