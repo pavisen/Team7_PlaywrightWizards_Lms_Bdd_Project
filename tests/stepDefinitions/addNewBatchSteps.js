@@ -45,8 +45,14 @@ function getRandomNumberString(length) {
 When('Admin Clicks on the Add Batch button and fill the mandatory fields', async ({batchPage,commonFunctions,testData}) => {
   await commonFunctions.clickMenu('batch');
     await commonFunctions.clickSubMenu('batch');
+
+    //Full chaining program->batch
+    const storedData = loadTestData();
+    const storedProgramNameChaining = storedData.programNameForChaining; 
+    console.log("Retrieved Program Name in batch: ", storedProgramNameChaining);
     // Get the data from the excel file
-    const ProgramName = getTestData(sheetName, 'mandatory', 'ProgramName');
+
+    const ProgramName = storedProgramNameChaining;
     const BatchName = getTestData(sheetName, 'mandatory', 'BatchName')+getRandomNumberString(1);
     const Description = getTestData(sheetName, 'mandatory', 'Description');
     const NoOfClasses = getTestData(sheetName, 'mandatory', 'NumberOfClasses');
@@ -56,6 +62,9 @@ When('Admin Clicks on the Add Batch button and fill the mandatory fields', async
     console.log(`NoOfClasses: ${NoOfClasses}`);
     await batchPage.enterBatchDetails(ProgramName, BatchName, Description, NoOfClasses); 
     await batchPage.clickSave();
+  
+
+
 
     //storing variables for chaining
       const batchNameChaining=ProgramName+BatchName;

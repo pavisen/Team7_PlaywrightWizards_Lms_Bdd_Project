@@ -25,12 +25,12 @@ Then  Admin should receive error message
       #Background: 
       #Given Admin is on the batch page	
       @Deletion
-      Scenario: Validate single row delete with checkbox	
+      Scenario: Validate single row delete with checkbox for batch	
      Given Admin is on the batch Page 
       When Admin clicks on the delete icon under the Manage batch header	
       Then The respective row in the table should be deleted
       @Deletion
-      Scenario: Validate multiple row delete with checkbox
+      Scenario: Validate multiple row delete with checkbox for batch
        Given Admin is on the batch Page 
        When  Admin clicks on the delete icon under the Manage batch header for multiple rows
        Then  The respective multiple rows in the table should be deleted
@@ -47,12 +47,12 @@ Then  Admin should receive error message
         #Delete multiple program with checkbox
        
         @Deletion
-        Scenario: Validate single row delete with checkbox
+        Scenario: Validate single row delete with checkbox for program
                 Given Admin is on the program page for delete
                 When Admin clicks on the delete icon under the Manage program header
                 Then The respective row in the program table should be deleted
         @Deletion
-        Scenario: Validate multiple row delete with checkbox
+        Scenario: Validate multiple row delete with checkbox for program
                 Given  Admin is on the program page for delete
                 When  Admin clicks on the delete icon under the Manage program header for multiple rows
                 Then  The respective multiple rows in the program table should be deleted

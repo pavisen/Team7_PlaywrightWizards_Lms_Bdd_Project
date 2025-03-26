@@ -111,7 +111,7 @@ Feature: Program Module Navigation
         Scenario: Verify Admin add program name with missing description
                 When Admin enters the program name with missing description
                 Then Admin should get a message description is required
-        @smoke
+         @smoke @doing
          Scenario: Verify Admin Add program fpr Batch Chaining
                 When  Admin Clicks on the Add program button and fill the required fields for chaining
 
@@ -215,4 +215,22 @@ Feature: Program Module Navigation
                 When Admin enters the program name in the search text box
                 And  Admin Click on X button of the updated program from "<KeyOption>" and "<sheetname>"
                 Then Admin can see Program Details form disappears
+
+
+                 Scenario: Verify delete feature
+                Given Admin is on Program module
+                When Admin clicks on delete button for a program
+                Then Admin will get confirm deletion popup
+
+
+        Scenario: Verify Admin is able to click 'No'
+                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+                When Admin clicks on No button
+                Then Admin can see Confirmation form disappears
+
+
+        Scenario: Verify Admin is able to close the window with "X"
+                Given Admin is on Program Confirm Deletion Page after selecting a program to delete
+                When Admin Click on X button
+                Then Admin can see Confirm Deletion form disappear
 
