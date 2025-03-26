@@ -1,4 +1,4 @@
-// Generated from: tests\features\05_logout.feature
+// Generated from: tests/features/05_logout.feature
 import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Logout functionality', () => {
@@ -13,7 +13,7 @@ test.describe('Logout functionality', () => {
     await Then('Admin should be redirected to login page', null, { loginPage }); 
   });
 
-  test('Verify back button function', async ({ Given, loginPage, When, Then }) => { 
+  test('Verify back button function 	--fail case', async ({ Given, loginPage, When, Then }) => { 
     await Given('Admin is logged out of the application', null, { loginPage }); 
     await When('Admin is in login page and clicks browser back button', null, { loginPage }); 
     await Then('Admin should receive error message', null, { loginPage }); 
@@ -25,7 +25,7 @@ test.describe('Logout functionality', () => {
 
 test.use({
   $test: ({}, use) => use(test),
-  $uri: ({}, use) => use('tests\\features\\05_logout.feature'),
+  $uri: ({}, use) => use('tests/features/05_logout.feature'),
   $bddFileData: ({}, use) => use(bddFileData),
 });
 

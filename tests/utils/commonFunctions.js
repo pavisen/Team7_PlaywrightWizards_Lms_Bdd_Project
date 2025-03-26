@@ -106,9 +106,6 @@ class CommonFunctions {
     return sortIcon;
   }
 
-
-
-
   async clickSubMenu(module) {
     if (!this.moduleSelectors[module]) {
       throw new Error(`Invalid module: ${module}`);
