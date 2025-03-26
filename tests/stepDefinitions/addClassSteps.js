@@ -113,7 +113,7 @@ When(
   async ({ classPage, commonFunctions, testData}) => {
 
     const storedData = loadTestData();
-  const storedbatchNameForBatch = storedData.batchNameForBatch; 
+  const storedbatchNameForBatch = storedData.batchNameChaining; 
   console.log("Retrieved Batch Name in class: ", storedbatchNameForBatch);
 
     const batchName = storedbatchNameForBatch;
