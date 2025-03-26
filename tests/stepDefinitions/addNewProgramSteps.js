@@ -65,6 +65,25 @@ Then('Admin should get a message programName Must contain only letters and somet
 
 });
 
+When('Admin Clicks on the Add program button and fill the required fields for chaining', async ({programPage,commonFunctions}) => {
+  await commonFunctions.clickMenu('program');
+    await commonFunctions.clickSubMenu('program');
+    // Get the data from the excel file
+    const programName = getTestData(sheetName, 'valid for chaining', 'ProgramName') +getRandomAlphabet(3);
+    const description = getTestData(sheetName, 'valid for chaining', 'Description');
+    console.log(`programName: ${programName}`);
+    console.log(`Description: ${description}`);
+    await programPage.enterProgramDetails(programName,  description); 
+
+    //storing variables for chaining
+    const programNameForChaining =programName;
+    console.log(programNameForChaining);
+    let testData = loadTestData() || {};
+     testData.programNameForChaining = programNameForChaining;
+     saveTestData(testData); // Store data in file
+     console.log(`Storing programName for chaining: ${testData.programNameForChaining}`);
+});
+
 
 When('Admin enters the program name with special characters', async ({programPage,commonFunctions}) => {
   await commonFunctions.clickMenu('program');
