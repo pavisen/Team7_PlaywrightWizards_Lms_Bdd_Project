@@ -66,6 +66,8 @@ Given('Admin is on last page of Program module table', async ({commonFunctions})
   });
 
   When('Admin clicks First page link', async ({commonFunctions}) => {
+    await commonFunctions.arePaginationButtonsVisible();
+    await commonFunctions.goToLastPage();
     await commonFunctions.goToFirstPage();
   });
 

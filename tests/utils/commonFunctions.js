@@ -44,10 +44,10 @@ class CommonFunctions {
 
     // Table icons locators
     this.locators = {
-      editIcon: "span.p-button-icon.pi.pi-pencil",
-      deleteIcon: "span.p-button-icon.pi.pi-trash",
-      checkbox: "span.p-checkbox-icon",
-      sortIcon: ".p-sortable-column-icon.pi.pi-fw.pi-sort-alt",
+      editIcon: ".//span[@class='p-button-icon pi pi-pencil']",
+      deleteIcon: ".//span[@class='p-button-icon pi pi-trash']",
+      checkbox: ".//span[@class='p-checkbox-icon']",
+      sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
     };
 
     this.checkBoxList = page.locator("//tbody[@class='p-datatable-tbody']//div[@role='checkbox']");
@@ -64,17 +64,19 @@ class CommonFunctions {
     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
     this.deleteMessage = page.getByText('Batch Deleted');
-    
     this.deletedMessage = page.getByText('Batches Deleted');
     this.confirmDialog = page.locator("//span[contains(text(),'Confirm')]");
     this.yesDelete = page.locator("//span[contains(text(),'Yes')]");
     this.NoDelete = page.locator("//span[contains(text(),'No')]");
     this.closeDelete = page.locator("//button[@class='ng-tns-c204-18 p-confirm-dialog-accept p-ripple p-button p-component ng-star-inserted']");
-
+    this.sorticon ="i.p-sortable-column-icon";
   }
 
   async isEditIconVisible() {
     return await this.page.locator(this.locators.editIcon).first().isVisible(); // Check if at least one is visible
+  }
+  async isSortIconVisible() {
+    return await this.page.locator(this.sorticon).first().isVisible(); // Check if at least one is visible
   }
 
  async escape() {
@@ -105,6 +107,10 @@ class CommonFunctions {
     console.log(sortIcon)
     return sortIcon;
   }
+
+ 
+
+
 
   async clickSubMenu(module) {
     if (!this.moduleSelectors[module]) {
@@ -481,9 +487,6 @@ class CommonFunctions {
   }
 
   async clickSortIcon(ele) {
-    // send esc key to page
-    await this.page.keyboard.press('Escape');
-
     await ele.click();
   }
 
@@ -515,10 +518,17 @@ class CommonFunctions {
 
   // Sorting
   async getSortIcon(columnName) {
-     
     const regex = new RegExp(`${columnName}`);
-    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+ const sortIcon = await this.page.getByRole('columnheader', { name: regex });
     return sortIcon;
+  }
+
+  getDeleteMessage(moduleName) {
+    return this.page.getByText(`${moduleName} Deleted`);
+  }
+
+  getDeletedMessage(moduleName) {
+    return this.page.getByText(`${moduleName}es Deleted`);
   }
 }
 
