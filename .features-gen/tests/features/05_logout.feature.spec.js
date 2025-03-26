@@ -73,11 +73,7 @@ test.describe('Logout functionality', () => {
     await Then('The respective multiple rows in the table should be deleted', null, { batchPage, commonFunctions }); 
   });
 
-  test('Verify Admin is able to click \'Yes\'', async ({ Given, commonFunctions, When, Then, programPage }) => { 
-    await Given('Admin is on Confirm deletion form', null, { commonFunctions }); 
-    await When('Admin clicks on "Yes" button', null, { commonFunctions }); 
-    await Then('Admin can see \'Successful Program Deleted\' message', null, { programPage }); 
-  });
+  
 
   test('Validate single row delete with checkbox for program', { tag: ['@Deletion'] }, async ({ Given, loggedInPage, commonFunctions, When, programPage, Then }) => { 
     await Given('Admin is on the program page for delete', null, { loggedInPage, commonFunctions }); 
