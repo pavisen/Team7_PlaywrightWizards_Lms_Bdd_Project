@@ -71,6 +71,7 @@ class CommonFunctions {
     this.NoDelete = page.locator("//span[contains(text(),'No')]");
     this.closeDelete = page.locator("//button[@class='ng-tns-c204-18 p-confirm-dialog-accept p-ripple p-button p-component ng-star-inserted']");
     this.sorticon = "i.p-sortable-column-icon";
+    this.editIcon = "span.p-button-icon.pi.pi-pencil";
   }
 
   async isEditIconVisible() {
@@ -505,6 +506,10 @@ class CommonFunctions {
 
   async clickEdit() {
     await this.page.locator(this.locators.editIcon + '[1]').click();
+  }
+
+  async click(select) {
+    await this.page.locator(select).first().click();
   }
 
 

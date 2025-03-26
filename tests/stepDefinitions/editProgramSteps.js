@@ -65,13 +65,14 @@ Then('Updated program name is seen by the Admin', async ({ programPage,commonFun
 
 When('Admin edits the description text and click on save button from {string} and {string}', async ({  programPage }, arg, arg1) => {
   const storedData = loadTestData();
-  
+  const programName = getTestData(sheetName, 'edit_Pname', 'ProgramName') + CommonFunctions.getRandomAlphabet(3);
+  const Description = getTestData(sheetName, 'edit_Pname', 'Description');
   console.log(`programName: ${programName}`);
-  console.log(`Description: ${description}`);
+  console.log(`Description: ${Description}`);
   await programPage.clickEdit(storedData.programNameForProgram);
-  await programPage.enterProgramDetails(programName, description);
- 
-  storedData.descriptionForProgram = description;
+  await programPage.enterProgramDetails(programName, Description);
+
+  storedData.descriptionForProgram = Description;
   saveTestData(storedData);
 });
 
@@ -82,8 +83,14 @@ Then('Admin can see the description is updated', async ({ programPage,commonFunc
   programPage.verifyDescription(programName,storedData.descriptionForProgram);
 });
 
-When('Admin can change the status of the program from {string} and {string} and click on save button', async ({ programPage }, arg, arg1) => {
-  programPage.changeStatus();
+When('Admin can change the status of the program from {string} and {string} and click on save button', async ({ programPage,commonFunctions }, arg, arg1) => {
+  // await commonFunctions.clickMenu('program');
+  
+  // await commonFunctions.clickAnywhere();
+  await commonFunctions.click(commonFunctions.editIcon);
+   await programPage.changeStatus();
+   await programPage.saveProgram();
+
 });
 
 Then('Status updated can be viewed by the Admin', async ({ programPage }) => {
@@ -100,12 +107,17 @@ Then('Admin can see the updated program details', async ({ programPage }) => {
   programPage.verifyUpdatedProgram();
 });
 
-When('Admin click on cancel button of the updated program from {string} and {string}', async ({ programPage }, arg, arg1) => {
-  programPage.clickCancel();
+When('Admin click on cancel button of the updated program from {string} and {string}', async ({ programPage,commonFunctions }, arg, arg1) => {
+   
+  await commonFunctions.click(commonFunctions.editIcon);
+ 
+await  programPage.clickCancel();
 });
 
 Then('Admin can see the Program details form disappears', async ({ commonFunctions }) => {
-  await commonFunctions.toBeVisible('program');
+  const expectedText = "Manage Program";
+  const actualText = await commonFunctions.moduleSelectors.program.manage_text.textContent();
+   expect(actualText).toContain(expectedText);
 });
 
 When('Admin searches with newly updated Program Name from {string} and {string}', async ({ programPage }, arg, arg1) => {
@@ -116,10 +128,13 @@ Then('Admin verifies that the details are correctly updated from {string} and {s
   programPage.verifyUpdatedProgram();
 });
 
-When('Admin Click on X button of the updated program from {string} and {string}', async ({ programPage }, arg, arg1) => {
+When('Admin Click on X button of the updated program from {string} and {string}', async ({ programPage,commonFunctions }, arg, arg1) => {
+  await commonFunctions.click(commonFunctions.editIcon);
   await programPage.clickClose();
 });
 
 Then('Admin can see Program Details form disappears', async ({ commonFunctions }) => {
-  await commonFunctions.toBeVisible('program');
+  const expectedText = "Manage Program";
+  const actualText = await commonFunctions.moduleSelectors.program.manage_text.textContent();
+   expect(actualText.trim()).toBe(expectedText);
 });

@@ -27,7 +27,11 @@ Given('Admin is on Program module', async ({loggedInPage,paginationPage,commonFu
       await commonFunctions.goToLastPage();
   });
 
-  
+  When('Admin is on the Last page in program table', async ({commonFunctions}) => {
+    await commonFunctions.arePaginationButtonsVisible();
+      await commonFunctions.goToLastPage();
+  });
+
 Then('Admin should see the last page record on the program table with Next page link are disabled', async ({commonFunctions}) => {
   await commonFunctions.verifyLastPage();
 });
@@ -67,7 +71,7 @@ Given('Admin is on last page of Program module table', async ({commonFunctions})
 
   When('Admin clicks First page link', async ({commonFunctions}) => {
     await commonFunctions.arePaginationButtonsVisible();
-    await commonFunctions.goToLastPage();
+    
     await commonFunctions.goToFirstPage();
   });
 
