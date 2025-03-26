@@ -314,9 +314,9 @@ class CommonFunctions {
     const deletedMessage = this.page.getByText('Batches Deleted');
 
     if (await confirmDialog.isVisible()) {
-      await this.page.pause();
+     
       const messageText = await deletedMessage.textContent();
-      await this.page.pause();
+  
       console.log(`Deletion message displayed: ${messageText}`);
 
       // Ensure the message is actually visible
