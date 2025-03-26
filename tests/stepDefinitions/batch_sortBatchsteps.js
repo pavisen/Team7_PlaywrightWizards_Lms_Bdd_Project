@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
-import { test } from "../fixtures/fixture";
+import { test } from "../fixtures/fixture.js";
 import { getTestData } from "../utils/excelReader.js";
 
 const { Given, When, Then } = createBdd();
