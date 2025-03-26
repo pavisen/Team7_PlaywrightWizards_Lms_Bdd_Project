@@ -4,6 +4,7 @@ import { createBdd } from "playwright-bdd";
 import { getTestData } from "../utils/excelReader";
 import logger, { attachLogsAfterEachTest } from '../utils/logger.js';
 import { saveTestData, loadTestData } from "../utils/testDataHelper.js";
+import { CommonFunctions } from "../utils/commonFunctions.js";
 
 // Create BDD steps
 const { Given, When, Then } = createBdd();
@@ -60,7 +61,7 @@ When(
   async ({ classPage, commonFunctions, testData,page}) => {
 
     const batchName = getTestData(sheetName, "validAll", "batchName");
-    const newclassTopic = await commonFunctions.getRandomAlphabet(3);
+    const newclassTopic =   CommonFunctions.getRandomAlphabet(3);
     console.log(newclassTopic);
     const classTopic = getTestData(sheetName, "validAll", "classTopic")+newclassTopic;
     const classDescription = getTestData(
@@ -111,7 +112,7 @@ When(
   "Admin enters mandatory fields in the form and clicks on save button",
   async ({ classPage, commonFunctions, testData}) => {
     const batchName = getTestData(sheetName, "onlyMandatory", "batchName") ;
-    const newclassTopic = await commonFunctions.getRandomAlphabet(3);
+    const newclassTopic = await CommonFunctions.getRandomAlphabet(3);
     console.log(newclassTopic);
     const classTopic = getTestData(sheetName, "onlyMandatory", "classTopic")+newclassTopic;
     const classDate = getTestData(sheetName, "onlyMandatory", "classDate") ;

@@ -53,7 +53,7 @@ Feature: Program Module Navigation
 
 
         #add program  Validation
-        Scenario: Verify add New Program
+        Scenario: 1. Verify add New Program
                 Given Admin is on Program module
                 When Admin clicks on New Program under the Program menu bar
                 Then Admin should see pop up window for program details
@@ -116,54 +116,6 @@ Feature: Program Module Navigation
 
                 Then Admin should see the program details entered
 
-        #edit program
-
-        Scenario: Verify Edit option
-                Given Admin is on Program module for editing
-
-                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
-                Then Admin lands on Program details form
-
-        Scenario: Verify title of the pop up window for Edit
-                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
-                Then Admin should see window title as "Program Details"
-
-        Scenario: Verify mandatory fields with red "*" mark for Edit
-                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
-                Then Admin should see red "*" mark beside mandatory field "Name"
-
-
-        Scenario: Verify edit Program Name
-                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
-                And Admin edits the program name and click on save button from "<KeyOption>" and "<sheetname>"
-                Then Updated program name is seen by the Admin
-
-
-        Scenario: Verify edit Description
-                When Admin edits the description text and click on save button from "<KeyOption>" and "<sheetname>"
-                Then Admin can see the description is updated
-
-        Scenario: Verify edit Status
-                When Admin can change the status of the program from "<KeyOption>" and "<sheetname>" and click on save button
-                Then Status updated can be viewed by the Admin
-
-        Scenario: Verify Admin is able to click Save
-                When Admin click on save button of the updated program from "<KeyOption>" and "<sheetname>"
-                Then Admin can see the updated program details
-
-
-        Scenario: Verify Admin is able to click Cancel
-                When Admin click on cancel button of the updated program from "<KeyOption>" and "<sheetname>"
-                Then Admin can see the Program details form disappears
-
-        Scenario: Verify edited Program details
-                When Admin searches with newly updated Program Name from "<KeyOption>" and "<sheetname>"
-                Then Admin verifies that the details are correctly updated from "<KeyOption>" and "<sheetname>"
-
-
-        Scenario: Verify close the window with "X"
-                When Admin Click on X button of the updated program from "<KeyOption>" and "<sheetname>"
-                Then Admin can see Program Details form disappears
 
 
         #delete program
@@ -263,21 +215,80 @@ Feature: Program Module Navigation
 
         #programSearch
         @smoke
-        Scenario: Validate search box functionality 
+        Scenario: 2. Validate search box functionality
                 Given Admin is on the program page
                 When Admin enters the program name in the search text box
                 Then Admin should see the filtered programs in the data table
 
-           #Delete multiple batches with checkbox
-      #Background: 
-      #Given Admin is on the batch page	
-      @Deletion
-      Scenario: Validate single row delete with checkbox	
-     Given Admin is on the program page for delete
-      When Admin clicks on the delete icon under the Manage program header	
-      Then The respective row in the program table should be deleted
-      @Deletion
-      Scenario: Validate multiple row delete with checkbox
-       Given  Admin is on the program page for delete
-       When  Admin clicks on the delete icon under the Manage program header for multiple rows
-       Then  The respective multiple rows in the program table should be deleted       
+
+        #edit program
+
+        Scenario: 3. Verify Edit option
+                Given Admin is on Program module for editing
+
+                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
+                Then Admin lands on Program details form
+
+        Scenario: Verify title of the pop up window for Edit
+                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
+                Then Admin should see window title as "Program Details"
+
+        Scenario: Verify mandatory fields with red "*" mark for Edit
+                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
+                Then Admin should see red "*" mark beside mandatory field "Name"
+
+
+        Scenario: Verify edit Program Name
+                When Admin enters the program name in the search text box
+                And Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
+                And Admin edits the program name and click on save button from "<KeyOption>" and "<sheetname>"
+                Then Updated program name is seen by the Admin
+
+
+        Scenario: Verify edit Description
+                When Admin enters the program name in the search text box
+                And Admin edits the description text and click on save button from "<KeyOption>" and "<sheetname>"
+                Then Admin can see the description is updated
+
+        Scenario: Verify edit Status
+                When Admin enters the program name in the search text box
+                And Admin can change the status of the program from "<KeyOption>" and "<sheetname>" and click on save button
+                Then Status updated can be viewed by the Admin
+
+        Scenario: Verify Admin is able to click Save
+                When Admin enters the program name in the search text box
+                And Admin click on save button of the updated program from "<KeyOption>" and "<sheetname>"
+                Then Admin can see the updated program details
+
+
+        Scenario: Verify Admin is able to click Cancel
+                When Admin enters the program name in the search text box
+                And Admin click on cancel button of the updated program from "<KeyOption>" and "<sheetname>"
+                Then Admin can see the Program details form disappears
+
+        Scenario: Verify edited Program details
+                When Admin enters the program name in the search text box
+                And Admin searches with newly updated Program Name from "<KeyOption>" and "<sheetname>"
+                Then Admin verifies that the details are correctly updated from "<KeyOption>" and "<sheetname>"
+
+
+        Scenario: Verify close the window with "X"
+                When Admin enters the program name in the search text box
+                And  Admin Click on X button of the updated program from "<KeyOption>" and "<sheetname>"
+                Then Admin can see Program Details form disappears
+
+        #Delete multiple batches with checkbox
+        #Background:
+        #Given Admin is on the batch page
+        @Deletion
+        Scenario: Validate single row delete with checkbox
+                Given Admin is on the program page for delete
+                When Admin clicks on the delete icon under the Manage program header
+                Then The respective row in the program table should be deleted
+        @Deletion
+        Scenario: Validate multiple row delete with checkbox
+                Given  Admin is on the program page for delete
+                When  Admin clicks on the delete icon under the Manage program header for multiple rows
+                Then  The respective multiple rows in the program table should be deleted
+
+
