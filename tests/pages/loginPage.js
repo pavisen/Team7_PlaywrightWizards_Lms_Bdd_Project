@@ -1,4 +1,6 @@
 import { expect } from "@playwright/test";
+import sharp from "sharp";
+import Tesseract from "tesseract.js";
 
 class LoginPage {
   constructor(page) {
@@ -19,6 +21,7 @@ class LoginPage {
     //this.asterisk = page.locator('//span[contains(text(),"*")]');
     this.logoutButton = this.page.getByRole('button', { name: 'Logout' });
     this.lmsTitle = this.page.locator('text=LMS - Learning Management System');
+    this.Home_image = page.locator('.image-container');
 
 
 
@@ -71,7 +74,7 @@ class LoginPage {
   async getUserFieldPlaceholderColor() {
     return await this.usernameFieldLabel.evaluate(el => getComputedStyle(el).color);
   }
- 
+
   async getPasswordFieldPlaceholderColor() {
     return await this.passwordFieldLabel.evaluate(el => getComputedStyle(el).color);
   }
@@ -152,7 +155,7 @@ class LoginPage {
   }
   async getTitle() {
     return this.page.title(); // Correct way to get the title
-}
+  }
   async isLogoutButtonVisible() {
     await expect(this.logoutButton).toBeVisible();
   }
@@ -165,7 +168,7 @@ class LoginPage {
   async isLogoutButtonHidden() {
     await expect(this.logoutButton).toBeHidden();
   }
-  
+
 
   async isTitleDisplayed() {
     return this.lmsTitle;
@@ -173,6 +176,37 @@ class LoginPage {
   }
   async clickBackButton() {
     await this.page.goBack();
+  }
+  async ExtractTextFromImage() {
+    try {
+      await this.Home_image.waitFor({ state: 'visible', timeout: 15000 });
+      // Scroll into view
+      await this.Home_image.scrollIntoViewIfNeeded();
+      if (!await this.Home_image.isVisible()) {
+        throw new Error('Home_image is not visible.');
+      }
+
+      await this.Home_image.screenshot({ path: 'homePage.png', timeout: 10000 });
+      await sharp('homePage.png')
+        .grayscale()
+        .threshold(150)
+        .toFile('homePage_processed.png');
+
+      const text = await Tesseract
+        .recognize('homePage_processed.png',
+          ['eng'], // Pass lang as an array
+          {
+            tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 -',
+          })
+        .then(({ data: { text } }) => {
+          return text;
+        });
+
+   return text.trim();
+    } catch (error) {
+      console.error('Error extracting text from image:', error);
+      throw error; // Re-throw the error to fail the test
+    }
   }
 
 }

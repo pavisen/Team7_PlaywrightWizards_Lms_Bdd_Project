@@ -267,3 +267,17 @@ Feature: Program Module Navigation
                 Given Admin is on the program page
                 When Admin enters the program name in the search text box
                 Then Admin should see the filtered programs in the data table
+
+           #Delete multiple batches with checkbox
+      #Background: 
+      #Given Admin is on the batch page	
+      @Deletion
+      Scenario: Validate single row delete with checkbox	
+     Given Admin is on the program page for delete
+      When Admin clicks on the delete icon under the Manage program header	
+      Then The respective row in the program table should be deleted
+      @Deletion
+      Scenario: Validate multiple row delete with checkbox
+       Given  Admin is on the program page for delete
+       When  Admin clicks on the delete icon under the Manage program header for multiple rows
+       Then  The respective multiple rows in the program table should be deleted       

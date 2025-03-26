@@ -7,6 +7,7 @@ node_modules/
 /playwright/.cache/
 tests/testData.xlsx
 
+
 # Allure Report Folders
 allure-report/
 /allure-results/
