@@ -135,7 +135,7 @@ Feature: Program Module Navigation
         # Scenario: Verify Admin is able to deleted program
         #         Given Admin is on Program module
         #         When Admin Searches for "Deleted Program name"
-        #         Then There should be zero results.
+        #         Then There should be zero results..
 
 
         Scenario: Verify Admin is able to click 'No'
