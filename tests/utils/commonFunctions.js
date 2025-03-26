@@ -69,11 +69,14 @@ class CommonFunctions {
     this.yesDelete = page.locator("//span[contains(text(),'Yes')]");
     this.NoDelete = page.locator("//span[contains(text(),'No')]");
     this.closeDelete = page.locator("//button[@class='ng-tns-c204-18 p-confirm-dialog-accept p-ripple p-button p-component ng-star-inserted']");
-
+    this.sorticon ="i.p-sortable-column-icon";
   }
 
   async isEditIconVisible() {
     return await this.page.locator(this.locators.editIcon).first().isVisible(); // Check if at least one is visible
+  }
+  async isSortIconVisible() {
+    return await this.page.locator(this.sorticon).first().isVisible(); // Check if at least one is visible
   }
 
  async escape() {
@@ -105,6 +108,7 @@ class CommonFunctions {
     return sortIcon;
   }
 
+ 
 
 
 

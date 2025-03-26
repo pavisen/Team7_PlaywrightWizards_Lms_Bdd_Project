@@ -14,21 +14,24 @@ Given('Admin is on Program module for editing', async ({ programPage, commonFunc
 
 });
 When('Admin clicks on Edit option for particular program from {string} and {string}', async ({ programPage, commonFunctions }, arg, arg1) => {
-  const storedData = loadTestData();
-  console.log("Retrieved program Name: ", storedData.programNameForProgram);
-  await commonFunctions.clickMenu('program');
-    await commonFunctions.clickAnywhere();
+ 
   await commonFunctions.search(storedData.programNameForProgram);
-  await commonFunctions.clickEdit();
+  await programPage.clickEdit("edit pname");
 });
 
 Then('Admin lands on Program details form', async ({ programPage }) => {
-  programPage.Validate_programDetails();
+  const actualTitle = await programPage.editPageTitle.textContent();
+  const expectedTitle = "Program Details";
+  expect(actualTitle).toBe(expectedTitle);
+  logger.info('Admin opens Edit Program Page');
 
 });
 
 Then('Admin should see window title as {string}', async ({ programPage }, arg) => {
-  programPage.Validate_programDetails();
+  const actualTitle = await programPage.editPageTitle.textContent();
+  const expectedTitle = "Program Details";
+  expect(actualTitle).toBe(expectedTitle);
+  logger.info('Admin opens Edit Program Page');
 });
 
 Then('Admin should see red {string} mark beside mandatory field {string}', async ({ programPage }, arg, arg1) => {

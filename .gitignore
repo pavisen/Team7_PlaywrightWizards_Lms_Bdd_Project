@@ -6,6 +6,8 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 tests/testData.xlsx
+/homePage.png
+/homePage_processed.png
 
 # Allure Report Folders
 allure-report/
