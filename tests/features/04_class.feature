@@ -175,7 +175,7 @@ Examples:
  | Class Description |
  | Status            |
  | Staff Name        |
-  | Class Date        |
+ | Class Date        |
        
 
 #Pagination - Class Page
