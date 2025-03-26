@@ -16,9 +16,10 @@ Given('Admin is on the Manage Class page', async ({loggedInPage,commonFunctions}
   await commonFunctions.clickAnywhere();
 });
   
-  When('Admin clicks on the edit icon', async ({commonFunctions,classPage}) => {
-    await commonFunctions.search("mathumathiab");
-   await classPage.clickEdit("Java Batch 01 mathumathiab");
+  When('Admin clicks on the edit icon', async ({commonFunctions,classPage,testData}) => {
+    const disabledName = getTestData(sheetName, "disabledCheck", "classTopic");
+    await commonFunctions.search(disabledName);
+    await classPage.clickEdit(`Java Batch 01 ${disabledName}`);
   });
   
   Then('A new pop up with class details appears', async ({classPage}) => {
@@ -89,8 +90,9 @@ Given('Admin is on the Manage Class page', async ({loggedInPage,commonFunctions}
   });
 
   When('Update the fields with invalid values and click save', async ({classPage, commonFunctions, testData,page}) => {
-    await commonFunctions.search("vlad");
-    await classPage.clickEdit("Java Batch 01 vlad");
+    const disabledName = getTestData(sheetName, "disabledCheck", "classTopic");
+    await commonFunctions.search(disabledName);
+    await classPage.clickEdit(`Java Batch 01 ${disabledName}`);
         const classDescription = getTestData(
           sheetName,
           "editInvalidData",

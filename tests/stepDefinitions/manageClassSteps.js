@@ -99,4 +99,10 @@ Then(
   },
 );
 
+When('Admin clicks on the logout button	in class', async ({batchPage}) => {
+  await batchPage.isLogoutButtonVisible();
+    await batchPage.clickLogout();
+});
+
+
 export { Given, When, Then };

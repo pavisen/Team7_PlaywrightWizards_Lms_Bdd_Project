@@ -111,8 +111,13 @@ When(
 When(
   "Admin enters mandatory fields in the form and clicks on save button",
   async ({ classPage, commonFunctions, testData}) => {
-    const batchName = getTestData(sheetName, "onlyMandatory", "batchName") ;
-    const newclassTopic = await CommonFunctions.getRandomAlphabet(3);
+
+    const storedData = loadTestData();
+  const storedbatchNameForBatch = storedData.batchNameForBatch; 
+  console.log("Retrieved Batch Name in class: ", storedbatchNameForBatch);
+
+    const batchName = storedbatchNameForBatch;
+    const newclassTopic = CommonFunctions.getRandomAlphabet(3);
     console.log(newclassTopic);
     const classTopic = getTestData(sheetName, "onlyMandatory", "classTopic")+newclassTopic;
     const classDate = getTestData(sheetName, "onlyMandatory", "classDate") ;
@@ -148,8 +153,7 @@ Then("Admin gets message Class added Successfully", async ({ classPage , page}) 
   const successMessage = await classPage.getClassCreatedSuccessMessage();
   expect(successMessage.trim()).toBe("Class Created");
   logger.info('Class created successfully');
-  //await classPage.page.pause();
- // await classPage.classSearch();
+
 });
 
 When('Admin selects class date in date picker', async ({ classPage, commonFunctions }) => {

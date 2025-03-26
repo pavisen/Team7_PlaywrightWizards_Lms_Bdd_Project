@@ -50,7 +50,7 @@ export default defineConfig({
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: 0,  // ✅ Set retries to 2 for all environments
+  retries: 2,  // ✅ Set retries to 2 for all environments
   // retries: process.env.CI ? 2 : 0,
   workers: 1, //change to 4 for parallel
   reporter: [

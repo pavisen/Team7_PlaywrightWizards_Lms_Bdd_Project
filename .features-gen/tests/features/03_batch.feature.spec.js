@@ -1,4 +1,4 @@
-// Generated from: tests\features\03_batch.feature
+// Generated from: tests/features/03_batch.feature
 import { test } from "../../../tests/fixtures/fixture.js";
 
 test.describe('Batch Module -Batch Page Navigation', () => {
@@ -264,7 +264,7 @@ test.describe('Batch Module -Batch Page Navigation', () => {
 
 test.use({
   $test: ({}, use) => use(test),
-  $uri: ({}, use) => use('tests\\features\\03_batch.feature'),
+  $uri: ({}, use) => use('tests/features/03_batch.feature'),
   $bddFileData: ({}, use) => use(bddFileData),
 });
 
