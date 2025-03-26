@@ -93,6 +93,7 @@ Feature: Program Module Navigation
                 Then Admin can see Program Details form disappears
 
         #add program
+         @smoke 
         Scenario: Verify Admin Add program successfully
                 When  Admin Clicks on the Add program button and fill the required fields
 
@@ -176,46 +177,45 @@ Feature: Program Module Navigation
 
         #edit program
 
-        Scenario: 3. Verify Edit option
+        Scenario: Verify Edit option
                 Given Admin is on Program module for editing
-
-                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
+                When Admin clicks on Edit option for particular program
                 Then Admin lands on Program details form
 
         Scenario: Verify title of the pop up window for Edit
-                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
+                When Admin clicks on Edit option for particular program
                 Then Admin should see window title as "Program Details"
 
         Scenario: Verify mandatory fields with red "*" mark for Edit
-                When Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
+                When Admin clicks on Edit option for particular program
                 Then Admin should see red "*" mark beside mandatory field "Name"
 
-
+         @smoke 
         Scenario: Verify edit Program Name
                 When Admin enters the program name in the search text box
-                And Admin clicks on Edit option for particular program from "<KeyOption>" and "<sheetname>"
-                And Admin edits the program name and click on save button from "<KeyOption>" and "<sheetname>"
+                And Admin clicks on Edit option for particular program
+                And Admin edits the program name and click on save button
                 Then Updated program name is seen by the Admin
 
 
         Scenario: Verify edit Description
                 When Admin enters the program name in the search text box
-                And Admin edits the description text and click on save button from "<KeyOption>" and "<sheetname>"
+                And Admin edits the description text and click on save button
                 Then Admin can see the description is updated
 
         Scenario: Verify edit Status
                 When Admin enters the program name in the search text box
-                And Admin can change the status of the program from "<KeyOption>" and "<sheetname>" and click on save button
+                And Admin can change the status of the program and click on save button
                 Then Status updated can be viewed by the Admin
  
         Scenario: Verify Admin is able to click Cancel
                 When Admin enters the program name in the search text box
-                And Admin click on cancel button of the updated program from "<KeyOption>" and "<sheetname>"
+                And Admin click on cancel button of the updated program
                 Then Admin can see the Program details form disappears
 
         Scenario: Verify close the window with "X"
                 When Admin enters the program name in the search text box
-                And  Admin Click on X button of the updated program from "<KeyOption>" and "<sheetname>"
+                And  Admin Click on X button of the updated program
                 Then Admin can see Program Details form disappears
 
 
