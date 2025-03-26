@@ -112,7 +112,7 @@ Feature: Program Module Navigation
         Scenario: Verify Admin add program name with missing description
                 When Admin enters the program name with missing description
                 Then Admin should get a message description is required
-         @smoke @doing
+         @smoke 
          Scenario: Verify Admin Add program fpr Batch Chaining
                 When  Admin Clicks on the Add program button and fill the required fields for chaining
 

@@ -1,7 +1,7 @@
-import { test } from "../fixtures/fixture";
+import { test } from "../fixtures/fixture.js";
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
-import { getTestData } from "../utils/excelReader"; // Importing the getTestData function
+import { getTestData } from "../utils/excelReader.js"; // Importing the getTestData function
 import logger, { attachLogsAfterEachTest } from "../utils/logger.js";
 
 // Create BDD steps
