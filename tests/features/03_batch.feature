@@ -52,8 +52,9 @@ Feature: Batch Module -Batch Page Navigation
     Scenario: Validate Datatable headers	
    # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
-    Then Admin should see the datatable headers Batch name, Batch Description,Batch Status, No Of Classes, Program Name, Edit/Delete
-  @BatchPageValidation
+    Then Admin should see the datatable headers in Batch
+
+     @BatchPageValidation
     Scenario:Validate "Checkbox" in the Datatable header row	
    # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
@@ -91,14 +92,14 @@ Feature: Batch Module -Batch Page Navigation
      When Admin leaves blank one of the mandatory fields
   	 Then Admin should get a error message on the respective mandatory field
      @popup
-     Scenario: validate save button in Batch details pop up	
+     Scenario: validate save button in Batch details pop up	in AddNewBatch Popup
      Given Admin is on the Batch Details Pop Up WIndow	
-     When  Admin enters the valid data to all the mandatory fields and click save button
+     When  Admin enters the valid data and click save button 
  	   Then Admin should get a "successful" message
      @popup
-    Scenario: validate cancel button in Batch details pop up	
+    Scenario: validate cancel button in Batch details pop up in AddNewBatch Popup
       Given Admin is on the Batch Details Pop Up WIndow	
-      When  Admin enters the valid data to all the mandatory fields and click cancel button 
+      When  Admin enters the valid data and click cancel button 
 	    Then Admin can see the batch details popup closes without creating any batch
      @popup
     Scenario: validate close icon on the batch details pop up	
@@ -168,14 +169,50 @@ Feature: Batch Module -Batch Page Navigation
       Then Admin should see the very first page on the data table
 
      #Add New Batch DDT
-     @AddNewBatch
+     @shock
      Scenario: Verify Admin Add Batch successfully
      Given Admin is on the Batch Page 
      When  Admin Clicks on the Add Batch button and fill the required fields
      Then  Admin should create a "new Batch successfully"
 
-     @EditBatch
-     
+     #BatchSearch
+     @shock
+     Scenario: Validate search box functionality	
+     Given Admin is on the batch page
+     When Admin enters the batch name in the search text box
+     Then Admin should see the filtered batches in the data table			
+
+     #Edit Batch
+     @BatchEdit
+     Scenario: Validate Edit icon feature in any row in Batch Page	
+     Given Admin is on the Batch page	
+     When  Admin clicks the edit icon	in Batch Page
+     Then Admin should see the Batch details pop up window
+     @BatchEdit
+     Scenario: Validate program name value is disabled to edit in Batch Page	
+     Given Admin is on the Batch page	
+     When  Admin clicks the edit icon for program name
+     Then Admin should see Program name value field is disabled for editing
+     #@BatchEditbb-----Madhu doubt
+     Scenario: Validate batch name  value is disabled to edit in Batch Page	
+	   Given  Admin is on the Batch page	
+     When   Admin clicks the edit icon for batch name
+     Then  Admin should see batch name value field is disabled for editing
+     @BatchEdit
+     Scenario: Validate editing description and No. of classes fields with invalid data in the pop up	in Batch Page	--fail
+     Given  Admin is on the Batch Details Page
+     When 	Admin Updates any fields with invalid data and click save button	
+     Then   Admin should get a error message under the respective field
+     @BatchEdit
+     Scenario: validate save button in Batch details pop up in Batch Page	
+     Given 	Admin is on the Batch Details Page	
+     When  Admin enters the valid data in edit Batch pop up and click save button 
+     Then  Admin should get a "successful message" for editing the batch
+     @BatchEdit
+     Scenario: validate cancel button in Batch details pop up	in Batch Page	
+     Given Admin is on the Batch Details Page
+     When Admin edits the valid data in edit Batch pop up and click cancel button 
+     Then Admin can see the batch details popup closes without editing the batch
 
      #logout from batchpage
      @logoutfromBatch
@@ -184,16 +221,23 @@ Feature: Batch Module -Batch Page Navigation
      When Admin clicks on the logout button	
      Then Admin should see the Login screen Page title "LMS"				
 
-     #BatchSearch
-     @BatchSearch
-     Scenario: Validate search box functionality	
-     Given Admin is on the batch page
-     When Admin enters the batch name in the search text box
-     Then Admin should see the filtered batches in the data table																				
+     #Sort Batch details
+     @Sorting
+     Scenario Outline: Sort Batch by fields
+     Given Admin is on the home page after Login
+     When  Admin is on the batch page
+     Then Admin should see Batch details are sorted by "<columns>"
+      Examples:
+      | columns         |
+      | Batch Name      |
+      | Batch Description |
+      | Batch Status    |
+      | No Of Classes   |
+      | Program Name    |															
 																									
 																																									
 
-
+  
    
 
 

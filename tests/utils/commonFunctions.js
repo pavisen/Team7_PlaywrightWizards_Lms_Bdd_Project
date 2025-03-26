@@ -44,10 +44,10 @@ class CommonFunctions {
 
     // Table icons locators
     this.locators = {
-      editIcon: "span.p-button-icon.pi.pi-pencil",
-      deleteIcon: "span.p-button-icon.pi.pi-trash",
-      checkbox: "span.p-checkbox-icon",
-      sortIcon: ".p-sortable-column-icon.pi.pi-fw.pi-sort-alt",
+      editIcon: ".//span[@class='p-button-icon pi pi-pencil']",
+      deleteIcon: ".//span[@class='p-button-icon pi pi-trash']",
+      checkbox: ".//span[@class='p-checkbox-icon']",
+      sortIcon: ".//*[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']",
     };
 
     this.checkBoxList = page.locator("//tbody[@class='p-datatable-tbody']//div[@role='checkbox']");
@@ -315,9 +315,9 @@ class CommonFunctions {
     const deletedMessage = this.page.getByText('Batches Deleted');
 
     if (await confirmDialog.isVisible()) {
-      await this.page.pause();
+     
       const messageText = await deletedMessage.textContent();
-      await this.page.pause();
+  
       console.log(`Deletion message displayed: ${messageText}`);
 
       // Ensure the message is actually visible
@@ -488,9 +488,6 @@ class CommonFunctions {
   }
 
   async clickSortIcon(ele) {
-    // send esc key to page
-    await this.page.keyboard.press('Escape');
-
     await ele.click();
   }
 
@@ -524,8 +521,16 @@ class CommonFunctions {
   async getSortIcon(columnName) {
 
     const regex = new RegExp(`${columnName}`);
-    const sortIcon = await this.page.getByRole('columnheader', { name: regex }).locator('i');
+ const sortIcon = await this.page.getByRole('columnheader', { name: regex });
     return sortIcon;
+  }
+
+  getDeleteMessage(moduleName) {
+    return this.page.getByText(`${moduleName} Deleted`);
+  }
+
+  getDeletedMessage(moduleName) {
+    return this.page.getByText(`${moduleName}es Deleted`);
   }
 }
 

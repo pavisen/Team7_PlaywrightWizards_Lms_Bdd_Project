@@ -212,7 +212,7 @@ When('Admin skips to add value in mandatory field and enter only the optional fi
 });
 
 Then('Admin should see error message below the test field and the field will be highlighted in red color', async ({classPage}) => {
-   const errorMessages = await classPage.getAllErrorMessages();
+   const errorMessages = await classPage.getAllErrorMessages(true);
    const expectedErrors = [
     "Batch Name is required.",
     "Class Topic is required.",
@@ -227,9 +227,7 @@ Then('Admin should see error message below the test field and the field will be 
 
 });
 
-When('Admin enters invalid data in all of the  fields in the form and clicks on save button', async ({classPage,commonFunctions}) => {
-  
-  async ({ classPage, commonFunctions }) => {
+When('Admin enters invalid data in all of the  fields in the form and clicks on save button', async ({ classPage, commonFunctions }) => {
     const classTopic = getTestData(sheetName, "invalidData", "classTopic");
     const classDescription = getTestData(
       sheetName,
@@ -240,11 +238,9 @@ When('Admin enters invalid data in all of the  fields in the form and clicks on 
     const comments = getTestData(sheetName, "validAll", "comments");
     const notes = getTestData(sheetName, "validAll", "notes");
     const recording = getTestData(sheetName, "validAll", "recording");
-    console.log(`batchName: ${batchName}`);
     console.log(`classTopic: ${classTopic}`);
     console.log(`classDescription: ${classDescription}`);
     console.log(`classDate: ${classDate}`);
-    console.log(`staffName: ${staffName}`);
     console.log(`comments: ${comments}`);
     console.log(`notes: ${notes}`);
     console.log(`recording: ${recording}`);
@@ -260,10 +256,11 @@ When('Admin enters invalid data in all of the  fields in the form and clicks on 
       commonFunctions,
     );
     await classPage.clickSave();
-  }
+  await classPage.page.pause();
 });
 
 Then('Admin gets error message and class is not created', async ({classPage}) => {
+  await classPage.page.pause();
   const errorMessages = await classPage.getAllErrorMessages();
   const expectedErrors = [
    "Batch Name is required.",

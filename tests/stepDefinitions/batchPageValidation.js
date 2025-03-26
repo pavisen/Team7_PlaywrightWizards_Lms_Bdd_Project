@@ -58,7 +58,7 @@ Then('Admin should see the checkbox in each row', async ({commonFunctions}) => {
 
 });
 
-Then('Admin should see the datatable headers Batch name, Batch Description,Batch Status, No Of Classes, Program Name, Edit\\/Delete', async ({commonFunctions}) => {
+Then('Admin should see the datatable headers in Batch', async ({commonFunctions}) => {
   const expectedHeaders = ['Batch Name', 'Batch Description', 'Batch Status', 'No Of Classes', 'Program Name', 'Edit / Delete'];
     const isHeaderCorrect = await commonFunctions.verifyTableHeaders(expectedHeaders);
     expect(isHeaderCorrect).toEqual(true);

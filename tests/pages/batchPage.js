@@ -3,7 +3,6 @@ import { expect } from "@playwright/test";
 class BatchPage {
   constructor(page) {
     this.page = page;
-  
     this.batchButton = page.getByRole('button', { name: 'Batch' });
     this.manageBatchPage=page.getByText('Manage Batch');
     this.addNewBatch = page.getByRole('menuitem', { name: 'Add New Batch' })
@@ -17,7 +16,6 @@ class BatchPage {
     this.saveButton=page.getByRole('button', { name: 'Save' });
     this.cancelButton=page.getByRole('button', { name: 'Cancel' });
     this.closeButton=page.getByRole('button', { name: '' });
-    //this.closeButton=this.page.locator("//span[@class='p-dialog-header-close-icon ng-tns-c168-6 pi pi-times']");
     this.successfullMsg=page.getByText('Successful', { exact: true });
     this.batchCreatedSuccess = page.getByText('Batch Created Successfully');
     this.batchDeletedSuccess = page.getByText('batch Deleted');
@@ -28,10 +26,16 @@ class BatchPage {
     this.batchnamefirst=this.page.locator("//*[@id='batchProg']");
     this.inlineforbatchname=this.page.locator("//small[@id='text-danger']");
     this.errorMessages = page.locator("//*[@class='p-invalid ng-star-inserted']");
+    this.editPageTitle = page.getByText('Batch Details');
+    this.batchUpdatedSuccess = page.getByText('batch Updated'); 
+    this.invalidmsgfordesc=page.getByText('This field should start with an alphabet and min 2 character.');
+    //this.No of classes should be a 1 digit or 2 digit number. Cannot exceed 2 digits
+    this.editBatch= this.page.locator("span.p-button-icon.pi.pi-pencil");
+    this.programNameField=this.page.locator("#programName");
+    this.batchNameField=this.page.locator("#batchName");
 
 
   }
-////div[@class='p-field ng-star-inserted']/abel[text()='Batch Name']//input[@id='batchProg']
   async navigateToBatch() {
   
     await this.batchButton.click();
@@ -72,9 +76,35 @@ async addNewBatch() {
     await this.description.fill(description);
     await this.batchStatus.click();
     await this.noOfClasses.fill(numberOfClasses.toString());
-   // await this.saveButton.click();
   }
-
+  
+  async updateBatchDetails(description, numberOfClasses) {
+    await this.description.fill(description);
+    await this.batchStatus.click();
+    await this.noOfClasses.fill(numberOfClasses.toString());
+    console.log(`Batch details updated: Description - ${description}, No. of Classes - ${numberOfClasses}, Status `);
+   }
+   
+   async updateInvalidBatchDetails(description, numberOfClasses)
+   {
+    await this.description.fill(description);
+    await this.batchStatus.click();
+    await this.noOfClasses.fill(numberOfClasses.toString());
+    console.log(`Batch invalid details update: Description - ${description}, No. of Classes - ${numberOfClasses}, Status `);
+   }
+   
+   async clickEditFirstRow()
+   {
+    const firstRowEditButton = this.page.locator("span.p-button-icon.pi.pi-pencil").first();
+    // Wait until the edit button is visible (up to 5 seconds)
+    await firstRowEditButton.waitFor({ state: 'visible', timeout: 5000 });
+    if (await firstRowEditButton.isVisible()) {
+        await firstRowEditButton.click();
+        console.log("Clicked edit button for the first row.");
+    } else {
+        throw new Error("Edit button for the first row is not visible.");
+    }
+   }
   async isLogoutButtonVisible() {
     await expect(this.logoutButton).toBeVisible();
   }
@@ -151,7 +181,6 @@ async getAllErrorMessages() {
     }
     errorMessages.push(message);
   }
-  
   return errorMessages;
   }
 
@@ -166,6 +195,21 @@ async getAllErrorMessages() {
   }
   async clickLogout() {
     await this.logoutButton.click();
+  }
+  async clickEdit(value){
+    this.page.getByRole('row', { name: `${value}` }).getByRole('button').first().click();
+  }
+  async verifyProgramNameFieldIsDisabled() {
+
+    const disabledAttribute = await this.programNameField.locator('input').first().getAttribute('disabled');
+      const hasDisabledClass = await this.programNameField.locator('..').evaluate(el => el.classList.contains('p-disabled'));
+      return disabledAttribute !== null || hasDisabledClass; 
+  
+  }
+  async verifyBatchNameFieldIsDisabled() {
+    const disabledAttribute = await this.batchNameField.locator('input').first().getAttribute('disabled');
+      const hasDisabledClass = await this.batchNameField.locator('..').evaluate(el => el.classList.contains('p-disabled'));
+      return disabledAttribute !== null || hasDisabledClass; 
   }
 
 }

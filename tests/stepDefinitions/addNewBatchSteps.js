@@ -54,7 +54,6 @@ When('Admin leaves blank one of the mandatory fields', async function ({batchPag
     console.log(`Description: ${Description}`);
     console.log(`NoOfClasses: ${NoOfClasses}`);
     await batchPage.enterBatchDetails(ProgramName, "", Description, NoOfClasses);
-
     await batchPage.clickSave();
 
 });
@@ -74,7 +73,7 @@ Then('Admin should get a error message on the respective mandatory field', async
  }
 });
   
-When('Admin enters the valid data to all the mandatory fields and click save button', async function ({batchPage}) {
+When('Admin enters the valid data and click save button', async function ({batchPage}) {
     // await commonFunctions.clickMenu('batch');
     // await commonFunctions.clickSubMenu('batch');
     // Get the data from the excel file
@@ -92,7 +91,7 @@ When('Admin enters the valid data to all the mandatory fields and click save but
 
 
   
-When('Admin enters the valid data to all the mandatory fields and click cancel button', async function ({batchPage,commonFunctions}) {
+When('Admin enters the valid data and click cancel button', async function ({batchPage,commonFunctions}) {
     // await commonFunctions.clickMenu('batch');
     // await commonFunctions.clickSubMenu('batch');
     // Get the data from the excel file
