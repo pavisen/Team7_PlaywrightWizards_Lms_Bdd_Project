@@ -2,7 +2,7 @@ import { test } from "../fixtures/fixture";
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
 import { getTestData } from "../utils/excelReader"; // Importing the getTestData function
-import logger, { attachLogsAfterEachTest } from '../utils/logger.js';
+import logger, { attachLogsAfterEachTest } from "../utils/logger.js";
 
 // Create BDD steps
 const { Given, When, Then } = createBdd();
@@ -24,7 +24,7 @@ Then(
   async function ({ commonFunctions }, expectedTitle) {
     const actualTitle = await commonFunctions.getHeaderText();
     expect(actualTitle).toBe(expectedTitle);
-    logger.info('Navigated to Manage Class Page');
+    logger.info("Navigated to Manage Class Page");
   },
 );
 
@@ -44,23 +44,20 @@ Then(
   },
 );
 
-Then(
-  "Admin should see the datatable headings",
-  async ({ commonFunctions }) => {
-    const expectedHeaders = [
-      "Batch Name",
-      "Class Topic",
-      "Class Description",
-      "Status",
-      "Class Date",
-      "Staff Name",
-      "Edit / Delete",
-    ];
-    const isHeaderCorrect =
-      await commonFunctions.verifyTableHeaders(expectedHeaders);
-    expect(isHeaderCorrect).toEqual(true);
-  },
-);
+Then("Admin should see the datatable headings", async ({ commonFunctions }) => {
+  const expectedHeaders = [
+    "Batch Name",
+    "Class Topic",
+    "Class Description",
+    "Status",
+    "Class Date",
+    "Staff Name",
+    "Edit / Delete",
+  ];
+  const isHeaderCorrect =
+    await commonFunctions.verifyTableHeaders(expectedHeaders);
+  expect(isHeaderCorrect).toEqual(true);
+});
 
 Then(
   "Admin should see the {string} and enabled pagination controls under the data table",
@@ -79,11 +76,16 @@ Then(
   },
 );
 
-Then('Admin should see the Sort icon of all the field in the datatable', async ({commonFunctions}) => {
-  const isSortIconPresent = await commonFunctions.isElementPresent('sortIcon', 'header');
+Then(
+  "Admin should see the Sort icon of all the field in the datatable",
+  async ({ commonFunctions }) => {
+    const isSortIconPresent = await commonFunctions.isElementPresent(
+      "sortIcon",
+      "header",
+    );
     expect(isSortIconPresent).toBe(true);
-});
-
+  },
+);
 
 Then(
   "Admin should see the Delete button under the Manage class page header.",
@@ -98,5 +100,10 @@ Then(
     await expect(commonFunctions.totalClassesText).toBeVisible();
   },
 );
+
+When("Admin clicks on the logout button	in class", async ({ batchPage }) => {
+  await batchPage.isLogoutButtonVisible();
+  await batchPage.clickLogout();
+});
 
 export { Given, When, Then };

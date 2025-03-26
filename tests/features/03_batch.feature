@@ -8,60 +8,49 @@ Feature: Batch Module -Batch Page Navigation
 #Batch Page Navigation
   @BatchPageNavigation
   Scenario: Verify Admin Navigate to Batch page successfully
-   # Given  Admin is on the home Page
       When  Admin Clicks on the Batch menu from the header
       Then  Admin should be in the " Manage Batch" Page
     
 #Batch Page Validation
   @BatchPageValidation
   Scenario: Validate "Title" in Batch Page
-   # Given  Admin is on the home Page
       When  Admin Clicks on the Batch menu from the header
       Then  Admin should see the " LMS - Learning Management System " Title in the Batch Page
    @BatchPageValidation
    Scenario:Validate "heading" in the Batch Page	
-   # Given Admin is on the home page	
     When  Admin Clicks on the Batch menu from the header	
     Then  Admin should see the " Manage Batch" Heading
    @BatchPageValidation
    Scenario: Validate disabled "Delete Icon" under the header in the Batch Page	
-   # Given Admin is on the home page	
     When  Admin Clicks on the Batch menu from the header
     Then Admin should see the disabled Delete Icon under the header
    @BatchPageValidation
    Scenario: Validate pagination in the Batch Page	
-   # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the enabled pagination controls under the data table
    @BatchPageValidation
-   Scenario: Validate edit icon in each data rows	
-   # Given Admin is on the home page	
+   Scenario: Validate edit icon in each data rows		
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the edit icon in each row
    @BatchPageValidation
    Scenario: Validate delete icon in each data rows
-   # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the delete icon in each row
   @BatchPageValidation
     Scenario: Validate checkbox in each data rows	
-   # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the checkbox in each row
   @BatchPageValidation
-    Scenario: Validate Datatable headers	
-   # Given Admin is on the home page	
+    Scenario: Validate Datatable headers		
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the datatable headers in Batch
 
      @BatchPageValidation
     Scenario:Validate "Checkbox" in the Datatable header row	
-   # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the checkbox  in the datatable header row
   @BatchPageValidation
     Scenario: Validate "sort icon" next to all the datatable header	
-   # Given Admin is on the home page	
     When Admin Clicks on the Batch menu from the header	
     Then Admin should see the sort icon next to all Datatable headers
    
@@ -109,8 +98,6 @@ Feature: Batch Module -Batch Page Navigation
 
      
     #Pagination	
-     #Background:
-     #Given Admin is on the batch page	
       @pagination
       Scenario: Validate next page link	
       Given Admin is on the batch Page 
@@ -139,7 +126,7 @@ Feature: Batch Module -Batch Page Navigation
      When  Admin Clicks on the Add Batch button and fill the required fields
      Then  Admin should create a "new Batch successfully"
 
-     @smoke @doing
+     @smoke 
      Scenario: Verify Admin Add Batch successfully for mandatory fields
      Given Admin is on the Batch Page 
      When  Admin Clicks on the Add Batch button and fill the mandatory fields
