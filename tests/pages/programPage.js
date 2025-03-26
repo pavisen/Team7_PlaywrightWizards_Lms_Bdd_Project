@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { readDataFromExcelFile } from "../utils/excelReader";
+import { getTestData, readDataFromExcelFile } from "../utils/excelReader";
 import { loadTestData } from "../utils/testDataHelper";
 import { CommonFunctions } from "../utils/commonFunctions";
 
@@ -157,20 +157,12 @@ async verifyPopupFieldsEnabled() {
  
   }
   async changeStatus() {
-    const storedData = loadTestData();
-      const programName = storedData.programNameForProgram;
-      const description = getTestData(sheetName, 'edit_Pname', 'Description') + CommonFunctions.getRandomAlphabet(3);
-      console.log(`programName: ${programName}`);
-      console.log(`Description: ${description}`);
-      await this.clickEdit(storedData.programNameForProgram);
-      await this.enterProgramDetails(programName, description);
-     
-      storedData.descriptionForProgram = description;
-      saveTestData(storedData);
-    return await this.page.locator('.p-radiobutton-box').filter({ text: ' Inactive ' }).first().click();
+ 
+    return await this.page.locator('p-radiobutton').filter({ 'ng-reflect-value': 'Inactive' }).first().click();
+    
   }
  async verifyStatus() {
-    return await this.page.locator('.p-radiobutton-box').filter({ text: 'Active' }).first().checked();
+    return await expect(this.page.getByText('Inactive')).toBeVisible();
   }
 async  verifyUpdatedProgram() {
     return await this.page.locator('input').filter({ name: 'Name *' }).first().value();

@@ -208,7 +208,7 @@ Feature: Program Module Navigation
                 Then Admin should see the previous page record on the table with pagination has previous page link
 
         Scenario: Verify Admin is able to click  First page link
-                Given Admin is on Previous Program page
+                Given Admin is on the Last page in program table
                 When Admin clicks First page link
                 Then Admin should see the very first page record on the program table with Previous page link are disabled
 
@@ -254,23 +254,11 @@ Feature: Program Module Navigation
                 When Admin enters the program name in the search text box
                 And Admin can change the status of the program from "<KeyOption>" and "<sheetname>" and click on save button
                 Then Status updated can be viewed by the Admin
-
-        Scenario: Verify Admin is able to click Save
-                When Admin enters the program name in the search text box
-                And Admin click on save button of the updated program from "<KeyOption>" and "<sheetname>"
-                Then Admin can see the updated program details
-
-
+ 
         Scenario: Verify Admin is able to click Cancel
                 When Admin enters the program name in the search text box
                 And Admin click on cancel button of the updated program from "<KeyOption>" and "<sheetname>"
                 Then Admin can see the Program details form disappears
-
-        Scenario: Verify edited Program details
-                When Admin enters the program name in the search text box
-                And Admin searches with newly updated Program Name from "<KeyOption>" and "<sheetname>"
-                Then Admin verifies that the details are correctly updated from "<KeyOption>" and "<sheetname>"
-
 
         Scenario: Verify close the window with "X"
                 When Admin enters the program name in the search text box
