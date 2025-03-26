@@ -18,7 +18,7 @@ Given(
   },
 );
 When(
-  "Admin clicks on Edit option for particular program from {string} and {string}",
+  "Admin clicks on Edit option for particular program",
   async ({ programPage, commonFunctions }, arg, arg1) => {
     const storedData = loadTestData();
     await commonFunctions.search(storedData.programNameForProgram);
@@ -51,7 +51,7 @@ Then(
 );
 
 When(
-  "Admin edits the program name and click on save button from {string} and {string}",
+  "Admin edits the program name and click on save button",
   async ({ programPage, commonFunctions }, arg, arg1) => {
     const programName =
       getTestData(sheetName, "edit_Pname", "ProgramName") +
@@ -77,7 +77,7 @@ Then(
 );
 
 When(
-  "Admin edits the description text and click on save button from {string} and {string}",
+  "Admin edits the description text and click on save button",
   async ({ programPage }, arg, arg1) => {
     const storedData = loadTestData();
     const programName =
@@ -108,7 +108,7 @@ Then(
 );
 
 When(
-  "Admin can change the status of the program from {string} and {string} and click on save button",
+  "Admin can change the status of the program and click on save button",
   async ({ programPage, commonFunctions }, arg, arg1) => {
     // await commonFunctions.clickMenu('program');
 
@@ -135,7 +135,7 @@ Then("Admin can see the updated program details", async ({ programPage }) => {
 });
 
 When(
-  "Admin click on cancel button of the updated program from {string} and {string}",
+  "Admin click on cancel button of the updated program",
   async ({ programPage, commonFunctions }, arg, arg1) => {
     await commonFunctions.click(commonFunctions.editIcon);
 

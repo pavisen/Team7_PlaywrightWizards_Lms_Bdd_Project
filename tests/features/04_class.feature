@@ -158,7 +158,6 @@ When Admin clicks Cancel button on edit popup
 Then Admin can see the class details popup disappears and can see nothing changed for particular Class
 
 #Sort Class details
-@smoke
 Scenario Outline: Sort Class by fields
 Given Admin is on the Manage class page
 When Admin clicks on the "<columns>" sort icon
@@ -174,7 +173,6 @@ Examples:
        
 
 #Pagination - Class Page
-@smoke
 Scenario: Verify Next page link(>)
 Given Admin is on Manage class page
 When Admin clicks Next page link on the class table 
