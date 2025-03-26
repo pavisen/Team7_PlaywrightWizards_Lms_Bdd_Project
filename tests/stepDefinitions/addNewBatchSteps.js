@@ -42,6 +42,29 @@ function getRandomNumberString(length) {
   return result;
 }
     
+When('Admin Clicks on the Add Batch button and fill the mandatory fields', async ({batchPage,commonFunctions,testData}) => {
+  await commonFunctions.clickMenu('batch');
+    await commonFunctions.clickSubMenu('batch');
+    // Get the data from the excel file
+    const ProgramName = getTestData(sheetName, 'mandatory', 'ProgramName');
+    const BatchName = getTestData(sheetName, 'mandatory', 'BatchName')+getRandomNumberString(1);
+    const Description = getTestData(sheetName, 'mandatory', 'Description');
+    const NoOfClasses = getTestData(sheetName, 'mandatory', 'NumberOfClasses');
+    console.log(`programName: ${ProgramName}`);
+    console.log(`BatchName: ${BatchName}`);
+    console.log(`Description: ${Description}`);
+    console.log(`NoOfClasses: ${NoOfClasses}`);
+    await batchPage.enterBatchDetails(ProgramName, BatchName, Description, NoOfClasses); 
+    await batchPage.clickSave();
+
+    //storing variables for chaining
+      const batchNameChaining=ProgramName+BatchName;
+       console.log(batchNameChaining);
+        testData.batchNameChaining = batchNameChaining;
+        saveTestData(testData); // Store data in file
+        console.log(`Storing batchName: ${testData.batchNameChaining}`);
+});
+
 When('Admin leaves blank one of the mandatory fields', async function ({batchPage}) {
    
     // await commonFunctions.clickMenu('batch');

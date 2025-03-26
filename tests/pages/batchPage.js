@@ -207,9 +207,20 @@ async getAllErrorMessages() {
   
   }
   async verifyBatchNameFieldIsDisabled() {
-    const disabledAttribute = await this.batchNameField.locator('input').first().getAttribute('disabled');
-      const hasDisabledClass = await this.batchNameField.locator('..').evaluate(el => el.classList.contains('p-disabled'));
-      return disabledAttribute !== null || hasDisabledClass; 
+    // Target the first visible element (if necessary, adjust to nth(1) if the second one is needed)
+    const batchNameField1 = this.page.locator('#batchName').nth(1); // Adjust nth(0) or nth(1) based on UI
+
+    // Ensure the locator is visible before interacting with it
+    await batchNameField1.waitFor({ state: 'attached', timeout: 5000 });
+
+    // Check if the input has the "disabled" attribute
+    const disabledAttribute = await batchNameField1.getAttribute('disabled');
+
+    // Check if the parent element has the "p-disabled" class
+    const hasDisabledClass = await batchNameField1.locator('xpath=..').evaluate(el => el.classList.contains('p-disabled'));
+
+    // Return true if the field is disabled by attribute or class
+    return disabledAttribute !== null || hasDisabledClass;
   }
 
 }
