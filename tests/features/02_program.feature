@@ -132,11 +132,6 @@ Feature: Program Module Navigation
                 Then Admin can see 'Successful Program Deleted' message
 
 
-        # Scenario: Verify Admin is able to deleted program
-        #         Given Admin is on Program module
-        #         When Admin Searches for "Deleted Program name"
-        #         Then There should be zero results..
-
 
         Scenario: Verify Admin is able to click 'No'
                 Given Admin is on Program Confirm Deletion Page after selecting a program to delete
@@ -148,31 +143,7 @@ Feature: Program Module Navigation
                 Given Admin is on Program Confirm Deletion Page after selecting a program to delete
                 When Admin Click on X button
                 Then Admin can see Confirm Deletion form disappear
-        #search program
-
-        # Scenario: Verify Admin is able to search results found for program name
-        #         Given Admin is on Program module
-        #         When Admin enter the program to search By program name
-        #         Then Admin should able to see Program name, description, and status for searched program name
-
-
-        # Scenario: Admin should able to see Program name, description, and status for searched program name
-        #         Given Admin is on Program module
-        #         When Admin enter the program to search By program description
-        #         Then Admin should able to see Program name, description, and status for searched program description
-
-
-        # Scenario: Verify Admin is able to search results not found
-        #         Given Admin is on Program module
-        #         When Admin enter the program to search By program name that does not exist
-        #         Then There should be zero results.
-
-        # Scenario: Verify Admin is able to search with partial program name
-        #         Given Admin is on Program module
-        #         When Admin enter the program to search By partial name of program
-        #         Then Admin should able to see Program name, description, and status for searched program name for partial search
-        #sort program
-
+       
 
 
         Scenario: Verify sorting of  Program name in Ascending order/Descending order
@@ -266,8 +237,7 @@ Feature: Program Module Navigation
                 Then Admin can see Program Details form disappears
 
         #Delete multiple batches with checkbox
-        #Background:
-        #Given Admin is on the batch page
+       
         @Deletion
         Scenario: Validate single row delete with checkbox
                 Given Admin is on the program page for delete
