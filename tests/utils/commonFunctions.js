@@ -64,12 +64,13 @@ class CommonFunctions {
     this.paginationPrevious = page.locator("//span[@class='p-paginator-icon pi pi-angle-left']");
     this.paginationFirst = page.locator("//span[@class='p-paginator-icon pi pi-angle-double-left']");
     this.deleteMessage = page.getByText('Batch Deleted');
+
     this.deletedMessage = page.getByText('Batches Deleted');
     this.confirmDialog = page.locator("//span[contains(text(),'Confirm')]");
     this.yesDelete = page.locator("//span[contains(text(),'Yes')]");
     this.NoDelete = page.locator("//span[contains(text(),'No')]");
     this.closeDelete = page.locator("//button[@class='ng-tns-c204-18 p-confirm-dialog-accept p-ripple p-button p-component ng-star-inserted']");
-    this.sorticon ="i.p-sortable-column-icon";
+    this.sorticon = "i.p-sortable-column-icon";
   }
 
   async isEditIconVisible() {
@@ -79,7 +80,7 @@ class CommonFunctions {
     return await this.page.locator(this.sorticon).first().isVisible(); // Check if at least one is visible
   }
 
- async escape() {
+  async escape() {
     await this.page.press('Escape');
   }
 
@@ -108,7 +109,7 @@ class CommonFunctions {
     return sortIcon;
   }
 
- 
+
 
 
 
@@ -461,7 +462,7 @@ class CommonFunctions {
       throw new Error("First page validation failed. Previous link is still enabled.");
     }
   }
- 
+
   async validateAscendingSort(ele) {
     await this.page.waitForLoadState();
 
@@ -503,11 +504,11 @@ class CommonFunctions {
   }
 
   async clickEdit() {
-    await this.page.locator(this.locators.editIcon+'[1]').click();
+    await this.page.locator(this.locators.editIcon + '[1]').click();
   }
 
 
-  async getRandomAlphabet(length) {
+ static getRandomAlphabet(length) {
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let result = '';
     for (let i = 0; i < length; i++) {
@@ -518,6 +519,7 @@ class CommonFunctions {
 
   // Sorting
   async getSortIcon(columnName) {
+
     const regex = new RegExp(`${columnName}`);
  const sortIcon = await this.page.getByRole('columnheader', { name: regex });
     return sortIcon;

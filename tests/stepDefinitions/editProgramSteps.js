@@ -3,7 +3,9 @@ import { expect } from '@playwright/test';
 import { createBdd } from 'playwright-bdd';
 import { getTestData } from '../utils/excelReader';
 import { send } from 'process';
-import { loadTestData } from "../utils/testDataHelper.js";
+import { loadTestData, saveTestData } from "../utils/testDataHelper.js";
+import logger from '../utils/logger.js';
+import { CommonFunctions } from '../utils/commonFunctions.js';
 const { Given, When, Then } = createBdd();
 const sheetName = 'program';
 
@@ -14,9 +16,9 @@ Given('Admin is on Program module for editing', async ({ programPage, commonFunc
 
 });
 When('Admin clicks on Edit option for particular program from {string} and {string}', async ({ programPage, commonFunctions }, arg, arg1) => {
- 
+  const storedData = loadTestData();
   await commonFunctions.search(storedData.programNameForProgram);
-  await programPage.clickEdit("edit pname");
+  await programPage.clickEdit(storedData.programNameForProgram);
 });
 
 Then('Admin lands on Program details form', async ({ programPage }) => {
@@ -40,26 +42,44 @@ Then('Admin should see red {string} mark beside mandatory field {string}', async
 });
 
 When('Admin edits the program name and click on save button from {string} and {string}', async ({ programPage, commonFunctions }, arg, arg1) => {
-  const programName = getTestData(sheetName, 'edit_Pname', 'ProgramName') + commonFunctions.getRandomAlphabet(3);
+  const programName = getTestData(sheetName, 'edit_Pname', 'ProgramName') + CommonFunctions.getRandomAlphabet(3);
   const Description = getTestData(sheetName, 'edit_Pname', 'Description');
   console.log(`programName: ${programName}`);
   console.log(`Description: ${Description}`);
   await programPage.enterProgramDetails(programName, Description);
-
+  const testData={}
+  testData.programNameForProgram = programName;
+  saveTestData(testData);
+ 
+   
 });
 
 
 
-Then('Updated program name is seen by the Admin', async ({ programPage }) => {
-  programPage.verifyProgramName();
+Then('Updated program name is seen by the Admin', async ({ programPage,commonFunctions }) => {
+  const storedData = loadTestData();
+  const programName = storedData.programNameForProgram;
+  await commonFunctions.search(programName);
+ await programPage.verifyProgramName(programName);
 });
 
-When('Admin edits the description text and click on save button from {string} and {string}', async ({ programPage }, arg, arg1) => {
-  programPage.editDescription();
+When('Admin edits the description text and click on save button from {string} and {string}', async ({  programPage }, arg, arg1) => {
+  const storedData = loadTestData();
+  
+  console.log(`programName: ${programName}`);
+  console.log(`Description: ${description}`);
+  await programPage.clickEdit(storedData.programNameForProgram);
+  await programPage.enterProgramDetails(programName, description);
+ 
+  storedData.descriptionForProgram = description;
+  saveTestData(storedData);
 });
 
-Then('Admin can see the description is updated', async ({ programPage }) => {
-  programPage.verifyDescription();
+Then('Admin can see the description is updated', async ({ programPage,commonFunctions }) => {
+  const storedData = loadTestData();
+  const programName = storedData.programNameForProgram;
+  await commonFunctions.search(programName);
+  programPage.verifyDescription(programName,storedData.descriptionForProgram);
 });
 
 When('Admin can change the status of the program from {string} and {string} and click on save button', async ({ programPage }, arg, arg1) => {
