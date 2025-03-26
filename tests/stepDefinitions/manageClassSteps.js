@@ -79,16 +79,11 @@ Then(
   },
 );
 
-Then(
-  "Admin should see the Sort icon of all the field in the datatable.",
-  async ({ commonFunctions }) => {
-    const isSortIconPresent = await commonFunctions.isElementPresent(
-      "sortIcon",
-      "header",
-    );
+Then('Admin should see the Sort icon of all the field in the datatable', async ({commonFunctions}) => {
+  const isSortIconPresent = await commonFunctions.isElementPresent('sortIcon', 'header');
     expect(isSortIconPresent).toBe(true);
-  },
-);
+});
+
 
 Then(
   "Admin should see the Delete button under the Manage class page header.",

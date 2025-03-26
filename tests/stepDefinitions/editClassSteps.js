@@ -17,8 +17,8 @@ Given('Admin is on the Manage Class page', async ({loggedInPage,commonFunctions}
 });
   
   When('Admin clicks on the edit icon', async ({commonFunctions,classPage}) => {
-    await commonFunctions.search("mathumathi");
-   await classPage.clickEdit("Java Batch 01 mathumathi");
+    await commonFunctions.search("mathumathiab");
+   await classPage.clickEdit("Java Batch 01 mathumathiab");
   });
   
   Then('A new pop up with class details appears', async ({classPage}) => {
@@ -28,69 +28,203 @@ Given('Admin is on the Manage Class page', async ({loggedInPage,commonFunctions}
     logger.info('Admin opens Edit Class Page');
   });
   
-  Then('Admin should see batch name field is disabled', async ({}) => {
-    // Step: Then Admin should see batch name field is disabled
-    // From: tests/Features/04_class.feature:109:1
+  Then('Admin should see batch name field is disabled', async ({classPage}) => {
+    const isDisabled = await classPage.isBatchNameFieldDisabled();
+    console.log(isDisabled);
+    expect(isDisabled).toBe(true);
   });
   
-  Then('Admin should see class topic field is disabled', async ({}) => {
-    // Step: Then Admin should see class topic field is disabled
-    // From: tests/Features/04_class.feature:114:1
+  Then('Admin should see class topic field is disabled', async ({classPage}) => {
+    const isDisabled = await classPage.isClassTopicFieldDisabled();
+    console.log(isDisabled);
+    expect(isDisabled).toBe(true);
   });
   
-  Given('Admin is on the Edit Class Popup window', async ({}) => {
-    // Step: Given Admin is on the Edit Class Popup window
-    // From: tests/Features/04_class.feature:117:1
+  Given('Admin is on the Edit Class Popup window', async ({commonFunctions,classPage}) => {
+    await commonFunctions.clickMenu("class");
+    await commonFunctions.clickAnywhere();
+
   });
   
-  When('Update the fields with valid data and click save', async ({}) => {
-    // Step: When Update the fields with valid data and click save
-    // From: tests/Features/04_class.feature:118:1
+  When('Update the fields with valid data and click save', async ({classPage, commonFunctions, testData,page}) => {
+    await commonFunctions.search("Java Batch 01");
+    await classPage.clickEdit("Java Batch 01");
+        const classDescription = getTestData(
+          sheetName,
+          "editAll",
+          "classDescription",
+        );
+        const classDate = getTestData(sheetName, "editAll", "classDate");
+        const staffName = getTestData(sheetName, "editAll", "staffName");
+        const comments = getTestData(sheetName, "editAll", "comments");
+        const notes = getTestData(sheetName, "editAll", "notes");
+        const recording = getTestData(sheetName, "editAll", "recording");
+        console.log(`classDescription: ${classDescription}`);
+        console.log(`classDate: ${classDate}`);
+        console.log(`staffName: ${staffName}`);
+        console.log(`comments: ${comments}`);
+        console.log(`notes: ${notes}`);
+        console.log(`recording: ${recording}`);
+    
+        await classPage.editEnterClassDetails(
+          "",
+          "",
+          classDescription,
+          classDate,
+          "",
+          comments,
+          notes,
+          recording,
+          commonFunctions,
+        );
+    
+        await classPage.clickSave();
+
   });
   
-  Then('Admin gets message {string} and see the updated values in data table', async ({}, arg) => {
-    // Step: Then Admin gets message "class details updated Successfully " and see the updated values in data table
-    // From: tests/Features/04_class.feature:119:1
-  });
-  
-  When('Update the fields with invalid values and click save', async ({}) => {
-    // Step: When Update the fields with invalid values and click save
-    // From: tests/Features/04_class.feature:123:1
-  });
-  
-  Then('Admin should get Error message', async ({}) => {
-    // Step: Then Admin should get Error message
-    // From: tests/Features/04_class.feature:124:1
+  Then('Admin gets message class details updated Successfully', async ({classPage}) => {
+    const successMessage = await classPage.getClassUpdatedSuccessMessage();
+    expect(successMessage.trim()).toBe("Class Updated");
+    logger.info('Class updated successfully');
   });
 
-  When('Update the mandatory fields with valid values and click save', async ({}) => {
-    // Step: When Update the mandatory fields with valid values and click save
-    // From: tests/Features/04_class.feature:128:1
+  When('Update the fields with invalid values and click save', async ({classPage, commonFunctions, testData,page}) => {
+    await commonFunctions.search("vlad");
+    await classPage.clickEdit("Java Batch 01 vlad");
+        const classDescription = getTestData(
+          sheetName,
+          "editInvalidData",
+          "classDescription",
+        );
+        const classDate = getTestData(sheetName, "editInvalidData", "classDate");
+        const comments = getTestData(sheetName, "editInvalidData", "comments");
+        const notes = getTestData(sheetName, "editInvalidData", "notes");
+        const recording = getTestData(sheetName, "editInvalidData", "recording");
+        console.log(`classDescription: ${classDescription}`);
+        console.log(`classDate: ${classDate}`);
+        console.log(`comments: ${comments}`);
+        console.log(`notes: ${notes}`);
+        console.log(`recording: ${recording}`);
+    
+        await classPage.editEnterClassDetails(
+          "",
+          "",
+          classDescription,
+          classDate,
+          "",
+          comments,
+          notes,
+          recording,
+          commonFunctions,
+        );
+    
+        await classPage.clickSave();
+
   });
   
-  Given('Admin is on the Edit  Class Popup window', async ({}) => {
-    // Step: Given Admin is on the Edit  Class Popup window
-    // From: tests/Features/04_class.feature:132:1
+  Then('Admin should get Error message', async ({classPage}) => {
+    const errorMessages = await classPage.getAllErrorMessages();
+    const expectedErrors = [
+     "Class Date is required.",
+     "No. of Classes is required.",
+     "Staff Name is required.",
+     "Status is required."
+  ];
+    for (let i = 0; i < errorMessages.length; i++) {
+     expect(errorMessages[i].trim()).toBe(expectedErrors[i]);}
+  });
+
+  When('Update the mandatory fields with valid values and click save', async ({classPage, commonFunctions, testData,page}) => {
+    await commonFunctions.search("Java Batch 01");
+    await classPage.clickEdit("Java Batch 01");
+        const classDescription = getTestData(
+          sheetName,
+          "editMandatory",
+          "classDescription",
+        );
+        const classDate = getTestData(sheetName, "editMandatory", "classDate");
+        const staffName = getTestData(sheetName, "editMandatory", "staffName");
+        console.log(`classDate: ${classDate}`);
+        console.log(`staffName: ${staffName}`);
+    
+        await classPage.editEnterClassDetails(
+          "",
+          "",
+          "",
+          classDate,
+          "",
+          "",
+          "",
+          "",
+          commonFunctions,
+        );
+    
+        await classPage.clickSave();
+
   });
   
-  When('Update the optional fields with valid values and click save', async ({}) => {
-    // Step: When Update the optional fields with valid values and click save
-    // From: tests/Features/04_class.feature:133:1
+  When('Update the optional fields with valid values and click save', async ({classPage, commonFunctions, testData,page}) => {
+    await commonFunctions.search("Java Batch 01");
+    await classPage.clickEdit("Java Batch 01");
+    const comments = getTestData(sheetName, "editOptional", "comments");
+    const notes = getTestData(sheetName, "editOptional", "notes");
+    const recording = getTestData(sheetName, "editOptional", "recording");
+    
+        await classPage.editEnterClassDetails(
+          "",
+          "",
+          "",
+          "",
+          "",
+          comments,
+          notes,
+          recording,
+          commonFunctions,
+        );
+    
+        await classPage.clickSave();
   });
   
-  When('Admin enters only numbers or special char in the text fields', async ({}) => {
-    // Step: When Admin enters only numbers or special char in the text fields
-    // From: tests/Features/04_class.feature:138:1
+  When('Admin clicks Cancel button on edit popup', async ({classPage,commonFunctions}) => {
+    await commonFunctions.search("Java Batch 01");
+    await classPage.clickEdit("Java Batch 01");
+        const classDescription = getTestData(
+          sheetName,
+          "editAll",
+          "classDescription",
+        );
+        const classDate = getTestData(sheetName, "editAll", "classDate");
+        const staffName = getTestData(sheetName, "editAll", "staffName");
+        const comments = getTestData(sheetName, "editAll", "comments");
+        const notes = getTestData(sheetName, "editAll", "notes");
+        const recording = getTestData(sheetName, "editAll", "recording");
+        console.log(`classDescription: ${classDescription}`);
+        console.log(`classDate: ${classDate}`);
+        console.log(`staffName: ${staffName}`);
+        console.log(`comments: ${comments}`);
+        console.log(`notes: ${notes}`);
+        console.log(`recording: ${recording}`);
+    
+        await classPage.editEnterClassDetails(
+          "",
+          "",
+          classDescription,
+          classDate,
+          "",
+          comments,
+          notes,
+          recording,
+          commonFunctions,
+        );
+    
+        await classPage.clickCancel();
   });
   
-  When('Admin clicks Cancel button on edit popup', async ({}) => {
-    // Step: When Admin clicks Cancel button on edit popup
-    // From: tests/Features/04_class.feature:143:1
-  });
-  
-  Then('Admin can see the class details popup disappears and can see nothing changed for particular Class', async ({}) => {
-    // Step: Then Admin can see the class details popup disappears and can see nothing changed for particular Class
-    // From: tests/Features/04_class.feature:144:1
+  Then('Admin can see the class details popup disappears and can see nothing changed for particular Class', async ({commonFunctions}) => {
+    
+    const expectedText = " Manage Class";
+    const actualText = await commonFunctions.moduleSelectors.class.manage_text.textContent();
+     expect(actualText).toBe(expectedText);
   });
 
   
