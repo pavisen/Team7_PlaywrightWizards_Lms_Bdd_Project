@@ -47,13 +47,6 @@ Then(
   },
 );
 
-// When('Admin Searches for {string}', async ({programPage}, arg) => {
-//   await programPage.searchProgram();
-// });
-
-// Then('There should be zero results.', async ({programPage}) => {
-//   await programPage.noResults();
-// });
 
 Given(
   "Admin is on Program Confirm Deletion Page after selecting a program to delete",
