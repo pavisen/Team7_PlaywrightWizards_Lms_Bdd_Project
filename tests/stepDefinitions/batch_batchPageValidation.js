@@ -120,7 +120,7 @@ Then(
 
 Given(
   "Admin is on the batch Page",
-  async function ({ paginationPage, commonFunctions }) {
+  async function ({ commonFunctions }) {
     await commonFunctions.clickMenu("batch");
     await commonFunctions.clickAnywhere();
   },
