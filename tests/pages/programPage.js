@@ -1,5 +1,7 @@
 import { expect } from "@playwright/test";
-import { readDataFromExcelFile } from "../utils/excelReader";
+import { getTestData, readDataFromExcelFile } from "../utils/excelReader";
+import { loadTestData } from "../utils/testDataHelper";
+import { CommonFunctions } from "../utils/commonFunctions";
 
 
 
@@ -137,26 +139,30 @@ async verifyPopupFieldsEnabled() {
      return await this.page.locator('//*[@id="editProgram"])[1]').click();
   }
   async clickEdit(value){
-    this.page.getByRole('row', { name: `${value}` }).getByRole('button').first().click();
+  await  this.page.getByRole('row', { name: `${value}` }).getByRole('button').first().click();
 
   }
   editProgramName() {
     return this.page.locator('input').filter({ name: 'Name *' }).first().fill('Updated Program Name');
   }
-  verifyProgramName() {
-    return this.page
+  async verifyProgramName(value) {
+    await expect( await this.page.getByRole('row', { name: `${value}` })).toBeVisible();
+
   }
   editDescription() {
-    return this.page.locator('textarea').filter({ name: 'Description *' }).first().fill('Updated Description');
+    return this.page.locator('input').filter({ name: 'Description *' }).first().fill('Updated Description');
   }
-  async verifyDescription() {
-    return await this.page.locator('textarea').filter({ name: 'Description *' }).first().value();
+  async verifyDescription(prog,desc) {
+    await expect( await this.page.getByRole('row', { name: `${prog}` })).toBeVisible();
+ 
   }
   async changeStatus() {
-    return await this.page.locator('.p-radiobutton-box').filter({ text: 'Active' }).first().click();
+ 
+    return await this.page.locator('p-radiobutton').filter({ 'ng-reflect-value': 'Inactive' }).first().click();
+    
   }
  async verifyStatus() {
-    return await this.page.locator('.p-radiobutton-box').filter({ text: 'Active' }).first().checked();
+    return await expect(this.page.getByText('Inactive')).toBeVisible();
   }
 async  verifyUpdatedProgram() {
     return await this.page.locator('input').filter({ name: 'Name *' }).first().value();

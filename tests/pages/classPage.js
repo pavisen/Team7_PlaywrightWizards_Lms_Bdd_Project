@@ -45,7 +45,6 @@ class ClassPage {
     recording = "",
     commonFunctions,
   ) {
-    await this.page.pause();
     // Filling out the class creation form with dynamic values
     if (batchName) await this.batchName.fill(String(batchName));
     if (classTopic !== undefined && classTopic !== null) {
@@ -56,7 +55,6 @@ class ClassPage {
     if (classDescription !== undefined && classDescription !== null) {
       await this.classDescription.fill(String(classDescription));
   }
-    await this.page.pause();
     if (classDate) {
     await this.classDate.click();
     await this.page.waitForTimeout(500); 
@@ -81,20 +79,16 @@ class ClassPage {
   }
 
     await this.page.waitForTimeout(1000);
-    await this.page.pause();
     if (staffName) {
     await commonFunctions.selectDropdownOption(this.staffName, staffName);
     }
     await this.getNgReflectModelValue();
-    await this.page.pause();
     await this.activeStatus.waitFor({ state: "visible" });
     await this.activeStatus.click();
-    await this.page.pause();
     if (comments) await this.comments.fill(String(comments));
     if (notes) await this.notes.fill(String(notes));
     if (recording) await this.recording.fill(String(recording));
     await this.page.waitForTimeout(1000); 
-    await this.page.pause();
   }
 
 
@@ -219,7 +213,6 @@ async editEnterClassDetails(
 //     await this.classTopic.fill(String(classTopic)); // Ensures valid input for Playwright
 // }
   if (classDescription) await this.classDescription.fill(String(classDescription));
-  await this.page.pause();  
 
   if (classDate) {
     // Click the date picker button to open the calendar
@@ -259,7 +252,6 @@ async editEnterClassDetails(
   }
 
   await this.page.waitForTimeout(1000);
-  await this.page.pause();  
 
   if (staffName) {
     await commonFunctions.selectDropdownOption(this.staffName, staffName);
@@ -268,7 +260,6 @@ async editEnterClassDetails(
   await this.getNgReflectModelValue();
   await this.activeStatus.waitFor({ state: "visible" });
   await this.activeStatus.click();
-  await this.page.pause();
 
   if (comments) await this.comments.fill(comments);
   if (notes)  await this.notes.fill(notes);

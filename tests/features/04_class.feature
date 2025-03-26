@@ -146,7 +146,7 @@ Scenario: Check if the fields are updated with invalid values
 Given Admin is on the Edit Class Popup window
 When Update the fields with invalid values and click save
 Then Admin should get Error message 
-
+@doing
 Scenario: Check if the mandatory fields are updated with valid data
 Given Admin is on the Edit Class Popup window
 When Update the mandatory fields with valid values and click save
