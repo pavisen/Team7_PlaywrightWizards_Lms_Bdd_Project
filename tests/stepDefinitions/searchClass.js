@@ -17,16 +17,16 @@ Given('Admin is on the Manage class page for search', async ({commonFunctions}) 
 
 When('Admin enter the Batch Name in search textbox', async ({commonFunctions}) => {
   const storedData = loadTestData();
-  const storedbatchNameForBatch = storedData.batchNameForBatch; 
-  console.log("Retrieved Batch Name in class: ", storedbatchNameForBatch);
-  await commonFunctions.search(storedbatchNameForBatch);
+  const storedbatchNameChaining = storedData.batchNameChaining; 
+  console.log("Retrieved Batch Name in class: ", storedbatchNameChaining);
+  await commonFunctions.search(storedbatchNameChaining);
   });
   
   Then('Admin should see Class details are searched by Batch Name', async ({commonFunctions}) => {
     const storedData = loadTestData();
-    const storedbatchNameForBatch = storedData.batchNameForBatch;
-    console.log("Retrieved Batch Name in class: ", storedbatchNameForBatch);
-    await commonFunctions.verifySearch(storedbatchNameForBatch);
+    const storedbatchNameChaining = storedData.batchNameChaining;
+    console.log("Retrieved Batch Name in class: ", storedbatchNameChaining);
+    await commonFunctions.verifySearch(storedbatchNameChaining);
   });
   
   When('Admin enter the Class topic in search textbox', async ({commonFunctions}) => {
