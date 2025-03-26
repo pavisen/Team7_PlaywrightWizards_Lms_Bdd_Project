@@ -34,7 +34,6 @@ Then Admin should land on Manage class page and can see the selected class are d
      Given Admin is on the batch confirm popup page	
      When Admin clicks on the delete icon and click yes button	
      Then Admin should see the successful message and the batch should be deleted
-   #Delete multiple batches with checkbox
     @smoke
       Scenario: Validate single row delete with checkbox for batch	
      Given Admin is on the batch Page 
@@ -52,7 +51,6 @@ Then Admin should land on Manage class page and can see the selected class are d
                 Given Admin is on Confirm deletion form
                 When Admin clicks on "Yes" button
                 Then Admin can see Successful Program Deleted message
-        #Delete multiple program with checkbox
        @smoke
         Scenario: Validate single row delete with checkbox for program
                 Given Admin is on the program page for delete

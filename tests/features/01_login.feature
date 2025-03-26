@@ -33,12 +33,6 @@ Feature: Login functionality
     Then Admin should land on home page
   
   #Anu
-  #  Scenario: verify dropdown is present
-  #   Given The browser is open
-  #   When Admin gives the correct LMS portal URL
-  #   Then Admin should see one dropdown
-
-   
    Scenario: verify asterisk next to USER text
    Given The browser is open
    When  Admin gives the correct LMS portal URL
@@ -77,7 +71,6 @@ Feature: Login functionality
 
 
     #pavithra
-
     Scenario: Verify Admin is able to land on home page	with invalid url
     Given The browser is open
     When Admin enter invalid URL and clicks login button 
