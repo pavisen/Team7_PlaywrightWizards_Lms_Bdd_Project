@@ -110,26 +110,26 @@ test.describe('Batch Module -Batch Page Navigation', () => {
     await Then('batch details pop up closes', null, { commonFunctions }); 
   });
 
-  test('Validate next page link', { tag: ['@pagination'] }, async ({ Given, paginationPage, commonFunctions, When, Then }) => { 
-    await Given('Admin is on the batch Page', null, { paginationPage, commonFunctions }); 
+  test('Validate next page link', { tag: ['@pagination'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on the batch Page', null, { commonFunctions }); 
     await When('Admin clicks next page link on the data table', null, { commonFunctions }); 
     await Then('Admin should see the Next enabled link', null, { commonFunctions }); 
   });
 
-  test('validate last page link', { tag: ['@pagination'] }, async ({ Given, paginationPage, commonFunctions, When, Then }) => { 
-    await Given('Admin is on the batch Page', null, { paginationPage, commonFunctions }); 
+  test('validate last page link', { tag: ['@pagination'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on the batch Page', null, { commonFunctions }); 
     await When('Admin clicks last page link on the data table', null, { commonFunctions }); 
     await Then('Admin should see the last page link with next page link disabled on the table', null, { commonFunctions }); 
   });
 
-  test('validate the previous page link', { tag: ['@pagination'] }, async ({ Given, paginationPage, commonFunctions, When, Then }) => { 
-    await Given('Admin is on the batch Page', null, { paginationPage, commonFunctions }); 
+  test('validate the previous page link', { tag: ['@pagination'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on the batch Page', null, { commonFunctions }); 
     await When('Admin clicks previous page link on the data table', null, { commonFunctions }); 
     await Then('Admin should see the previous page on the table', null, { commonFunctions }); 
   });
 
-  test('validate the first page link', { tag: ['@pagination'] }, async ({ Given, paginationPage, commonFunctions, When, Then }) => { 
-    await Given('Admin is on the batch Page', null, { paginationPage, commonFunctions }); 
+  test('validate the first page link', { tag: ['@pagination'] }, async ({ Given, commonFunctions, When, Then }) => { 
+    await Given('Admin is on the batch Page', null, { commonFunctions }); 
     await When('Admin clicks first page link on the data table', null, { commonFunctions }); 
     await Then('Admin should see the very first page on the data table', null, { commonFunctions }); 
   });
@@ -188,8 +188,8 @@ test.describe('Batch Module -Batch Page Navigation', () => {
     await Then('Admin can see the batch details popup closes without editing the batch', null, { batchPage, commonFunctions }); 
   });
 
-  test('Validate logout option in the header is visible and enabled from the batch page', { tag: ['@logoutfromBatch'] }, async ({ Given, paginationPage, commonFunctions, When, batchPage, Then, loginPage }) => { 
-    await Given('Admin is on the batch Page', null, { paginationPage, commonFunctions }); 
+  test('Validate logout option in the header is visible and enabled from the batch page', { tag: ['@logoutfromBatch'] }, async ({ Given, commonFunctions, When, batchPage, Then, loginPage }) => { 
+    await Given('Admin is on the batch Page', null, { commonFunctions }); 
     await When('Admin clicks on the logout button', null, { batchPage }); 
     await Then('Admin should see the Login screen Page title "LMS"', null, { loginPage }); 
   });

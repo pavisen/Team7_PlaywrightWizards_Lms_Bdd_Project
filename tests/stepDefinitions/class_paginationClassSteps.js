@@ -9,7 +9,7 @@ const { Given, When, Then } = createBdd();
 
 Given(
   "Admin is on Manage class page",
-  async ({ paginationPage, commonFunctions }) => {
+  async ({ commonFunctions }) => {
     await commonFunctions.clickMenu("class");
     await commonFunctions.clickAnywhere();
   },
