@@ -177,6 +177,9 @@ class LoginPage {
   async clickBackButton() {
     await this.page.goBack();
   }
+  async pleaseLogin() {
+    expect(this.login_header).toHaveText('Please login to LMS application');
+  }
   async ExtractTextFromImage() {
     try {
       await this.Home_image.waitFor({ state: 'visible', timeout: 15000 });
