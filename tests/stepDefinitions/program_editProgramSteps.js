@@ -168,7 +168,7 @@ Then(
 );
 
 When(
-  "Admin Click on X button of the updated program from {string} and {string}",
+  "Admin Click on X button of the updated program",
   async ({ programPage, commonFunctions }, arg, arg1) => {
     await commonFunctions.click(commonFunctions.editIcon);
     await programPage.clickClose();
