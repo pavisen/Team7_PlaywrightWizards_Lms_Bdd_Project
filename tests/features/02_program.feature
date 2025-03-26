@@ -1,3 +1,4 @@
+#Program - Pavithra
 Feature: Program Module Navigation
 
         Background:
@@ -47,7 +48,7 @@ Feature: Program Module Navigation
                 Then Admin should see the Edit and Delete buttons on each row of the data table
 
         Scenario: Verify pagination icons below data table in manage program
-                Then Admin should see the text as "Showing \d+ to \d+ of \d+ entries" where \d+ is a number
+                Then Admin should see the text as "Showing \d+ to \d+ of \d+ entries" in program
 
         Scenario: Verify footer message in manage program
                 Then Admin should see the footer as In total there are z programs.
@@ -111,11 +112,12 @@ Feature: Program Module Navigation
         Scenario: Verify Admin add program name with missing description
                 When Admin enters the program name with missing description
                 Then Admin should get a message description is required
-         @smoke @doing
+         @smoke 
          Scenario: Verify Admin Add program fpr Batch Chaining
                 When  Admin Clicks on the Add program button and fill the required fields for chaining
 
                 Then Admin should get a message "new program successfully"
+                
         #verify program details
         Scenario: Verify Admin is able to view the program details
 
@@ -129,17 +131,17 @@ Feature: Program Module Navigation
         Scenario: Verify sorting of  Program name in Ascending order/Descending order
 
                 When Admin clicks on Arrow next to programName
-                Then Admin See the Program Name is sorted in Ascending order/Descending order
+                Then Admin See the Program Name is sorted in Ascending order or Descending order
 
         Scenario: Verify sorting of  Program Description in  Ascending order/Descending order
 
                 When Admin clicks on Arrow next to Program Description
-                Then Admin See the program Description is sorted in Ascending order/Descending order
+                Then Admin See the program Description is sorted in Ascending order or Descending order
 
         Scenario: Verify sorting of Program status in Ascending order/Descending order
 
                 When Admin clicks on Arrow next to Program status
-                Then Admin See the  Program Status is sorted in Ascending order/Descending order
+                Then Admin See the  Program Status is sorted in Ascending order or Descending order
 
         #program Pagination
 
