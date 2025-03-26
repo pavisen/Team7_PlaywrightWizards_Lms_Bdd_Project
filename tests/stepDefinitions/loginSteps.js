@@ -5,7 +5,6 @@ import { getTestData } from '../utils/excelReader';
 import logger, { attachLogsAfterEachTest } from '../utils/logger.js';
 import { assert } from 'console';
 const { Given, When, Then } = createBdd();
-import ImageUtils from '../utils/imageUtils.js';
 const sheet_Name = 'login';
 
 // Step Definitions for Login Feature
