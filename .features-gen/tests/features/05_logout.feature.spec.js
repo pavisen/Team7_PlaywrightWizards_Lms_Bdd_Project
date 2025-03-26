@@ -7,6 +7,42 @@ test.describe('Logout functionality', () => {
     await Given('Admin is logged into the application', null, { loginPage }); 
   });
   
+  test('Verify delete feature', async ({ Given, loggedInPage, paginationPage, commonFunctions, When, Then }) => { 
+    await Given('Admin is on Program module', null, { loggedInPage, paginationPage, commonFunctions }); 
+    await When('Admin clicks on delete button for a program', null, { commonFunctions }); 
+    await Then('Admin will get confirm deletion popup', null, { commonFunctions }); 
+  });
+
+  test('Verify Admin is able to click \'Yes\'', async ({ Given, commonFunctions, When, Then, programPage }) => { 
+    await Given('Admin is on Confirm deletion form', null, { commonFunctions }); 
+    await When('Admin clicks on "Yes" button', null, { commonFunctions }); 
+    await Then('Admin can see \'Successful Program Deleted\' message', null, { programPage }); 
+  });
+
+  test('Verify Admin is able to click \'No\'', async ({ Given, programPage, When, commonFunctions, Then }) => { 
+    await Given('Admin is on Program Confirm Deletion Page after selecting a program to delete', null, { programPage }); 
+    await When('Admin clicks on No button', null, { commonFunctions }); 
+    await Then('Admin can see Confirmation form disappears', null, { commonFunctions }); 
+  });
+
+  test('Verify Admin is able to close the window with "X"', async ({ Given, programPage, When, commonFunctions, Then }) => { 
+    await Given('Admin is on Program Confirm Deletion Page after selecting a program to delete', null, { programPage }); 
+    await When('Admin Click on X button', null, { commonFunctions }); 
+    await Then('Admin can see Confirm Deletion form disappear', null, { commonFunctions }); 
+  });
+
+  test('Validate single row delete with checkbox', { tag: ['@Deletion'] }, async ({ Given, loggedInPage, commonFunctions, When, programPage, Then }) => { 
+    await Given('Admin is on the program page for delete', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks on the delete icon under the Manage program header', null, { programPage, commonFunctions }); 
+    await Then('The respective row in the program table should be deleted', null, { programPage, commonFunctions }); 
+  });
+
+  test('Validate multiple row delete with checkbox', { tag: ['@Deletion'] }, async ({ Given, loggedInPage, commonFunctions, When, programPage, Then }) => { 
+    await Given('Admin is on the program page for delete', null, { loggedInPage, commonFunctions }); 
+    await When('Admin clicks on the delete icon under the Manage program header for multiple rows', null, { programPage, commonFunctions }); 
+    await Then('The respective multiple rows in the program table should be deleted', null, { programPage, commonFunctions }); 
+  });
+
   test('Verify logout function', async ({ Given, loginPage, When, Then }) => { 
     await Given('Admin is in home page', null, { loginPage }); 
     await When('Admin clicks on the logout in the menu bar', null, { loginPage }); 
@@ -37,11 +73,7 @@ test.describe('Logout functionality', () => {
     await Then('The respective multiple rows in the table should be deleted', null, { batchPage, commonFunctions }); 
   });
 
-  test('Verify Admin is able to click \'Yes\'', async ({ Given, commonFunctions, When, Then, programPage }) => { 
-    await Given('Admin is on Confirm deletion form', null, { commonFunctions }); 
-    await When('Admin clicks on "Yes" button', null, { commonFunctions }); 
-    await Then('Admin can see \'Successful Program Deleted\' message', null, { programPage }); 
-  });
+  
 
   test('Validate single row delete with checkbox for program', { tag: ['@Deletion'] }, async ({ Given, loggedInPage, commonFunctions, When, programPage, Then }) => { 
     await Given('Admin is on the program page for delete', null, { loggedInPage, commonFunctions }); 
