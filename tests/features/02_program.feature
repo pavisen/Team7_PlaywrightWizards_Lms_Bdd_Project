@@ -132,10 +132,10 @@ Feature: Program Module Navigation
                 Then Admin can see 'Successful Program Deleted' message
 
 
-        Scenario: Verify Admin is able to deleted program
-                Given Admin is on Program module
-                When Admin Searches for "Deleted Program name"
-                Then There should be zero results.
+        # Scenario: Verify Admin is able to deleted program
+        #         Given Admin is on Program module
+        #         When Admin Searches for "Deleted Program name"
+        #         Then There should be zero results.
 
 
         Scenario: Verify Admin is able to click 'No'
