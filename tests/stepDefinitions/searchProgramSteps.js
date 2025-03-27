@@ -18,9 +18,9 @@ When(
   "Admin enters the program name in the search text box",
   async ({ commonFunctions }) => {
     const storedData = loadTestData();
-    const storedProgramNameChaining = storedData.programNameForChaining;
-    console.log("Retrieved Program Name in batch: ", storedProgramNameChaining);
-    await commonFunctions.search(storedProgramNameChaining);
+    const programNameForProgram = storedData.programNameForProgram;
+    console.log("Retrieved Program Name in batch: ", programNameForProgram);
+    await commonFunctions.search(programNameForProgram);
   },
 );
 
@@ -28,8 +28,8 @@ Then(
   "Admin should see the filtered programs in the data table",
   async ({ commonFunctions }) => {
     const storedData = loadTestData();
-    const storedProgramNameChaining = storedData.programNameForChaining;
-    console.log("Retrieved Program Name in batch: ", storedProgramNameChaining);
-    await commonFunctions.verifySearch(storedProgramNameChaining);
+    const programNameForProgram = storedData.programNameForProgram;
+    console.log("Retrieved Program Name in batch: ", programNameForProgram);
+    await commonFunctions.verifySearch(programNameForProgram);
   },
 );

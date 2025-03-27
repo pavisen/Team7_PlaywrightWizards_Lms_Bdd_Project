@@ -509,6 +509,7 @@ class CommonFunctions {
   }
 
   async click(select) {
+    
     await this.page.locator(select).first().click();
   }
 
