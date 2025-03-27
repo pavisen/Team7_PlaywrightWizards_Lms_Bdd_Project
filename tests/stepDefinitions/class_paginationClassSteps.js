@@ -1,7 +1,7 @@
-import { test } from "../fixtures/fixture";
+import { test } from "../fixtures/fixture.js";
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
-import { getTestData } from "../utils/excelReader";
+import { getTestData } from "../utils/excelReader.js";
 import logger, { attachLogsAfterEachTest } from "../utils/logger.js";
 
 // Create BDD steps
@@ -9,7 +9,7 @@ const { Given, When, Then } = createBdd();
 
 Given(
   "Admin is on Manage class page",
-  async ({ paginationPage, commonFunctions }) => {
+  async ({ commonFunctions }) => {
     await commonFunctions.clickMenu("class");
     await commonFunctions.clickAnywhere();
   },

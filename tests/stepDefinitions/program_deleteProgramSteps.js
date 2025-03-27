@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
 import logger from "../utils/logger.js";
-import { test } from "../fixtures/fixture";
+import { test } from "../fixtures/fixture.js";
 const { Given, When, Then } = createBdd();
 Given(
   "Admin is on the program Page.",

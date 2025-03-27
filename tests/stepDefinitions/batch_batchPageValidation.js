@@ -1,8 +1,8 @@
-import { test } from "../fixtures/fixture";
+import { test } from "../fixtures/fixture.js";
 import { expect } from "@playwright/test";
 import { createBdd } from "playwright-bdd";
-import { getTestData } from "../utils/excelReader";
-import { CommonFunctions } from "../utils/commonFunctions";
+import { getTestData } from "../utils/excelReader.js";
+import { CommonFunctions } from "../utils/commonFunctions.js";
 const { Given, When, Then } = createBdd();
 import logger from "../utils/logger.js";
 
@@ -120,7 +120,7 @@ Then(
 
 Given(
   "Admin is on the batch Page",
-  async function ({ paginationPage, commonFunctions }) {
+  async function ({ commonFunctions }) {
     await commonFunctions.clickMenu("batch");
     await commonFunctions.clickAnywhere();
   },

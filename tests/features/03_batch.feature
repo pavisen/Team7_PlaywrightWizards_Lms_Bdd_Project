@@ -6,7 +6,7 @@ Feature: Batch Module -Batch Page Navigation
 
   
 #Batch Page Navigation
-  @BatchPageNavigation
+  @BatchPageNavigation @smoke
   Scenario: Verify Admin Navigate to Batch page successfully
       When  Admin Clicks on the Batch menu from the header
       Then  Admin should be in the " Manage Batch" Page
@@ -120,7 +120,7 @@ Feature: Batch Module -Batch Page Navigation
       Then Admin should see the very first page on the data table
 
      #Add New Batch DDT
-    @BatchEdit
+    @smoke
      Scenario: Verify Admin Add Batch successfully
      Given Admin is on the Batch Page 
      When  Admin Clicks on the Add Batch button and fill the required fields
@@ -134,7 +134,7 @@ Feature: Batch Module -Batch Page Navigation
 
      #BatchSearch
      @BatchEdit
-
+      @smoke
      Scenario: Validate search box functionality	
      Given Admin is on the batch page
      When Admin enters the batch name in the search text box
@@ -161,7 +161,7 @@ Feature: Batch Module -Batch Page Navigation
      Given  Admin is on the Batch Details Page
      When 	Admin Updates any fields with invalid data and click save button	
      Then   Admin should get a error message under the respective field
-     @BatchEdit
+     @BatchEdit @smoke
      Scenario: validate save button in Batch details pop up in Batch Page	
      Given 	Admin is on the Batch Details Page	
      When  Admin enters the valid data in edit Batch pop up and click save button 

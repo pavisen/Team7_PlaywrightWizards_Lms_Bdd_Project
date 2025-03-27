@@ -7,7 +7,7 @@ import { CommonFunctions } from "../utils/commonFunctions";
 const { Given, When, Then } = createBdd();
 Given(
   "Admin is on Program module",
-  async ({ loggedInPage, paginationPage, commonFunctions }) => {
+  async ({ loggedInPage, commonFunctions }) => {
     await commonFunctions.clickMenu("program");
     await commonFunctions.clickAnywhere();
   },
